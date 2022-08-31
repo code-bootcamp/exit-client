@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:ssg": "next build && next export",
     "start": "next start",
     "lint": "next lint",
     "generate": "graphql-codegen"
@@ -13,6 +14,7 @@
     "@apollo/client": "^3.6.9",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
+    "@typescript-eslint/parser": "^5.36.1",
     "antd": "^4.22.8",
     "apollo-upload-client": "^17.0.0",
     "axios": "^0.27.2",

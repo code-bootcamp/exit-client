@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-
+// 테스트 글로벌 css
 export const globalStyles = css`
   * {
     margin: 0;

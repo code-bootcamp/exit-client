@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-// 테스트 글로벌 css
+
 export const globalStyles = css`
   * {
     margin: 0;
@@ -30,6 +30,10 @@ export const globalStyles = css`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    color: #000;
+  }
+  html {
+    font-size: 62.5%; // root폰트 기준 설정: 10px
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -47,6 +51,7 @@ export const globalStyles = css`
   }
   body {
     line-height: 1;
+    color: #000; // default color
   }
   ol,
   ul,

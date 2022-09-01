@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { FiSearch } from "react-icons/fi";
-import { MdFaceUnlock } from "react-icons/Md";
+import { MdFaceUnlock } from "react-icons/md";
 
 export const IconWrapper = styled.div``;
 

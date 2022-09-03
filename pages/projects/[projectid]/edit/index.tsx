@@ -1,1 +1,3 @@
-export {};
+export default function ProjectEditPage() {
+  return <></>;
+}

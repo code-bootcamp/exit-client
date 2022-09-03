@@ -1,3 +1,5 @@
-export default function Home() {
-  return <div>EXIT 프로젝트</div>;
+import Main from "../src/components/units/main/main.container";
+
+export default function MainPage() {
+  return <Main />;
 }

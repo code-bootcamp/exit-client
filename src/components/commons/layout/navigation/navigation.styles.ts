@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 export const GNB = styled.ul``;
 
@@ -16,6 +17,14 @@ export const NavigationItem = styled.a`
   &:last-of-type {
     margin-left: 60px;
     color: #65ba68;
+
+    @media ${breakPoints.tablet} {
+      /* width: 80rem; */
+    }
+
+    @media ${breakPoints.mobile} {
+      margin-left: 30px;
+    }
 
     ::after {
       display: block;

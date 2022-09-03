@@ -6,11 +6,13 @@ export default function HeaderUI() {
   return (
     <>
       <S.Wrapper>
-        <S.Logo>
-          <img src="/tempBanner.png" alt="exit" />
-        </S.Logo>
-        <Navigation />
-        <TopMenu />
+        <S.InnerWrapper>
+          <S.Logo>
+            <img src="/tempBanner.png" alt="exit" />
+          </S.Logo>
+          <Navigation />
+          <TopMenu />
+        </S.InnerWrapper>
       </S.Wrapper>
     </>
   );

@@ -9,7 +9,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  ignorePatterns: ["/eslintrc.js"],
+  ignorePatterns: ["eslintrc.js", "types.ts"],
   plugins: ["react"],
   rules: {
     "react/react-in-jsx-scope": "off",

@@ -1,4 +1,5 @@
 import * as S from "./main.styles";
+import { v4 as uuidv4 } from "uuid";
 
 export default function MainUI() {
   const settings = {
@@ -33,7 +34,7 @@ export default function MainUI() {
       </S.Inner>
       <S.ListSlider {...settings}>
         {new Array(8).fill(0).map((el) => (
-          <S.ListItem>
+          <S.ListItem key={uuidv4()}>
             <S.ThumbnailWrapper>
               <S.ImageWrapper>
                 <S.Image id="thumbnail" src="/itemImage.png"></S.Image>
@@ -67,7 +68,7 @@ export default function MainUI() {
       <S.ListSliderWrapper>
         <S.ListSlider {...settings}>
           {new Array(8).fill(0).map((el) => (
-            <S.PremiumListItem>
+            <S.PremiumListItem key={uuidv4}>
               <S.PremiumBackground>
                 <S.Notice>유료 멤버만 볼 수 있는 리스트예요!</S.Notice>
                 <S.Button>지금 바로 유료 가입 &gt; </S.Button>

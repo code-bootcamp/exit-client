@@ -9,8 +9,8 @@ export default function NavigationUI() {
 
   return (
     <S.GNB>
-      {NAVIGATION_MENUS.map((el) => (
-        <Link href={el.page}>
+      {NAVIGATION_MENUS.map((el, i) => (
+        <Link href={el.page} key={i}>
           <S.NavigationItem>{el.name}</S.NavigationItem>
         </Link>
       ))}

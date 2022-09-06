@@ -19,6 +19,7 @@ export type IBoard = {
   address: Scalars['String'];
   bail: Scalars['Int'];
   boardImage: IBoardImage;
+  categories: Array<ICategory>;
   context: Scalars['String'];
   countLike: Scalars['Int'];
   countMember: Scalars['Int'];
@@ -44,6 +45,7 @@ export type IBoardImage = {
 
 export type ICategory = {
   __typename?: 'Category';
+  boards: Array<IBoard>;
   id: Scalars['String'];
   name: Scalars['String'];
 };
@@ -80,6 +82,7 @@ export type ICreateBoardImageInput = {
 export type ICreateBoardInput = {
   address: Scalars['String'];
   bail: Scalars['Int'];
+  categories?: InputMaybe<Array<Scalars['String']>>;
   context: Scalars['String'];
   description: Scalars['String'];
   endAt: Scalars['DateTime'];
@@ -96,7 +99,6 @@ export type ICreateBoardInput = {
 };
 
 export type ICreateCategoryInput = {
-  /** Example field (placeholder) */
   name: Scalars['String'];
 };
 
@@ -125,7 +127,6 @@ export type ICreateSubCommentInput = {
 
 export type ICreateTagInput = {
   boards: Array<Scalars['String']>;
-  categoryId: Scalars['String'];
   /** Example field (placeholder) */
   name: Scalars['String'];
   users: Array<Scalars['String']>;
@@ -143,12 +144,8 @@ export type ICreateUserImageInput = {
 
 export type ICreateUserInput = {
   email: Scalars['String'];
-  keywords?: InputMaybe<Array<Scalars['String']>>;
   nickname: Scalars['String'];
   password: Scalars['String'];
-  point?: InputMaybe<Scalars['Int']>;
-  tags?: InputMaybe<Array<Scalars['String']>>;
-  userImage?: InputMaybe<ICreateUserImageInput>;
 };
 
 export type ICreateUserUrlInput = {
@@ -438,10 +435,11 @@ export type IPayment = {
 
 export type IQuery = {
   __typename?: 'Query';
-  categories: Array<ICategory>;
   connectionRoom: IChatRoom;
   fetchBoard: IBoard;
   fetchBoards: Array<IBoard>;
+  fetchBoardsByLikes: Array<IBoard>;
+  fetchCategories: Array<ICategory>;
   fetchCategory: ICategory;
   fetchComments: Array<IComment>;
   fetchImage: IBoardImage;
@@ -553,7 +551,6 @@ export type ISubComment = {
 
 export type ITag = {
   __typename?: 'Tag';
-  CategoryId: ICategory;
   boards: Array<IBoard>;
   id: Scalars['String'];
   name: Scalars['String'];
@@ -563,6 +560,7 @@ export type ITag = {
 export type IUpdateBoardInput = {
   address?: InputMaybe<Scalars['String']>;
   bail?: InputMaybe<Scalars['Int']>;
+  categories?: InputMaybe<Array<Scalars['String']>>;
   context?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   endAt?: InputMaybe<Scalars['DateTime']>;
@@ -580,7 +578,6 @@ export type IUpdateBoardInput = {
 
 export type IUpdateCategoryInput = {
   id: Scalars['String'];
-  /** Example field (placeholder) */
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -605,7 +602,6 @@ export type IUpdateSubCommentInput = {
 
 export type IUpdateTagInput = {
   boards?: InputMaybe<Array<Scalars['String']>>;
-  categoryId?: InputMaybe<Scalars['String']>;
   id: Scalars['String'];
   /** Example field (placeholder) */
   name?: InputMaybe<Scalars['String']>;

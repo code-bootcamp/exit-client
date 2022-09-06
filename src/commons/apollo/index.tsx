@@ -89,7 +89,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink = createUploadLink({
-    uri: "http://34.64.214.202:8080/graphql",
+    uri: "http://teamserver05.shop:8080/graphql",
     headers: {
       Authorization: `Bearer ${accessToken}`,
       credential: "include",

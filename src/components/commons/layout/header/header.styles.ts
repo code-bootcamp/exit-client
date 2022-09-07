@@ -6,7 +6,7 @@ export const Wrapper = styled.header`
 `;
 
 export const InnerWrapper = styled.div`
-  width: 120rem;
+  width: 140rem;
   height: 100px;
   margin: auto;
   display: flex;
@@ -14,12 +14,17 @@ export const InnerWrapper = styled.div`
   align-items: center;
   overflow: hidden;
 
-  @media ${breakPoints.tablet} {
-    width: 70rem;
+  @media ${breakPoints.largeWeb} {
+    width: 160rem;
   }
 
-  @media ${breakPoints.mobile} {
-    width: 40rem;
+  @media ${breakPoints.smallWeb} {
+    width: 100vw;
+    padding: 4rem;
+  }
+
+  @media ${breakPoints.tabletAndMobile} {
+    height: 60px;
   }
 `;
 

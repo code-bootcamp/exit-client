@@ -3,17 +3,22 @@ import * as S from "./navigation.styles";
 
 export default function NavigationUI() {
   const NAVIGATION_MENUS = [
+    { name: "exiter", page: "/exiter" },
     { name: "exiting", page: "/projects" },
     { name: "exited", page: "/preProjects" },
   ];
 
   return (
-    <S.GNB>
-      {NAVIGATION_MENUS.map((el, i) => (
-        <Link href={el.page} key={i}>
-          <S.NavigationItem>{el.name}</S.NavigationItem>
-        </Link>
-      ))}
-    </S.GNB>
+    <nav>
+      <S.GNB>
+        {NAVIGATION_MENUS.map((el, i) => (
+          <S.NavigationItem key={i}>
+            <Link href={el.page}>
+              <S.NavigationLink>{el.name}</S.NavigationLink>
+            </Link>
+          </S.NavigationItem>
+        ))}
+      </S.GNB>
+    </nav>
   );
 }

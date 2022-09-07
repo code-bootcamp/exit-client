@@ -8,7 +8,7 @@ export default function HeaderUI() {
       <S.Wrapper>
         <S.InnerWrapper>
           <S.Logo>
-            <img src="/tempBanner.png" alt="exit" />
+            <img src="/logo.png" alt="exit" />
           </S.Logo>
           <Navigation />
           <TopMenu />

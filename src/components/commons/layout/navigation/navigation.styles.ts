@@ -10,11 +10,11 @@ export const NavigationItem = styled.li`
   &:last-of-type {
     margin-right: 0;
   }
-  @media ${breakPoints.tablet} {
-    margin-right: 50px;
+  @media (max-width: ${breakPoints.lg}) {
+    margin-right: 40px;
   }
-  @media ${breakPoints.mobile} {
-    margin-right: 25px;
+  @media (max-width: ${breakPoints.md}) {
+    margin-right: 20px;
   }
 `;
 
@@ -24,7 +24,7 @@ export const NavigationLink = styled.a`
   &:hover {
     color: #000;
   }
-  @media ${breakPoints.tabletAndMobile} {
+  @media (max-width: ${breakPoints.md}) {
     font-size: 1.8rem;
   }
 `;

@@ -10,7 +10,7 @@ export default function BannerUI() {
     slidesToScroll: 1,
   };
   return (
-    <S.Wrapper>
+    <S.Visual>
       <S.BannerSlider {...settings}>
         <S.BannerItem>
           <S.BannerImage src="/banner.png" />
@@ -22,6 +22,6 @@ export default function BannerUI() {
           <S.BannerImage src="/banner.png" />
         </S.BannerItem>
       </S.BannerSlider>
-    </S.Wrapper>
+    </S.Visual>
   );
 }

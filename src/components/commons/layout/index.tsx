@@ -5,13 +5,13 @@ import Header from "./header/header.container";
 import Banner from "./banner/banner.container";
 import { useRouter } from "next/router";
 
-const HIDDEN_BANNER = ["/userList"];
+// const HIDDEN_BANNER = ["/userList"];
 
 interface ILayoutProps {
   children: ReactNode;
 }
 
-const Body = styled.div``;
+const Body = styled.main``;
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();

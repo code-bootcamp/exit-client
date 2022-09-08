@@ -36,36 +36,28 @@ interface IApolloSettingProps {
 
 export default function ApolloSetting(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const Lodable = useRecoilValueLoadable(restoreAccessTokenLoadable);
+  const [, setUserInfo] = useRecoilState(userInfoState);
+  // const Lodable = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
-  const router = useRouter();
-
-  // refreshToken 발급 안됨
   useEffect(() => {
-    getAccessToken().then((newAccessToken) => {
-      setAccessToken(newAccessToken);
+    getAccessToken().then(async (newAccessToken) => {
+      try {
+        setAccessToken(newAccessToken);
+        const resultUserInfo = await client.query({
+          query: FETCH_LOGINED_USER,
+          context: {
+            headers: {
+              Authorization: `Bearer ${newAccessToken}`,
+            },
+          },
+        });
+        const { __type, ...userInfo } = resultUserInfo.data.fetchLoginedUser;
+        setUserInfo({ ...userInfo });
+      } catch (error) {
+        // if (error instanceof Error) console.log(error.message);
+      }
     });
   }, []);
-
-  // refreshToken 발급 이후 새로운 accessToken 발급 받기
-  // useEffect(() => {
-  //   try {
-  //     Lodable.toPromise().then(async (newAccessToken) => {
-  //       setAccessToken(newAccessToken);
-  //       const resultUserInfo = await client.query({
-  //         query: FETCH_LOGINED_USER,
-  //         context: {
-  //           headers: { Authorization: `Bearer ${accessToken}` },
-  //         },
-  //       });
-  //       const { __type, ...userInfo } = resultUserInfo.data;
-  //       setUserInfo(userInfo);
-  //       alert("리프레시토큰으로 자동로그인 성공");
-  //       router.push("/");
-  //     });
-  //   } catch (error) {}
-  // }, []);
 
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (graphQLErrors) {
@@ -90,14 +82,13 @@ export default function ApolloSetting(props: IApolloSettingProps) {
 
   const uploadLink = createUploadLink({
     uri: "https://teamserver05.shop/graphql",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      credential: "include",
-    },
+    headers: { Authorization: `Bearer ${accessToken}` },
+    credentials: "include",
   });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
+    // link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
+    link: ApolloLink.from([errorLink, uploadLink]),
     cache: APOLLO_CACHE,
     connectToDevTools: true,
   });

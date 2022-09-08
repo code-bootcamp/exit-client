@@ -14,16 +14,16 @@ export const InnerWrapper = styled.div`
   align-items: center;
   overflow: hidden;
 
-  @media ${breakPoints.largeWeb} {
+  @media (min-width: 1680px) and (max-width: 1940px) {
     width: 160rem;
   }
 
-  @media ${breakPoints.smallWeb} {
+  @media (max-width: ${breakPoints.xxl}) {
     width: 100vw;
     padding: 4rem;
   }
 
-  @media ${breakPoints.tabletAndMobile} {
+  @media (max-width: ${breakPoints.lg}) {
     height: 60px;
   }
 `;

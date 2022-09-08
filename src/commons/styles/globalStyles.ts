@@ -79,4 +79,8 @@ export const globalStyles = css`
     cursor: pointer;
     background-color: transparent;
   }
+  /* 이미지 높이 오차해결 */
+  img {
+    vertical-align: top;
+  }
 `;

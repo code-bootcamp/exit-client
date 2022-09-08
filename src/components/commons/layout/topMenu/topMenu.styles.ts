@@ -7,17 +7,6 @@ interface ITopMenuButtonProps {
 
 export const IconWrapper = styled.div``;
 
-// export const SearchIcon = styled(FiSearch)`
-//   font-size: 20px;
-//   margin-right: 20px;
-//   cursor: pointer;
-// `;
-
-// export const AvatarIcon = styled(MdFaceUnlock)`
-//   font-size: 20px;
-//   cursor: pointer;
-// `;
-
 export const TopMenuButton = styled.button`
   width: 2rem;
   height: 20px;
@@ -28,10 +17,10 @@ export const TopMenuButton = styled.button`
 
   &:first-of-type {
     margin-right: 30px;
-    @media ${breakPoints.tabletAndMobile} {
+    @media (max-width: ${breakPoints.xxl}) {
       margin-right: 25px;
     }
-    @media ${breakPoints.tabletAndMobile} {
+    @media (max-width: ${breakPoints.lg}) {
       margin-right: 10px;
     }
   }

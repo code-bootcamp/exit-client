@@ -20,11 +20,14 @@ export type IBoard = {
   bail: Scalars['Int'];
   boardImage: IBoardImage;
   categories: Array<ICategory>;
+  closedAt: Scalars['DateTime'];
   context: Scalars['String'];
   countLike: Scalars['Int'];
   countMember: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   endAt: Scalars['DateTime'];
+  frequency: Scalars['Int'];
   id: Scalars['String'];
   isSuccess: Scalars['Boolean'];
   keywords: Array<IKeyword>;
@@ -48,6 +51,7 @@ export type ICategory = {
   boards: Array<IBoard>;
   id: Scalars['String'];
   name: Scalars['String'];
+  users: Array<IUser>;
 };
 
 export type IChatMessage = {
@@ -75,25 +79,25 @@ export type IComment = {
 };
 
 export type ICreateBoardImageInput = {
-  /** Example field (placeholder) */
-  id: Scalars['String'];
+  url?: InputMaybe<Scalars['String']>;
 };
 
 export type ICreateBoardInput = {
   address: Scalars['String'];
   bail: Scalars['Int'];
+  boardImage?: InputMaybe<ICreateBoardImageInput>;
   categories?: InputMaybe<Array<Scalars['String']>>;
+  closedAt: Scalars['DateTime'];
   context: Scalars['String'];
   description: Scalars['String'];
   endAt: Scalars['DateTime'];
-  image?: InputMaybe<ICreateBoardImageInput>;
+  frequency: Scalars['String'];
   isSuccess?: InputMaybe<Scalars['Boolean']>;
   keywords?: InputMaybe<Array<Scalars['String']>>;
-  leader: Scalars['String'];
   projectUrl?: InputMaybe<Scalars['String']>;
   startAt: Scalars['DateTime'];
   status?: InputMaybe<Scalars['Boolean']>;
-  tags: Array<Scalars['String']>;
+  tags?: InputMaybe<Array<Scalars['String']>>;
   title: Scalars['String'];
   totalMember: Scalars['Int'];
 };
@@ -125,10 +129,14 @@ export type ICreateSubCommentInput = {
   userId: Scalars['String'];
 };
 
+export type ICreateTagImageInput = {
+  url: Scalars['String'];
+};
+
 export type ICreateTagInput = {
   boards: Array<Scalars['String']>;
-  /** Example field (placeholder) */
   name: Scalars['String'];
+  tagImage?: InputMaybe<ICreateTagImageInput>;
   users: Array<Scalars['String']>;
 };
 
@@ -185,6 +193,7 @@ export type IMutation = {
   login: Scalars['String'];
   logout: Scalars['String'];
   removeBoard: Scalars['Boolean'];
+  removeBoardImage: Scalars['Boolean'];
   removeCategory: Scalars['Boolean'];
   removeComment: Array<Scalars['String']>;
   removeImage: Scalars['Boolean'];
@@ -192,6 +201,7 @@ export type IMutation = {
   removeLoginUser: Scalars['Boolean'];
   removeSubComment: Array<Scalars['String']>;
   removeTag: ITag;
+  removeTagImage: Scalars['Boolean'];
   removeUser: Scalars['Boolean'];
   removeUserBoards: Array<Scalars['String']>;
   removeUserUrl: IUserUrl;
@@ -201,16 +211,21 @@ export type IMutation = {
   restoreUser: Scalars['Boolean'];
   sendEmailToken: Scalars['String'];
   updateBoard: IBoard;
+  updateBoardImage: IBoardImage;
   updateCategory: ICategory;
   updateComment: Scalars['String'];
-  updateImage: IBoardImage;
   updateKeyword: IKeyword;
   updateSubComment: Scalars['String'];
   updateTag: ITag;
+  updateTagImage: ITagImage;
   updateUser: IUser;
   updateUserBoard: IUserBoard;
+  updateUserImage: IUserImage;
   updateUserUrl: IUserUrl;
-  uploadImage: IBoardImage;
+  uploadBoardImage: IBoardImage;
+  uploadFiles: Array<Scalars['String']>;
+  uploadTagImage: ITagImage;
+  uploadUserImage: IUserImage;
 };
 
 
@@ -294,6 +309,11 @@ export type IMutationRemoveBoardArgs = {
 };
 
 
+export type IMutationRemoveBoardImageArgs = {
+  boardImageId: Scalars['String'];
+};
+
+
 export type IMutationRemoveCategoryArgs = {
   id: Scalars['String'];
 };
@@ -306,7 +326,7 @@ export type IMutationRemoveCommentArgs = {
 
 
 export type IMutationRemoveImageArgs = {
-  boardImageId: Scalars['String'];
+  userImageId: Scalars['String'];
 };
 
 
@@ -323,6 +343,11 @@ export type IMutationRemoveSubCommentArgs = {
 
 export type IMutationRemoveTagArgs = {
   id: Scalars['String'];
+};
+
+
+export type IMutationRemoveTagImageArgs = {
+  tagImageId: Scalars['String'];
 };
 
 
@@ -368,6 +393,12 @@ export type IMutationUpdateBoardArgs = {
 };
 
 
+export type IMutationUpdateBoardImageArgs = {
+  boardImageId: Scalars['String'];
+  image: Array<Scalars['Upload']>;
+};
+
+
 export type IMutationUpdateCategoryArgs = {
   updateCategoryInput: IUpdateCategoryInput;
 };
@@ -375,12 +406,6 @@ export type IMutationUpdateCategoryArgs = {
 
 export type IMutationUpdateCommentArgs = {
   updateCommentInput: IUpdateCommentInput;
-};
-
-
-export type IMutationUpdateImageArgs = {
-  boardImageId: Scalars['String'];
-  image: Array<Scalars['Upload']>;
 };
 
 
@@ -399,6 +424,12 @@ export type IMutationUpdateTagArgs = {
 };
 
 
+export type IMutationUpdateTagImageArgs = {
+  image: Array<Scalars['Upload']>;
+  tagImageId: Scalars['String'];
+};
+
+
 export type IMutationUpdateUserArgs = {
   updateUserInput: IUpdateUserInput;
 };
@@ -409,13 +440,34 @@ export type IMutationUpdateUserBoardArgs = {
 };
 
 
+export type IMutationUpdateUserImageArgs = {
+  image: Array<Scalars['Upload']>;
+  userImageId: Scalars['String'];
+};
+
+
 export type IMutationUpdateUserUrlArgs = {
   updateUserUrlInput: IUpdateUserUrlInput;
   userId: Scalars['String'];
 };
 
 
-export type IMutationUploadImageArgs = {
+export type IMutationUploadBoardImageArgs = {
+  images: Array<Scalars['Upload']>;
+};
+
+
+export type IMutationUploadFilesArgs = {
+  file: Array<Scalars['Upload']>;
+};
+
+
+export type IMutationUploadTagImageArgs = {
+  image: Array<Scalars['Upload']>;
+};
+
+
+export type IMutationUploadUserImageArgs = {
   image: Array<Scalars['Upload']>;
 };
 
@@ -437,13 +489,13 @@ export type IQuery = {
   __typename?: 'Query';
   connectionRoom: IChatRoom;
   fetchBoard: IBoard;
+  fetchBoardImage: IBoardImage;
+  fetchBoardImages: Array<IBoardImage>;
   fetchBoards: Array<IBoard>;
   fetchBoardsByLikes: Array<IBoard>;
   fetchCategories: Array<ICategory>;
   fetchCategory: ICategory;
   fetchComments: Array<IComment>;
-  fetchImage: IBoardImage;
-  fetchImages: Array<IBoardImage>;
   fetchKeyword: IKeyword;
   fetchKeywords: Array<IKeyword>;
   fetchLikes: Array<ILike>;
@@ -451,8 +503,12 @@ export type IQuery = {
   fetchLogs: Array<IChatMessage>;
   fetchSubComments: Array<ISubComment>;
   fetchTag: ITag;
+  fetchTagImage: ITagImage;
+  fetchTagImages: Array<ITagImage>;
   fetchTags: Array<ITag>;
   fetchUserBoards: Array<IUserBoard>;
+  fetchUserImage: IUserImage;
+  fetchUserImages: Array<IUserImage>;
   fetchUserWithEmail: IUser;
   fetchUserWithUserId: IUser;
   fetchUsers: Array<IUser>;
@@ -471,8 +527,14 @@ export type IQueryFetchBoardArgs = {
 };
 
 
+export type IQueryFetchBoardImageArgs = {
+  boardImageId: Scalars['String'];
+};
+
+
 export type IQueryFetchBoardsArgs = {
   isSuccess?: InputMaybe<Scalars['Boolean']>;
+  page?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -485,11 +547,6 @@ export type IQueryFetchCategoryArgs = {
 export type IQueryFetchCommentsArgs = {
   boardId?: InputMaybe<Scalars['String']>;
   userId?: InputMaybe<Scalars['String']>;
-};
-
-
-export type IQueryFetchImageArgs = {
-  boardImageId: Scalars['String'];
 };
 
 
@@ -520,10 +577,20 @@ export type IQueryFetchTagArgs = {
 };
 
 
+export type IQueryFetchTagImageArgs = {
+  tagImageId: Scalars['String'];
+};
+
+
 export type IQueryFetchUserBoardsArgs = {
   boardId?: InputMaybe<Scalars['String']>;
   isAccepted?: InputMaybe<Scalars['Boolean']>;
   userId?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IQueryFetchUserImageArgs = {
+  userImageId: Scalars['String'];
 };
 
 
@@ -554,20 +621,28 @@ export type ITag = {
   boards: Array<IBoard>;
   id: Scalars['String'];
   name: Scalars['String'];
+  tagImage: ITagImage;
   users: Array<IUser>;
+};
+
+export type ITagImage = {
+  __typename?: 'TagImage';
+  id: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type IUpdateBoardInput = {
   address?: InputMaybe<Scalars['String']>;
   bail?: InputMaybe<Scalars['Int']>;
+  boardImage?: InputMaybe<ICreateBoardImageInput>;
   categories?: InputMaybe<Array<Scalars['String']>>;
+  closedAt?: InputMaybe<Scalars['DateTime']>;
   context?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   endAt?: InputMaybe<Scalars['DateTime']>;
-  image?: InputMaybe<ICreateBoardImageInput>;
+  frequency?: InputMaybe<Scalars['String']>;
   isSuccess?: InputMaybe<Scalars['Boolean']>;
   keywords?: InputMaybe<Array<Scalars['String']>>;
-  leader?: InputMaybe<Scalars['String']>;
   projectUrl?: InputMaybe<Scalars['String']>;
   startAt?: InputMaybe<Scalars['DateTime']>;
   status?: InputMaybe<Scalars['Boolean']>;
@@ -603,8 +678,8 @@ export type IUpdateSubCommentInput = {
 export type IUpdateTagInput = {
   boards?: InputMaybe<Array<Scalars['String']>>;
   id: Scalars['String'];
-  /** Example field (placeholder) */
   name?: InputMaybe<Scalars['String']>;
+  tagImage?: InputMaybe<ICreateTagImageInput>;
   users?: InputMaybe<Array<Scalars['String']>>;
 };
 
@@ -615,6 +690,7 @@ export type IUpdateUserBoardInput = {
 };
 
 export type IUpdateUserInput = {
+  categories?: InputMaybe<Array<Scalars['String']>>;
   email?: InputMaybe<Scalars['String']>;
   keywords?: InputMaybe<Array<Scalars['String']>>;
   nickname?: InputMaybe<Scalars['String']>;
@@ -630,6 +706,7 @@ export type IUpdateUserUrlInput = {
 
 export type IUser = {
   __typename?: 'User';
+  categories: Array<ICategory>;
   email: Scalars['String'];
   id: Scalars['String'];
   keywords: Array<IKeyword>;

@@ -51,23 +51,23 @@ export default function Login() {
         return;
       }
       setAccessToken(accessToken);
-      // localStorage.setItem("accessToken", accessToken);
-
+      router.push("/");
       const resultUserInfo = await client.query({
         query: FETCH_LOGINED_USER,
         context: {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         },
       });
       const { __type, ...userInfo } = resultUserInfo?.data.fetchLoginedUser;
       setUserInfo(userInfo);
-      alert("로그인 성공");
       router.push("/");
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
   };
-  console.log(userInfo);
+  // console.log(userInfo);
   return (
     <LoginUI
       register={register}

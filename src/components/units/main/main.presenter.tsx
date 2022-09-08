@@ -6,7 +6,6 @@ import Link from "next/link";
 import MainUISliderItem from "./main.presenterSliderItem";
 
 export default function MainUI(props: IMainUIProps) {
-  console.log(props.data);
   const settings = {
     dots: false,
     infinite: true,

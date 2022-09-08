@@ -9,7 +9,7 @@ import {
 } from "../../../commons/types/generated/types";
 
 export default function MainUISliderItem(props: IMainUISliderItem) {
-  console.log(props.el.leader);
+  // console.log(props.el.leader);
   const { data } = useQuery<
     Pick<IQuery, "fetchUserWithUserId">,
     IQueryFetchUserWithUserIdArgs
@@ -43,8 +43,8 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
         <S.CategoriesWrapper>
           <S.StrongText>모집분야</S.StrongText>
           <S.Categories>
-            {props.el.categories.map((el) => (
-              <S.Category>{el.name}</S.Category>
+            {props.el.categories.map((el, i) => (
+              <S.Category key={i}>{el.name}</S.Category>
             ))}
           </S.Categories>
         </S.CategoriesWrapper>

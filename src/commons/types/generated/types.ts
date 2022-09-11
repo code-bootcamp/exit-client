@@ -32,6 +32,7 @@ export type IBoard = {
   isSuccess: Scalars['Boolean'];
   keywords: Array<IKeyword>;
   leader: Scalars['String'];
+  leaderNickname: Scalars['String'];
   projectUrl: Scalars['String'];
   startAt: Scalars['DateTime'];
   status: Scalars['Boolean'];
@@ -91,7 +92,7 @@ export type ICreateBoardInput = {
   context: Scalars['String'];
   description: Scalars['String'];
   endAt: Scalars['DateTime'];
-  frequency: Scalars['String'];
+  frequency: Scalars['Int'];
   isSuccess?: InputMaybe<Scalars['Boolean']>;
   keywords?: InputMaybe<Array<Scalars['String']>>;
   projectUrl?: InputMaybe<Scalars['String']>;
@@ -181,6 +182,7 @@ export type IMutation = {
   createCancel: IPayment;
   createCategory: ICategory;
   createComment: IComment;
+  createEmailTokenForPassword: Scalars['Boolean'];
   createKeyword: IKeyword;
   createOrDeleteLike: Scalars['String'];
   createPayment: IPayment;
@@ -215,6 +217,7 @@ export type IMutation = {
   updateCategory: ICategory;
   updateComment: Scalars['String'];
   updateKeyword: IKeyword;
+  updatePassword: Scalars['Boolean'];
   updateSubComment: Scalars['String'];
   updateTag: ITag;
   updateTagImage: ITagImage;
@@ -248,6 +251,11 @@ export type IMutationCreateCategoryArgs = {
 
 export type IMutationCreateCommentArgs = {
   createCommentInput: ICreateCommentInput;
+};
+
+
+export type IMutationCreateEmailTokenForPasswordArgs = {
+  email: Scalars['String'];
 };
 
 
@@ -414,6 +422,13 @@ export type IMutationUpdateKeywordArgs = {
 };
 
 
+export type IMutationUpdatePasswordArgs = {
+  email: Scalars['String'];
+  emailToken: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
 export type IMutationUpdateSubCommentArgs = {
   updateSubCommentInput: IUpdateSubCommentInput;
 };
@@ -487,6 +502,7 @@ export type IPayment = {
 
 export type IQuery = {
   __typename?: 'Query';
+  checkGps: Scalars['Boolean'];
   connectionRoom: IChatRoom;
   fetchBoard: IBoard;
   fetchBoardImage: IBoardImage;
@@ -509,11 +525,21 @@ export type IQuery = {
   fetchUserBoards: Array<IUserBoard>;
   fetchUserImage: IUserImage;
   fetchUserImages: Array<IUserImage>;
+  fetchUserRandom: IUser;
   fetchUserWithEmail: IUser;
   fetchUserWithUserId: IUser;
   fetchUsers: Array<IUser>;
   findAll: Array<IUserUrl>;
   findOne: IUserUrl;
+  getAttendanceCount: Scalars['Float'];
+  getAttendanceTime: Scalars['String'];
+};
+
+
+export type IQueryCheckGpsArgs = {
+  boardId: Scalars['String'];
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
 };
 
 
@@ -533,9 +559,22 @@ export type IQueryFetchBoardImageArgs = {
 
 
 export type IQueryFetchBoardsArgs = {
+  categoryName?: InputMaybe<Scalars['String']>;
   isSuccess?: InputMaybe<Scalars['Boolean']>;
+  keywordName?: InputMaybe<Scalars['String']>;
   page?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['Boolean']>;
+  tagName?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IQueryFetchBoardsByLikesArgs = {
+  categoryName?: InputMaybe<Scalars['String']>;
+  isSuccess?: InputMaybe<Scalars['Boolean']>;
+  keywordName?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<Scalars['Boolean']>;
+  tagName?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -608,6 +647,16 @@ export type IQueryFindOneArgs = {
   id: Scalars['String'];
 };
 
+
+export type IQueryGetAttendanceCountArgs = {
+  boardId: Scalars['String'];
+};
+
+
+export type IQueryGetAttendanceTimeArgs = {
+  boardId: Scalars['String'];
+};
+
 export type ISubComment = {
   __typename?: 'SubComment';
   comment: IComment;
@@ -640,7 +689,7 @@ export type IUpdateBoardInput = {
   context?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   endAt?: InputMaybe<Scalars['DateTime']>;
-  frequency?: InputMaybe<Scalars['String']>;
+  frequency?: InputMaybe<Scalars['Int']>;
   isSuccess?: InputMaybe<Scalars['Boolean']>;
   keywords?: InputMaybe<Array<Scalars['String']>>;
   projectUrl?: InputMaybe<Scalars['String']>;

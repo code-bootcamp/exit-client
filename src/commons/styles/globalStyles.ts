@@ -4,6 +4,7 @@ export const globalStyles = css`
   * {
     margin: 0;
     box-sizing: border-box;
+    font-family: "globalFont";
   }
   ol,
   ul {
@@ -79,8 +80,12 @@ export const globalStyles = css`
     cursor: pointer;
     background-color: transparent;
   }
-  /* 이미지 높이 오차해결 */
   img {
     vertical-align: top;
+  }
+  @font-face {
+    font-family: "globalFont";
+    src: url("fonts/PretendardVariable.ttf") format("ttf");
+    /* src: url("fonts/PretendardVariable.woff2") format("woff2"); */
   }
 `;

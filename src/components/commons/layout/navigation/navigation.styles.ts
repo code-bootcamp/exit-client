@@ -6,7 +6,7 @@ export const GNB = styled.ul`
 `;
 
 export const NavigationItem = styled.li`
-  margin-right: 80px;
+  margin-right: 70px;
   &:last-of-type {
     margin-right: 0;
   }
@@ -14,7 +14,7 @@ export const NavigationItem = styled.li`
     margin-right: 40px;
   }
   @media (max-width: ${breakPoints.md}) {
-    margin-right: 20px;
+    margin-right: 10px;
   }
 `;
 
@@ -22,9 +22,9 @@ export const NavigationLink = styled.a`
   font-size: 2.2rem;
   font-weight: 700;
   &:hover {
-    color: #000;
+    color: #3ebd5d;
   }
   @media (max-width: ${breakPoints.md}) {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 `;

@@ -6,4 +6,5 @@ export interface IMainUIProps {
 
 export interface IMainUISliderItem {
   el: IBoard;
+  likedBoards: Pick<IQuery, "fetchLikes"> | undefined;
 }

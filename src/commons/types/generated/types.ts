@@ -110,7 +110,6 @@ export type ICreateCategoryInput = {
 export type ICreateCommentInput = {
   boardId: Scalars['String'];
   comment: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 export type ICreateKeywordInput = {
@@ -127,7 +126,6 @@ export type ICreateLikeInput = {
 export type ICreateSubCommentInput = {
   commentId: Scalars['String'];
   subComment: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 export type ICreateTagImageInput = {
@@ -200,7 +198,6 @@ export type IMutation = {
   removeComment: Array<Scalars['String']>;
   removeImage: Scalars['Boolean'];
   removeKeyword: IKeyword;
-  removeLoginUser: Scalars['Boolean'];
   removeSubComment: Array<Scalars['String']>;
   removeTag: ITag;
   removeTagImage: Scalars['Boolean'];
@@ -212,6 +209,7 @@ export type IMutation = {
   restoreTag: ITag;
   restoreUser: Scalars['Boolean'];
   sendEmailToken: Scalars['String'];
+  temp: Scalars['Boolean'];
   updateBoard: IBoard;
   updateBoardImage: IBoardImage;
   updateCategory: ICategory;
@@ -328,8 +326,7 @@ export type IMutationRemoveCategoryArgs = {
 
 
 export type IMutationRemoveCommentArgs = {
-  boardId?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['String']>;
+  commentId?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -345,7 +342,7 @@ export type IMutationRemoveKeywordArgs = {
 
 export type IMutationRemoveSubCommentArgs = {
   commentId?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['String']>;
+  subCommentId?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -356,11 +353,6 @@ export type IMutationRemoveTagArgs = {
 
 export type IMutationRemoveTagImageArgs = {
   tagImageId: Scalars['String'];
-};
-
-
-export type IMutationRemoveUserArgs = {
-  email: Scalars['String'];
 };
 
 
@@ -386,12 +378,18 @@ export type IMutationRestoreTagArgs = {
 
 
 export type IMutationRestoreUserArgs = {
-  email: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
 export type IMutationSendEmailTokenArgs = {
   email: Scalars['String'];
+};
+
+
+export type IMutationTempArgs = {
+  categoryName: Scalars['String'];
+  tagName: Array<Scalars['String']>;
 };
 
 
@@ -563,6 +561,7 @@ export type IQueryFetchBoardsArgs = {
   isSuccess?: InputMaybe<Scalars['Boolean']>;
   keywordName?: InputMaybe<Scalars['String']>;
   page?: InputMaybe<Scalars['Float']>;
+  search?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['Boolean']>;
   tagName?: InputMaybe<Scalars['String']>;
 };
@@ -708,7 +707,7 @@ export type IUpdateCategoryInput = {
 export type IUpdateCommentInput = {
   boardId?: InputMaybe<Scalars['String']>;
   comment?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['String']>;
+  commentId: Scalars['String'];
 };
 
 export type IUpdateKeywordInput = {
@@ -721,7 +720,7 @@ export type IUpdateKeywordInput = {
 export type IUpdateSubCommentInput = {
   commentId?: InputMaybe<Scalars['String']>;
   subComment?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['String']>;
+  subCommentId: Scalars['String'];
 };
 
 export type IUpdateTagInput = {

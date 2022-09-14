@@ -5,11 +5,15 @@ export const FETCH_BOARDS = gql`
     fetchBoards {
       id
       title
-      leader
+      # leader
+      address
       totalMember
       countMember
       countLike
       description
+      startAt
+      endAt
+      closedAt
       bail
       status
       categories {
@@ -18,35 +22,17 @@ export const FETCH_BOARDS = gql`
       boardImage {
         url
       }
-      # 모집마감일
     }
   }
 `;
 
-export const FETCH_USER_WITH_USERID = gql`
-  query fetchUserWithUserId($userId: String!) {
-    fetchUserWithUserId(userId: $userId) {
-      nickname
+export const FETCH_LIKES = gql`
+  query fetchLikes($userId: String) {
+    fetchLikes(userId: $userId) {
+      board {
+        id
+        title
+      }
     }
   }
 `;
-
-// query {
-//   fetchBoardsByLikes {
-//           id
-//       title
-//       leader
-//       totalMember
-//       countMember
-//       countLike
-//       description
-//       bail
-//       status
-//       # categories {
-//       #   name
-//       # }
-//       # boardImage {
-//       #   url
-//       # }
-//   }
-// }

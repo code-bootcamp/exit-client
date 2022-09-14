@@ -4,8 +4,6 @@ import { IMainUISliderItem } from "./main.types";
 import { getDate } from "../../../commons/libraries/utils";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "../../commons/store";
-import moment from "moment";
-import { useRouter } from "next/router";
 
 const IMAGE_TEMP_SOURCE = [
   "/categories/e-commerce.png",
@@ -16,13 +14,10 @@ const IMAGE_TEMP_SOURCE = [
   "/categories/o2o.png",
   "/categories/utile.png",
 ];
+// console.log(IMAGE_TEMP_SOURCE[Math.floor(Math.random() * 6)]);
 
-export default function MainUISliderItem(props: IMainUISliderItem) {
-  const router = useRouter();
+export default function MainUISliderItem2(props: IMainUISliderItem) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  // const onClickListItem = () => {
-  //   router.push(`/projects/${props.el.id}`);
-  // };
   return (
     <>
       <S.ListItem key={uuidv4()}>
@@ -39,16 +34,9 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               )}
             </S.IsLikedWrapper>
           )}
-          {props.el.closedAt &&
-            moment().diff(moment(props.el.closedAt), "days") < 8 && (
-              <S.Countdown>
-                D-{moment().diff(moment(props.el.closedAt), "days")}
-              </S.Countdown>
-            )}
+          <S.Countdown>D-2</S.Countdown>
           <S.ThumbImageWrapper>
-            <S.ThumbImage
-              src={`${IMAGE_TEMP_SOURCE[Math.floor(Math.random() * 6)]}`}
-            />
+            <S.ThumbImage src="/categories/education.png" />
           </S.ThumbImageWrapper>
           <S.ThumbInfoWrapper>
             <S.ThumbInfoLeft>

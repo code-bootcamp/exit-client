@@ -7,7 +7,6 @@ export default function TopMenu() {
   const [logout] = useMutation<Pick<IMutation, "logout">>(LOGOUT);
 
   const onClickLogout = async () => {
-    // console.log("test");
     try {
       await logout();
       location.reload();

@@ -18,7 +18,7 @@ export const InnerWrapper = styled.div`
     width: 160rem;
   }
 
-  @media (max-width: ${breakPoints.xxl}) {
+  @media (max-width: 1680px) {
     width: 100vw;
     padding: 4rem;
   }

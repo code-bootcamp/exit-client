@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
+import { Modal } from "antd";
+import { Calendar } from "react-calendar";
 
-export const Wrapper = styled.div`
+
+export const Wrapper = styled.form`
     width: 100%;
 `
 
@@ -29,7 +32,7 @@ export const ImageWrapper = styled.div`
     border-radius: 1.4rem;
     margin-top: 3.75rem;
 `
-export const Image = styled.img``
+export const Image = styled.div``
 export const TitleWrapper = styled.div`
     width: 100%;
     height: 6.8rem;
@@ -57,14 +60,15 @@ export const DescriptionWrapper = styled.div`
     border: 2px solid #D7D7D7;
     border-radius: 1.4rem;
     margin-top: 2rem;
-    padding-top: 8px;
 `
-export const Description = styled.input`
+export const Description = styled.textarea`
     font-size: 2.2rem;
     width: 100%;
     height: 30rem;
+    border-radius: 1.4rem;
     outline: none;
     border: none;
+    resize: none;
       
     ::placeholder {
         color: #c1c1c1;
@@ -75,7 +79,7 @@ export const KeywordWrapper = styled.div`
     height: 6.8rem;
     border: 2px solid #D7D7D7;
     border-radius: 1.4rem;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     padding-top: 8px;
     margin-bottom: 12rem;
 `
@@ -181,3 +185,61 @@ export const CreateButton = styled.button`
     font-size: 4rem;
     font-weight: 700;
 `
+
+export const Radio = styled.input`
+
+    
+
+
+
+     /* position: absolute;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0; */
+
+    /* content: '';
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    width: 14px;
+    height: 14px;
+    background: #e86138;
+    border-radius: 100%;
+    box-shadow: none; */
+
+
+`
+
+export const SliderLabel = styled.div`
+    font-size: 3.6rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: end;
+
+`
+
+export const ProjectLabelWrapper = styled.div`
+    height: auto;
+    width: auto;
+`
+export const CalendarButtonBox = styled.div`
+    width: 4rem;
+    height: 3.4rem;
+    background-color: #4E4E4E;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`
+export const RecruitmentLabel = styled.div``
+export const RecruitmentPeriodWrapper = styled.div``
+// export const RecruitmentModal = styled(Modal)``
+// export const RecruitmentPeriod = styled(Calendar)`
+export const CalendarBox = styled.div`
+    width: 30rem;
+    margin-right: 35rem;
+`
+

@@ -14,5 +14,6 @@ export default function Main() {
     FETCH_BOARDS
   );
 
-  return <MainUI data={data} />;
+  // return <MainUI data={data} />;
+  return <div>메인 보수 작업 예정</div>;
 }

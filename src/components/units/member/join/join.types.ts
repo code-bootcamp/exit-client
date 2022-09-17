@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import {
   FieldValues,
+  FormState,
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
@@ -13,10 +14,25 @@ export interface IJoinDataProps {
   emailToken: string;
 }
 
+export interface IJoinProps {
+  onClickClose: () => void;
+}
+
 export interface IJoinUIProps {
+  email: string;
+  token: string;
+  time: { min: string; sec: string };
+  joinStep: number;
+  isStarted: boolean;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  onChangeEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSendEmailToken: () => void;
   onClickJoin: (data: any) => Promise<void>;
+  onClickClose: () => void;
+  onClickCheckToken: () => void;
+  formState: FormState<FieldValues>;
+  serverEmailErrorMessage: string;
+  serverTokenErrorMessage: string;
 }
+
+export interface IJoinUIUserInfoItemProps {}

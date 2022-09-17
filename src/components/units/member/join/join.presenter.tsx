@@ -86,7 +86,6 @@ export default function JoinUI(props: IJoinUIProps) {
           maxLength={10}
         />
  */}
-
             {props.joinStep === 0 && (
               <Button01
                 type="button"

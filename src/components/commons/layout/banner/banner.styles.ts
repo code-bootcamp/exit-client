@@ -21,12 +21,6 @@ export const BannerItem = styled.div`
   width: 100%;
   height: 520px;
   background-color: #3ebd5d;
-  @media (max-width: ${breakPoints.md}) {
-    height: 400px;
-  }
-  @media ${breakPoints.sm} {
-    height: 300px;
-  }
 `;
 
 export const Inner = styled.div`

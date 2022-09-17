@@ -1,10 +1,12 @@
 import { useMutation } from "@apollo/client";
+import { useState } from "react";
 import { IMutation } from "../../../../commons/types/generated/types";
 import TopMenuUI from "./topMenu.presenter";
 import { LOGOUT } from "./topMenu.queries";
 
 export default function TopMenu() {
   const [logout] = useMutation<Pick<IMutation, "logout">>(LOGOUT);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const onClickLogout = async () => {
     try {
@@ -13,5 +15,16 @@ export default function TopMenu() {
     } catch (error) {}
   };
 
-  return <TopMenuUI onClickLogout={onClickLogout} />;
+  const onClickLogin = () => {
+    setIsModalVisible(true);
+  };
+
+  return (
+    <TopMenuUI
+      onClickLogin={onClickLogin}
+      onClickLogout={onClickLogout}
+      isModalVisible={isModalVisible}
+      setIsModalVisible={setIsModalVisible}
+    />
+  );
 }

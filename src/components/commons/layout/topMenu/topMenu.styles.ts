@@ -20,20 +20,13 @@ export const TopMenuButton = styled.button`
 
   &:first-of-type {
     margin-right: 30px;
-    @media (max-width: ${breakPoints.xxl}) {
+    @media (max-width: 1400px) {
       margin-right: 25px;
     }
-    @media (max-width: ${breakPoints.lg}) {
+    /* @media (max-width: 1200px) {
       margin-right: 10px;
-    }
+    } */
   }
 `;
 
-export const UserImageWrapper = styled.div`
-  img {
-    @media (max-width: ${breakPoints.sm}) {
-      width: 30px;
-      height: 30px;
-    }
-  }
-`;
+export const UserImageWrapper = styled.div``;

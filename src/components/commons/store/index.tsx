@@ -15,6 +15,11 @@ export const userInfoState = atom({
   },
 });
 
+export const searchWordsState = atom({
+  key: "searchWordsState",
+  default: [],
+});
+
 export const restoreAccessTokenLoadable = selector({
   key: "restoreAccessTokenLoadable",
   get: async () => {

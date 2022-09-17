@@ -10,12 +10,6 @@ export const NavigationItem = styled.li`
   &:last-of-type {
     margin-right: 0;
   }
-  @media (max-width: ${breakPoints.lg}) {
-    margin-right: 40px;
-  }
-  @media (max-width: ${breakPoints.md}) {
-    margin-right: 10px;
-  }
 `;
 
 export const NavigationLink = styled.a`
@@ -23,8 +17,5 @@ export const NavigationLink = styled.a`
   font-weight: 700;
   &:hover {
     color: #3ebd5d;
-  }
-  @media (max-width: ${breakPoints.md}) {
-    font-size: 1.6rem;
   }
 `;

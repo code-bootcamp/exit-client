@@ -8,7 +8,6 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
-import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { getAccessToken } from "../../components/commons/libraries/getAccessToken";
@@ -69,7 +68,6 @@ export default function ApolloSetting(props: IApolloSettingProps) {
           return fromPromise(
             getAccessToken().then((newAccessToken) => {
               setAccessToken(newAccessToken);
-
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,
@@ -90,8 +88,8 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const client = new ApolloClient({
-    // link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
-    link: ApolloLink.from([errorLink, uploadLink]),
+    link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
+    // link: ApolloLink.from([errorLink, uploadLink]),
     cache: APOLLO_CACHE,
     connectToDevTools: true,
   });

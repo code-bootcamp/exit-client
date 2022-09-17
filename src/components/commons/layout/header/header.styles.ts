@@ -22,10 +22,6 @@ export const InnerWrapper = styled.div`
     width: 100vw;
     padding: 4rem;
   }
-
-  @media (max-width: ${breakPoints.lg}) {
-    height: 60px;
-  }
 `;
 
 export const Logo = styled.h1``;

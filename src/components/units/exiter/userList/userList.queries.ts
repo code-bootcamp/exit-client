@@ -1,12 +1,25 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_USERS = gql`
-  query fetchUsers {
-    fetchUsers {
+  query fetchUsers($page: Float) {
+    fetchUsers(page: $page) {
       id
       email
       nickname
       point
+      userImage {
+        id
+        url
+      }
+      categories {
+        name
+      }
+      tags {
+        name
+      }
+      keywords {
+        name
+      }
     }
   }
 `;
@@ -17,6 +30,19 @@ export const FETCH_USER_RANDOM = gql`
       id
       email
       nickname
+      userImage {
+        id
+        url
+      }
+      categories {
+        name
+      }
+      tags {
+        name
+      }
+      keywords {
+        name
+      }
     }
   }
 `;

@@ -3,7 +3,7 @@ import { breakPoints } from "../../../../commons/styles/media";
 
 export const Wrapper = styled.div`
   width: 100%;
-  /* padding: 6rem 0 10rem; */
+  margin-top: 8rem;
   font-size: 1.5rem;
 `;
 
@@ -62,6 +62,9 @@ export const RandomUserHead = styled.div`
 export const InfoTitle = styled.div`
   display: flex;
 `;
+export const InfoKeywordContainer = styled.div`
+  display: flex;
+`;
 export const TitleHead = styled.div`
   font-weight: 700;
   font-size: 36px;
@@ -73,27 +76,28 @@ export const TitleHead = styled.div`
 export const HeadUserNickname = styled.div`
   font-weight: 700;
   font-size: 36px;
-  line-height: 43px;
-  letter-spacing: -0.02em;
   color: #000000;
 `;
-export const InfoKeywords = styled.div`
-  width: 200px;
+export const InfoKeywordBox = styled.div`
+  display: flex;
+`;
+export const InfoKeyword = styled.p`
+  width: fit-content;
   height: 40px;
   background: #ffffff;
   font-weight: 400;
   font-size: 18px;
-  line-height: 22px;
   color: #4e4e4e;
   border-radius: 100px;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 1rem;
 `;
 export const ButtonBox = styled.div`
   display: flex;
   height: 15rem;
-
   justify-content: flex-end;
   align-items: flex-end;
 `;
@@ -149,21 +153,26 @@ export const MainTitle = styled.h2`
 export const UserListRow = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 `;
 export const UserListColumn = styled.div`
   background: #f8f8f8;
-  width: 38rem;
+  /* width: 38rem; */
+  width: 24%;
   height: 38rem;
   padding: 3rem;
   margin-bottom: 2rem;
-
+  margin-right: 1.33%;
   display: flex;
   flex-direction: column;
   border-radius: 14px;
   justify-content: space-between;
+  &:nth-of-type(4n) {
+    margin-right: 0;
+  }
 `;
+
 export const UserColumnHead = styled.div`
   display: flex;
 `;
@@ -180,17 +189,23 @@ export const UserNickname = styled.p`
   line-height: 29px;
   margin-bottom: 0.5rem;
 `;
-export const UserKeywords = styled.p`
+export const UserKeywords = styled.div`
+  display: flex;
+`;
+export const Keyword = styled.p`
   font-weight: 400;
   font-size: 1.4rem;
-  line-height: 17px;
   color: #4e4e4e;
   background-color: #ffffff;
-  text-align: center;
   padding: 0.4rem 1rem;
   border-radius: 10rem;
+  margin-right: 1rem;
 `;
+
 export const UserColumnInfo = styled.div``;
+export const UserLabelBox = styled.div`
+  display: flex;
+`;
 export const UserLabelTitle = styled.p`
   font-weight: 600;
   font-size: 18px;
@@ -198,8 +213,10 @@ export const UserLabelTitle = styled.p`
   letter-spacing: -0.02em;
   margin-bottom: 0.8rem;
 `;
+
 export const UserLabelContents = styled.div`
   margin-bottom: 2rem;
+  margin-right: 0.5rem;
   background-color: #ffffff;
   width: fit-content;
   padding: 0.4rem 1rem;

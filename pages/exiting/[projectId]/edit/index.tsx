@@ -1,5 +1,5 @@
 import ProjectWrite from "../../../../src/components/units/projects/write/projectWrite.container";
-import { gql, useQuery } from "@apollo/client"
+import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 
 const FETCH_BOARD = gql`
@@ -33,14 +33,13 @@ const FETCH_BOARD = gql`
       }
     }
   }
-`
+`;
 export default function ProjectEditPage() {
-  const router = useRouter()
+  const router = useRouter();
 
   const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: String(router.query.projectid) }
+    variables: { boardId: String(router.query.projectId) },
+  });
 
-  })
-
-  return <ProjectWrite isEdit={true} data={data}/>;
+  return <ProjectWrite isEdit={true} data={data} />;
 }

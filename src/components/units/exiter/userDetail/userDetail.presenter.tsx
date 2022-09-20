@@ -83,14 +83,14 @@ export default function UserDetailPresenter(props: any) {
                           </S.ProjectTitleBox>
                           <S.ProjectInfo>
                             <S.InfoLeft>
-                              <S.MemberIcon src="/icons/icon_member_count.png" />
+                              <S.MemberIcon src="/icons/icon_member.png" />
                               <S.MemberNum>
                                 {
                                   props.projectData?.fetchProjectOfUser
                                     .totalMember
                                 }
                               </S.MemberNum>
-                              <S.LikeIcon src="/icons/icon_heart_off.png" />{" "}
+                              <S.LikeIcon src="/icons/icon_heart_off.png" />
                               <S.LikeNum>
                                 {
                                   props.projectData?.fetchProjectOfUser

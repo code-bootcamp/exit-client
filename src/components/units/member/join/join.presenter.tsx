@@ -1,34 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@Mollote 
-code-bootcamp
-/
-f8b4-team05-client
-Private
-Code
-Issues
-14
-Pull requests
-2
-Discussions
-Actions
-Projects
-1
-Security
-Insights
-f8b4-team05-client/src/components/units/member/join/join.presenter.tsx
-
-yuniso [Edit] solve conflict
-Latest commit 10d7975 1 hour ago
- History
- 1 contributor
-160 lines (158 sloc)  5.88 KB
-
 import * as S from "./join.styles";
 import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";

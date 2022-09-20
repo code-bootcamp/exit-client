@@ -11,19 +11,6 @@ interface ILayoutProps {
 }
 
 const Body = styled.main``;
-const HIDDEN_BANNER = [
-  "/exiter/userList",
-  "/exiter/[userId]",
-  "/myPage/edit",
-  "/myPage",
-  "/exiting/[projectid]",
-];
-const HIDDENN_MINI_BANNER = [
-  "/exiter/userList",
-  "/exiter/[userId]",
-  "/myPage/edit",
-  "/myPage",
-];
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();

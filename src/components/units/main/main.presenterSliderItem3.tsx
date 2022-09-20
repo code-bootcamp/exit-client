@@ -41,7 +41,7 @@ export default function MainUISliderItem3(props: IMainUISliderItem) {
             <S.ThumbInfoLeft>
               <S.MemberCountWrapper>
                 <S.IconWrapper>
-                  <S.MemberCountIcon src="/icons/icon_member_count.png" />
+                  <S.MemberCountIcon src="/icons/icon_member.png" />
                 </S.IconWrapper>
                 <S.MemberCount>
                   {props.el.countMember}/{props.el.totalMember}

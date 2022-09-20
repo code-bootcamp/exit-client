@@ -14,13 +14,24 @@ export type Scalars = {
   Upload: any;
 };
 
+export type IAttendance = {
+  __typename?: 'Attendance';
+  attendedAt: Scalars['DateTime'];
+  board: IBoard;
+  id: Scalars['String'];
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
+  nickname: Scalars['String'];
+  userId: Scalars['String'];
+};
+
 export type IBoard = {
   __typename?: 'Board';
   address: Scalars['String'];
   bail: Scalars['Int'];
   boardImage: IBoardImage;
   categories: Array<ICategory>;
-  closedAt: Scalars['DateTime'];
+  closedAt?: Maybe<Scalars['DateTime']>;
   context: Scalars['String'];
   countLike: Scalars['Int'];
   countMember: Scalars['Int'];
@@ -117,11 +128,6 @@ export type ICreateKeywordInput = {
   users: Array<Scalars['String']>;
 };
 
-export type ICreateLikeInput = {
-  boardId: Scalars['String'];
-  userId: Scalars['String'];
-};
-
 export type ICreatePointHistoryInput = {
   amount: Scalars['Int'];
   pointHistory: Scalars['String'];
@@ -187,21 +193,22 @@ export type IMutation = {
   createTag: ITag;
   createUser: IUser;
   createUserBoard: IUserBoard;
-  createUserUrl: IUserUrl;
   delete: Scalars['Boolean'];
   login: Scalars['String'];
   logout: Scalars['String'];
-  onClickBoard: Scalars['Boolean'];
+  onClickBoard: Scalars['String'];
   removeBoard: Scalars['Boolean'];
+  removeBoardImage: Scalars['Boolean'];
   removeCategory: Scalars['Boolean'];
   removeComment: Array<Scalars['String']>;
+  removeImage: Scalars['Boolean'];
   removeKeyword: IKeyword;
   removePointHistory: Scalars['Boolean'];
   removeSubComment: Array<Scalars['String']>;
   removeTag: ITag;
   removeUser: Scalars['Boolean'];
   removeUserBoards: Array<Scalars['String']>;
-  removeUserUrl: Scalars['Boolean'];
+  removeZipFile: Scalars['Boolean'];
   restoreAccessToken: Scalars['String'];
   restoreCategory: ICategory;
   restoreTag: ITag;
@@ -212,6 +219,7 @@ export type IMutation = {
   sendSignupEmailToken: Scalars['String'];
   temp: Scalars['Boolean'];
   updateBoard: IBoard;
+  updateBoardFinish: Scalars['String'];
   updateCategory: ICategory;
   updateComment: Scalars['String'];
   updateKeyword: IKeyword;
@@ -221,7 +229,6 @@ export type IMutation = {
   updateTag: ITag;
   updateUser: IUser;
   updateUserBoard: IUserBoard;
-  updateUserUrl: IUserUrl;
   uploadBoardImage: Scalars['String'];
   uploadUserImage: Scalars['String'];
   uploadZipFile: Scalars['String'];
@@ -267,7 +274,7 @@ export type IMutationCreateKeywordArgs = {
 
 
 export type IMutationCreateOrDeleteLikeArgs = {
-  createLikeInput: ICreateLikeInput;
+  boardId: Scalars['String'];
 };
 
 
@@ -307,11 +314,6 @@ export type IMutationCreateUserBoardArgs = {
 };
 
 
-export type IMutationCreateUserUrlArgs = {
-  userUrl: Scalars['String'];
-};
-
-
 export type IMutationLoginArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -328,6 +330,11 @@ export type IMutationRemoveBoardArgs = {
 };
 
 
+export type IMutationRemoveBoardImageArgs = {
+  boardImageId: Scalars['String'];
+};
+
+
 export type IMutationRemoveCategoryArgs = {
   id: Scalars['String'];
 };
@@ -335,6 +342,11 @@ export type IMutationRemoveCategoryArgs = {
 
 export type IMutationRemoveCommentArgs = {
   commentId?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IMutationRemoveImageArgs = {
+  userImageId: Scalars['String'];
 };
 
 
@@ -365,8 +377,8 @@ export type IMutationRemoveUserBoardsArgs = {
 };
 
 
-export type IMutationRemoveUserUrlArgs = {
-  userUrlId: Scalars['String'];
+export type IMutationRemoveZipFileArgs = {
+  boardId: Scalars['String'];
 };
 
 
@@ -409,6 +421,11 @@ export type IMutationTempArgs = {
 export type IMutationUpdateBoardArgs = {
   boardId: Scalars['String'];
   updateBoardInput: IUpdateBoardInput;
+};
+
+
+export type IMutationUpdateBoardFinishArgs = {
+  boardId: Scalars['String'];
 };
 
 
@@ -458,12 +475,6 @@ export type IMutationUpdateUserBoardArgs = {
 };
 
 
-export type IMutationUpdateUserUrlArgs = {
-  userUrl: Scalars['String'];
-  userUrlId: Scalars['String'];
-};
-
-
 export type IMutationUploadBoardImageArgs = {
   image: Array<Scalars['Upload']>;
 };
@@ -508,6 +519,7 @@ export type IQuery = {
   __typename?: 'Query';
   checkGps: Scalars['Boolean'];
   connectionRoom: IChatRoom;
+  fetchAttendance: Array<IAttendance>;
   fetchBoard: IBoard;
   fetchBoardImage: IBoardImage;
   fetchBoardImages: Array<IBoardImage>;
@@ -521,7 +533,6 @@ export type IQuery = {
   fetchKeywords: Array<IKeyword>;
   fetchLikes: Array<ILike>;
   fetchLoginPointHistories: Array<IPointHistory>;
-  fetchLoginUserUrls: Array<IUserUrl>;
   fetchLoginedUser: IUser;
   fetchLogs: Array<IChatMessage>;
   fetchPayments: Array<IPayment>;
@@ -535,11 +546,12 @@ export type IQuery = {
   fetchUserImage: IUserImage;
   fetchUserImages: Array<IUserImage>;
   fetchUserRandom: IUser;
-  fetchUserUrls: Array<IUserUrl>;
   fetchUserWithEmail: IUser;
+  fetchUserWithNickname: IUser;
   fetchUserWithUserId: IUser;
   fetchUsers: Array<IUser>;
   getAttendanceCount: Scalars['Float'];
+  getAttendancePercent: Scalars['Float'];
   getAttendanceTime: Scalars['String'];
   getLocationCrew: Scalars['String'];
   getLocationLeader: Scalars['String'];
@@ -555,6 +567,11 @@ export type IQueryCheckGpsArgs = {
 
 export type IQueryConnectionRoomArgs = {
   hostNickname: Scalars['String'];
+};
+
+
+export type IQueryFetchAttendanceArgs = {
+  boardId: Scalars['String'];
 };
 
 
@@ -659,13 +676,13 @@ export type IQueryFetchUserImageArgs = {
 };
 
 
-export type IQueryFetchUserUrlsArgs = {
-  userId: Scalars['String'];
+export type IQueryFetchUserWithEmailArgs = {
+  email: Scalars['String'];
 };
 
 
-export type IQueryFetchUserWithEmailArgs = {
-  email: Scalars['String'];
+export type IQueryFetchUserWithNicknameArgs = {
+  nickname: Scalars['String'];
 };
 
 
@@ -680,6 +697,11 @@ export type IQueryFetchUsersArgs = {
 
 
 export type IQueryGetAttendanceCountArgs = {
+  boardId: Scalars['String'];
+};
+
+
+export type IQueryGetAttendancePercentArgs = {
   boardId: Scalars['String'];
 };
 
@@ -785,6 +807,7 @@ export type IUpdateUserInput = {
   point?: InputMaybe<Scalars['Int']>;
   tags?: InputMaybe<Array<Scalars['String']>>;
   userImage?: InputMaybe<ICreateUserImageInput>;
+  userUrl?: InputMaybe<Scalars['String']>;
 };
 
 export type IUser = {
@@ -797,6 +820,7 @@ export type IUser = {
   point: Scalars['Int'];
   tags: Array<ITag>;
   userImage: IUserImage;
+  userUrl?: Maybe<Scalars['String']>;
 };
 
 export type IUserBoard = {
@@ -811,11 +835,4 @@ export type IUserImage = {
   __typename?: 'UserImage';
   id: Scalars['String'];
   url: Scalars['String'];
-};
-
-export type IUserUrl = {
-  __typename?: 'UserUrl';
-  id: Scalars['String'];
-  url: Scalars['String'];
-  user: IUser;
 };

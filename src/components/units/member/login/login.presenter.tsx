@@ -10,9 +10,17 @@ export default function LoginUI(props: ILoginUIProps) {
   return (
     <>
       {props.isClickedFindPassword && (
-        <FindPassword onClickClose={props.onClickClose} />
+        <FindPassword
+          onClickClose={props.onClickClose}
+          // setIsModalVisible={props.setIsModalVisible}
+        />
       )}
-      {props.isClickedJoin && <Join onClickClose={props.onClickClose} />}
+      {props.isClickedJoin && (
+        <Join
+          onClickClose={props.onClickClose}
+          // setIsModalVisible={props.setIsModalVisible}
+        />
+      )}
       {!props.isClickedFindPassword && !props.isClickedJoin && (
         <Modal02
           modalFor="로그인"

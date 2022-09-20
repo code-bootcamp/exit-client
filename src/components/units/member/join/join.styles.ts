@@ -40,14 +40,14 @@ export const NicknameWrapper = styled.div`
 
 export const PasswordWrapper = styled(NicknameWrapper)``;
 
-export const TermsWrapper = styled.ul``;
+export const TermsWrapper = styled.div``;
 
-export const TermWraper = styled.li`
+export const TermWraper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 13px;
 
-  input:checked + label::before {
+  /* input:checked + label::before {
     content: "";
     width: 22px;
     height: 22px;
@@ -57,35 +57,36 @@ export const TermWraper = styled.li`
     font-size: 20px;
     cursor: pointer;
     text-align: center;
-  }
+  } */
 `;
 
-export const Radio = styled.input`
-  position: absolute;
-  left: -1000%;
-`;
+// export const Radio = styled.input`
+//   position: absolute;
+//   left: -1000%;
+// `;
 
-export const Term = styled.label`
+export const Term = styled.em`
   font-size: 2.2rem;
   color: #4e4e4e;
+  padding-left: 5px;
 
-  &::before {
-    content: "";
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    border: 2px solid #d7d7d7;
-    border-radius: 50%;
-    vertical-align: middle;
-    /* transition: 0.4s; */
-  }
+  //   &::before {
+  //     content: "";
+  //     display: inline-block;
+  //     width: 22px;
+  //     height: 22px;
+  //     border: 2px solid #d7d7d7;
+  //     border-radius: 50%;
+  //     vertical-align: middle;
+  //     /* transition: 0.4s; */
+  //   }
 
-  span {
-    margin-left: 10px;
-    position: relative;
-    top: 1px;
-    color: #4e4e4e;
-  }
+  //   span {
+  //     margin-left: 10px;
+  //     position: relative;
+  //     top: 1px;
+  //     color: #4e4e4e;
+  //   }
 `;
 
 export const More = styled.span`

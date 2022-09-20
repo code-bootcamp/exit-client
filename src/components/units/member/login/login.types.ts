@@ -6,16 +6,17 @@ import {
 } from "react-hook-form";
 
 export interface ILoginUIProps {
+  email: string;
+  password: string;
+  formState: FormState<FieldValues>;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   onClickLogin: (data: any) => Promise<void>;
   onClickJoin: () => void;
   onClickClose: () => void;
   onClickFindPassword: () => void;
-  isClickedFindPassword: boolean;
-  isClickedJoin: boolean;
-  password: string;
-  formState: FormState<FieldValues>;
   serverEmailErrorMessage: string;
   serverPasswordErrorMessage: string;
+  isClickedFindPassword: boolean;
+  isClickedJoin: boolean;
 }

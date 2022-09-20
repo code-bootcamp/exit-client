@@ -133,13 +133,20 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        <img
+                        {/* <img
                           src={
                             !!el.boardImage.url
                               ? categoriesImgSources[el.categories?.[0]?.name]
                               : el.boardImage.url
                           }
-                        />
+                        /> */}
+                        {el.boardImage.url !== "null" ? (
+                          <img src={el.boardImage.url} />
+                        ) : (
+                          <img
+                            src={categoriesImgSources[el.categories?.[0]?.name]}
+                          />
+                        )}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
                         <S.InfoLeftWrapper>

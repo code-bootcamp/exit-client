@@ -29,7 +29,7 @@ export const GoogleLoginLink = styled.a`
   width: 100%;
   height: 60px;
   font-size: 2.2rem;
-  font-weight: 700;
+  font-weight: 600;
   border: 2px solid #d7d7d7;
   border-radius: 14px;
   display: flex;
@@ -51,7 +51,7 @@ export const KakaoLoginLink = styled(GoogleLoginLink)`
 export const NaverLoginLink = styled(GoogleLoginLink)`
   background-color: #48484b;
   border: none;
-  color: #fff;
+  color: #fff !important;
 
   :hover {
     color: #fff;

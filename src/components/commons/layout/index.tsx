@@ -17,8 +17,9 @@ const HIDDEN_BANNER = [
   "/myPage/edit",
   "/myPage",
   "/projects/[projectId]",
+  "/currentProject/[projectId]",
 ];
-const HIDDENN_MINI_BANNER = [
+const HIDDEN_MINI_BANNER = [
   "/exiter/userList",
   "/exiter/[userId]",
   "/myPage/edit",
@@ -28,8 +29,7 @@ const HIDDENN_MINI_BANNER = [
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
   const isHiddenBanner = HIDDEN_BANNER.includes(router.pathname);
-  const isHiddenMiniBanner = HIDDENN_MINI_BANNER.includes(router.pathname);
-
+  const isHiddenMiniBanner = HIDDEN_MINI_BANNER.includes(router.pathname);
   return (
     <>
       <Header />

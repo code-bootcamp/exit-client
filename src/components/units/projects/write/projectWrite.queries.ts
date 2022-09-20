@@ -7,20 +7,21 @@ export const CREATE_BOARD = gql`
             title
             totalMember
             description
-        #     keywords {
-        #         id
-        #         name
-        #         users
-        #         boards
-        #     }
-        #     bail
-
-        #     address
-        #     tags
-        #     frequency
-        #     closedAt
-        #     startAt
-        #     endAt
+            keywords {
+                name
+            }
+            bail
+            address
+            tags {
+                name
+            }
+            frequency
+            closedAt
+            startAt
+            endAt
+            categories {
+                name
+            }
         }
     }
 `
@@ -29,4 +30,13 @@ export const UPLOAD_BOARD_IMAGE = gql`
     mutation uploadBoardImage($image: [Upload!]!) {
      uploadBoardImage(image: $image) 
 }
+`
+
+export const UPDATE_BOARD = gql`
+    mutation updateBoard($boardId: String!, $updateBoardInput: UpdateBoardInput!) {
+        updateBoard(boardId: $boardId, updateBoardInput: $updateBoardInput) {
+            id
+            title
+        }
+    }
 `

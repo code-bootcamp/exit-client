@@ -4,7 +4,7 @@ import { ILoginUIProps } from "./login.types";
 import * as S from "./login.styles";
 import Button01 from "../../../commons/buttons/01";
 import { FindPassword } from "../findPassword/findPassword.container";
-import Join from "../join/Join.container";
+import Join from "../join/join.container";
 
 export default function LoginUI(props: ILoginUIProps) {
   return (

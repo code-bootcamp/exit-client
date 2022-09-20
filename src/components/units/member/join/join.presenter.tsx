@@ -1,8 +1,8 @@
-import * as S from "./Join.styles";
+import * as S from "./join.styles";
 import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";
 import Modal02 from "../../../commons/modal/02";
-import { IJoinUIProps } from "./Join.types";
+import { IJoinUIProps } from "./join.types";
 import JoinUIItem from "./Join.presenterUserInfoItem";
 import JoinUIUserInfoItem from "./Join.presenterUserInfoItem";
 

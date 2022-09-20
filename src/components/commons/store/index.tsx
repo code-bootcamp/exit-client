@@ -27,3 +27,8 @@ export const restoreAccessTokenLoadable = selector({
     return newAccessToken;
   },
 });
+
+export const isEditState = atom({
+  key: "isEditState",
+  default: false,
+});

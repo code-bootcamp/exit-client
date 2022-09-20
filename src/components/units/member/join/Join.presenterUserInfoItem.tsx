@@ -1,12 +1,12 @@
 import * as yup from "yup";
-import * as S from "./Join.styles";
+import * as S from "./join.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 
 import Input01 from "../../../commons/inputs/01";
 import Modal02 from "../../../commons/modal/02";
 import Text01 from "../../../commons/texts/01";
-import { IJoinUIUserInfoItemProps } from "./Join.types";
+import { IJoinUIUserInfoItemProps } from "./join.types";
 import Button01 from "../../../commons/buttons/01";
 
 const schema = yup.object({

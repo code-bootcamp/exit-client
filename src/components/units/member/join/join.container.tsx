@@ -8,9 +8,13 @@ import {
   CHECK_EMAIL_DUPLICATE,
   CHECK_EMAIL_TOKEN,
   CREATE_USER,
+<<<<<<< HEAD
+  SEND_SIGNUP_EMAIL_TOKEN,
+=======
   FETCH_LOGINED_USER,
   LOGIN,
   SEND_EMAIL_TOKEN,
+>>>>>>> 7347b57e39c3c0c0768573628dedf13b8e20cf54
 } from "./join.queries";
 import {
   IMutation,

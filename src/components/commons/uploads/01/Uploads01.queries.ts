@@ -1,9 +1,7 @@
-import {gql} from "@apollo/client"
+import { gql } from "@apollo/client";
 
-export const UPLOAD_FILE = gql`
-mutation uploadFile($file: Upload!) {
-  uploadFile(file: $file) {
-    url
+export const UPLOAD_USER_IMAGE = gql`
+  mutation uploadUserImage($image: [Upload!]!) {
+    uploadUserImage(image: $image)
   }
-}
 `;

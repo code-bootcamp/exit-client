@@ -12,6 +12,9 @@ export const FETCH_LOGINED_USER = gql`
       id
       email
       nickname
+      userImage {
+        url
+      }
     }
   }
 `;

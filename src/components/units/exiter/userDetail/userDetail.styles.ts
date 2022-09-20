@@ -42,6 +42,9 @@ export const UserKeywordsBox = styled.div`
   display: flex;
   margin-bottom: 7.2rem;
 `;
+export const Keys = styled.div`
+  display: flex;
+`;
 export const Keywords = styled.div`
   font-weight: 400;
   font-size: 18px;
@@ -125,7 +128,6 @@ export const ProjectColumn = styled.div`
   padding: 2rem;
   width: 376px;
   height: 376px;
-  background-image: url("/categories/o2o.png");
   background-repeat: no-repeat center;
   background-size: cover;
   background-position: center;
@@ -173,7 +175,9 @@ export const InfoRight = styled.div`
   display: flex;
   align-items: center;
 `;
-export const MemberIcon = styled.div``;
+export const MemberIcon = styled.img`
+  width: 16px;
+`;
 export const MemberNum = styled.p`
   color: white;
   font-weight: 400;
@@ -196,4 +200,20 @@ export const JoinDate = styled.p`
   font-weight: 400;
   font-size: 16px;
   line-height: 0px;
+`;
+export const ProjectExist = styled.div``;
+
+export const ProjectColumnNodata = styled.div`
+  width: 100%;
+  height: 376px;
+  background: #f8f8f8;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const NodataText = styled.p`
+  color: #b2b2b2;
+  font-weight: 700;
+  font-size: 36px;
 `;

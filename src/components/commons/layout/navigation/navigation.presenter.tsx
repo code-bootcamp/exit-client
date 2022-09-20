@@ -3,7 +3,7 @@ import * as S from "./navigation.styles";
 
 export default function NavigationUI() {
   const NAVIGATION_MENUS = [
-    { name: "exiter", page: "/exiter" },
+    { name: "exiter", page: "/exiter/userList" },
     { name: "exiting", page: "/exiting" },
     { name: "exited", page: "/exited" },
   ];

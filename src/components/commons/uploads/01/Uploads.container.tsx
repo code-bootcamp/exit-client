@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useRef } from "react";
 import Uploads01UI from "./Uploads.presenter";
-import { UPLOAD_FILE } from "./Uploads01.queries";
+import { UPLOAD_USER_IMAGE } from "./Uploads01.queries";
 
 export default function Uploads01(props: any) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [uploadFile] = useMutation(UPLOAD_FILE);
+  const [uploadUserImage] = useMutation(UPLOAD_USER_IMAGE);
 
   const onClickUpload = () => {
     fileRef.current?.click();
@@ -16,8 +16,8 @@ export default function Uploads01(props: any) {
     if (!file) return;
 
     try {
-      const result = await uploadFile({ variables: { file } });
-      props.onChangeFileUrls(result.data.uploadFile.url, props.index);
+      const result = await uploadUserImage({ variables: { image: file } });
+      props.onChangeFileUrl(result.data.uploadUserImage);
     } catch (error) {
       alert(error);
     }

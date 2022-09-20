@@ -1,3 +1,34 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@Mollote 
+code-bootcamp
+/
+f8b4-team05-client
+Private
+Code
+Issues
+14
+Pull requests
+2
+Discussions
+Actions
+Projects
+1
+Security
+Insights
+f8b4-team05-client/src/components/units/member/join/join.container.tsx
+
+yuniso [Edit] solve conflict
+Latest commit 10d7975 1 hour ago
+ History
+ 1 contributor
+270 lines (253 sloc)  8.22 KB
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -8,9 +39,13 @@ import {
   CHECK_EMAIL_DUPLICATE,
   CHECK_EMAIL_TOKEN,
   CREATE_USER,
+<<<<<<< HEAD
+  SEND_SIGNUP_EMAIL_TOKEN,
+=======
   FETCH_LOGINED_USER,
   LOGIN,
   SEND_EMAIL_TOKEN,
+>>>>>>> 7347b57e39c3c0c0768573628dedf13b8e20cf54
 } from "./join.queries";
 import {
   IMutation,

@@ -3,21 +3,9 @@ import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";
 import Modal02 from "../../../commons/modal/02";
 import { IJoinUIProps } from "./join.types";
-<<<<<<< HEAD
-import JoinUIItem from "./Join.presenterUserInfoItem";
-import JoinUIUserInfoItem from "./Join.presenterUserInfoItem";
 
-const BUTTON_TEXT = [
-  "인증번호 전송",
-  "인증번호 다시 전송",
-  "이메일 인증",
-  "관심분야 선택하기",
-  "나의 기술 스택 선택하기",
-];
-=======
 import Text01 from "../../../commons/texts/01";
 import SetInterest from "../setInterest/setInterest.container";
->>>>>>> 7347b57e39c3c0c0768573628dedf13b8e20cf54
 
 export default function JoinUI(props: IJoinUIProps) {
   console.log(props.formState.isValid);

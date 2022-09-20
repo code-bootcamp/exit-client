@@ -7,11 +7,13 @@ export interface IFindPasswordUIProps {
   time: { min: string; sec: string };
   watch: any;
   email: string;
-  token: string;
+  emailToken: string;
   isStarted: boolean;
   formState: FormState<FieldValues>;
   findPasswordStep: number;
   onClickClose: () => void;
   register: UseFormRegister<FieldValues>;
   onClickSendNumber: () => void;
+  onClickCheckEmailToken: () => void;
+  serverEmailTokenErrorMessage: string;
 }

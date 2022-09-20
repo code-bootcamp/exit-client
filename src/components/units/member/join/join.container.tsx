@@ -1,33 +1,38 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import JoinUI from "./Join.presenter";
+import JoinUI from "./join.presenter";
 import _ from "lodash";
-import { useMutation } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import {
   CHECK_EMAIL_DUPLICATE,
   CHECK_EMAIL_TOKEN,
   CREATE_USER,
-  SEND_SIGNUP_EMAIL_TOKEN,
-} from "./Join.queries";
+  FETCH_LOGINED_USER,
+  LOGIN,
+  SEND_EMAIL_TOKEN,
+} from "./join.queries";
 import {
   IMutation,
   IMutationCheckEmailDuplicateArgs,
   IMutationCheckEmailTokenArgs,
   IMutationCreateUserArgs,
-  IMutationSendSignupEmailTokenArgs,
+  IMutationLoginArgs,
 } from "../../../../commons/types/generated/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { IJoinProps } from "./Join.types";
+import { IJoinProps } from "./join.types";
 import { Modal } from "antd";
+import { accessTokenState, userInfoState } from "../../../commons/store";
+import { useRecoilState } from "recoil";
 
 const schema = yup.object({
   email: yup
     .string()
     .email("이메일 형식을 확인해주세요")
     .required("이메일을 입력해주세요"),
-  token: yup.string().required("이메일 인증번호를 입력해주세요"),
+  // token: yup.string(),
+  // .required("이메일 인증번호를 입력해주세요"),
   // .max(6, "이메일 인증번호는 6글자입니다"),
   password: yup.string().required("비밀번호를 입력해주세요. (+ 추가설명)"),
   // .matches(
@@ -41,23 +46,26 @@ const schema = yup.object({
     .string()
     .min(2, "닉네임은 최소 2글자 이상으로 입력해주세요")
     .max(10, "닉네임은 최대 10글자로 입력해주세요"),
+  // term1: yup.boolean().required("약관에 동의해주세요."),
+  // term2: yup.boolean().required("약관에 동의해주세요."),
 });
 
 const defaultTime = { min: "3", sec: "00" };
 export default function Join(props: IJoinProps) {
+  const [startDate, setStartDate] = useState(new Date());
   const [joinStep, setJoinStep] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [time, setTime] = useState(defaultTime);
+  const [userInfo, setUserInfo] = useState(userInfoState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [isEmailDuplicated, setIsEmailDuplicated] = useState(null);
   const [serverEmailErrorMessage, setServerEmailErrorMessage] = useState("");
   const [serverTokenErrorMessage, setServerTokenErrorMessage] = useState("");
   const [checkEmailDuplicate] = useMutation<
     Pick<IMutation, "checkEmailDuplicate">,
     IMutationCheckEmailDuplicateArgs
   >(CHECK_EMAIL_DUPLICATE);
-  const [sendSignupEmailToken] = useMutation<
-    Pick<IMutation, "sendSignupEmailToken">,
-    IMutationSendSignupEmailTokenArgs
-  >(SEND_SIGNUP_EMAIL_TOKEN);
+  const [sendEmailToken] = useMutation(SEND_EMAIL_TOKEN);
   const [checkEmailToken] = useMutation<
     Pick<IMutation, "checkEmailToken">,
     IMutationCheckEmailTokenArgs
@@ -71,67 +79,86 @@ export default function Join(props: IJoinProps) {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+  const client = useApolloClient();
+
+  const [login] = useMutation<Pick<IMutation, "login">, IMutationLoginArgs>(
+    LOGIN
+  );
 
   const email = watch("email");
   const token = watch("token");
+  const nickname = watch("nickname");
+  const password = watch("password");
+  const password2 = watch("password2");
+  // const term1 = watch("term1");
+  // const term2 = watch("term2");
 
-  const getDebounce = _.debounce(async (emailToken: string) => {
-    console.log("디바운싱 확인");
+  console.log(email, token, nickname, password, password2);
+
+  const getDebounce = _.debounce(async (email: string) => {
+    // console.log("디바운싱 확인");
     // mutation 실행(토큰 검증)
-    try {
-      await checkEmailToken({
-        variables: {
-          email,
-          emailToken,
-        },
-      });
-      Modal.success({ content: "인증 성공" });
-      setJoinStep(2);
-    } catch (error) {
-      if (error instanceof Error) {
-        if (error.message.includes("인증번호")) {
-          setServerTokenErrorMessage(error.message);
-        }
-      }
-    }
+    // try {
+    //   const result = await checkEmailDuplicate({
+    //     variables: { email },
+    //   });
+    //   // console.log(result);
+    // } catch (error) {
+    //   if (error instanceof Error) {
+    //     if (error.message?.includes("이미")) {
+    //       setServerEmailErrorMessage(error.message);
+    //       setIsEmailDuplicated(true);
+    //     }
+    //   }
+    // }
   }, 1000);
 
   useEffect(() => {
     if (email === "") {
       setServerEmailErrorMessage("");
+      return;
     }
+    // console.log(email);
+    // console.log(formState.errors?.email?.message);
+    // if (!!email && formState.errors?.email?.message === undefined) {
+    //   getDebounce(email);
+    // }
   }, [email]);
 
   useEffect(() => {
     if (token === "") {
       setServerTokenErrorMessage("");
     }
-
-    if (token !== undefined && token.length === 6) {
-      getDebounce(token);
-    }
   }, [token]);
 
+  // 이메일인증 버튼 클릭시
   const onClickSendEmailToken = async () => {
-    // if (formState.errors.email) return;
-    try {
-      if (joinStep === 0) {
-        // 이메일 중복 확인
-        await checkEmailDuplicate({
+    // console.log("check");
+    if (joinStep === 0) {
+      // 이메일 중복 확인
+      try {
+        const result = await checkEmailDuplicate({
           variables: { email },
         });
+        // console.log(result);
+        setJoinStep(1);
+      } catch (error) {
+        if (error instanceof Error) {
+          // Modal.error({ content: "이미 가입된 이메일입니다." });
+          setServerEmailErrorMessage(error.message);
+          return;
+        }
       }
+    }
 
-      setJoinStep(1);
+    try {
       // 가입용 이메일 토큰 전송
-      await sendSignupEmailToken({
-        variables: {
-          email,
-        },
+      await sendEmailToken({
+        variables: { email },
       });
 
       if (isStarted === false) {
-        console.log("start");
+        // console.log("start");
         setIsStarted(true);
 
         let time = 30;
@@ -156,7 +183,6 @@ export default function Join(props: IJoinProps) {
         if (error.message.includes("이메일")) {
           setServerEmailErrorMessage(error.message);
         } else if (error.message.includes("인증번호")) {
-          // 확인 필요
           setServerTokenErrorMessage(error.message);
         }
       }
@@ -164,7 +190,7 @@ export default function Join(props: IJoinProps) {
   };
 
   const onClickCheckToken = async () => {
-    console.log("test");
+    // console.log("test");
     await checkEmailToken({
       variables: {
         email,
@@ -176,32 +202,59 @@ export default function Join(props: IJoinProps) {
   };
 
   const onClickJoin = async (data: any) => {
-    const { emailToken, password2, ...createUserInput } = data;
-    console.log(data);
-    // try {
-    //   await createUser({
-    //     variables: {
-    //       createUserInput,
-    //       emailToken,
-    //     },
-    //   });
-    //   alert("가입이 완료되었습니다");
-    //   router.push("/");
-    // } catch (error) {
-    //   if (error instanceof Error) {
-    //   }
-    // }
+    // console.log("가입하기 체크");
+    const { password2, token, ...createUserInput } = data;
+    console.log(createUserInput);
+    try {
+      await createUser({
+        variables: {
+          createUserInput,
+        },
+      });
+      // Modal.success({ content: "가입되었습니다." });
+
+      const result = await login({
+        variables: {
+          ...data,
+        },
+      });
+
+      const accessToken = result.data?.login;
+      if (!accessToken) {
+        Modal.error({ content: "접근 권한이 없습니다." }); // accessToken 부존재
+        return;
+      }
+      setAccessToken(accessToken);
+      // console.log(accessToken);
+      const resultUserInfo = await client.query({
+        query: FETCH_LOGINED_USER,
+        context: {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      });
+      const { __type, ...userInfo } = resultUserInfo?.data.fetchLoginedUser;
+      setUserInfo(userInfo);
+      setJoinStep(3);
+    } catch (error) {
+      if (error instanceof Error) {
+        // Modal.error({ content: error.message });
+        console.log(error.message);
+      }
+    }
   };
   return (
     <JoinUI
       time={time}
       email={email}
       token={token}
+      password2={password2}
+      password={password}
       joinStep={joinStep}
       isStarted={isStarted}
       register={register}
-      formState={formState}
       handleSubmit={handleSubmit}
+      formState={formState}
+      isEmailDuplicated={isEmailDuplicated}
       onClickCheckToken={onClickCheckToken}
       onClickSendEmailToken={onClickSendEmailToken}
       onClickJoin={onClickJoin}

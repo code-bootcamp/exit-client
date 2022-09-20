@@ -22,7 +22,7 @@ const Background = styled.div`
 
 const ModalWrapper = styled.div`
   width: 600px;
-  height: 840px;
+  height: 830px;
   padding: 30px;
   background-color: #fff;
   border-radius: 14px;
@@ -42,13 +42,6 @@ const ModalFor = styled.em`
   font-weight: 500;
   letter-spacing: -0.02em;
 `;
-
-// const ModalTitle = styled.h2`
-//   font-size: 3.6rem;
-//   font-weight: 700;
-//   letter-spacing: -0.02em;
-//   margin-bottom: 20px;
-// `;
 
 export const Close = styled.div`
   width: 25px;

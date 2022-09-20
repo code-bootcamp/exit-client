@@ -1,4 +1,4 @@
-import { MouseEvent } from "react";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IExitedListUIProps {
@@ -6,6 +6,9 @@ export interface IExitedListUIProps {
   likedData: Pick<IQuery, "fetchLikes"> | undefined;
   filterData: any;
   filteredBoards: any;
+  isModalVisible: boolean;
+  searchWords: any;
+  setIsModalVisible: Dispatch<SetStateAction<boolean>>;
   onFetchMore: () => void;
   onClickProject: (
     projectId: string

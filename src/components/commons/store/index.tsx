@@ -20,6 +20,11 @@ export const searchWordsState = atom({
   default: [],
 });
 
+export const isModalVisibleState = atom({
+  key: "isModalVisibleState",
+  default: false,
+});
+
 export const restoreAccessTokenLoadable = selector({
   key: "restoreAccessTokenLoadable",
   get: async () => {

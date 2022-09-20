@@ -35,6 +35,7 @@ export const globalStyles = css`
   }
   html {
     font-size: 62.5%; // root폰트 기준 설정: 10px
+    --antd-wave-shadow-color: #000 !important;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -83,8 +84,94 @@ export const globalStyles = css`
   img {
     vertical-align: top;
   }
+  a {
+    color: #000 !important;
+    font-family: "globalFont" !important;
+  }
   @font-face {
     font-family: "globalFont";
     src: url("fonts/PretendardVariable.ttf") format("ttf");
+  }
+
+  ::selection {
+    background: #000 !important;
+  }
+
+  .MuiCalendarPicker-root {
+    overflow: visible !important;
+  }
+
+  .MuiPickersCalendarHeader-root {
+    width: 100% !important;
+    height: 35px;
+    margin: 0 !important;
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    overflow: visible !important;
+  }
+
+  .MuiButtonBase-root {
+    font-size: 1.9rem !important;
+    color: #5e5e5e !important;
+  }
+
+  .MuiPickersCalendarHeader-labelContainer {
+    background-color: #ececec !important;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin: 0 !important;
+  }
+
+  .MuiPickersCalendarHeader-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4e4e4e;
+  }
+
+  .MuiPickersCalendarHeader-switchViewButton {
+    display: none !important;
+  }
+
+  .MuiPickersArrowSwitcher-button {
+    background-color: transparent !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: -5px !important;
+
+    svg {
+      width: 27px !important;
+      height: 27px !important;
+      color: #000 !important;
+    }
+
+    &:nth-of-type(1) {
+      left: 30px !important;
+    }
+
+    &:nth-of-type(2) {
+      left: 244px !important;
+    }
+  }
+
+  .MuiDayPicker-header {
+    margin-top: 32px !important;
+  }
+
+  .MuiTypography-root {
+    font-size: 1.9rem !important;
+    color: #5e5e5e !important;
+  }
+
+  .MuiPickersDay-today {
+    /* padding: 4px !important; */
+    background: #3ebd5d !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    border-color: transparent !important;
+  }
+
+  .MuiPickersDay-root {
+    /* padding: 10px !important; */
   }
 `;

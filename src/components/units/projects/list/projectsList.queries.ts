@@ -38,6 +38,7 @@ export const FETCH_BOARDS = gql`
         name
       }
       categories {
+        id
         name
       }
       boardImage {

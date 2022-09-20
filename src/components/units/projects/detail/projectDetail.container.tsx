@@ -19,11 +19,11 @@ export default function ProjectDetailContainenr() {
   const router = useRouter();
   const [userInfo] = useRecoilState(userInfoState);
   const { data, refetch } = useQuery(FETCH_BOARD, {
-    variables: { boardId: String(router.query.projectid) },
+    variables: { boardId: String(router.query.projectId) },
   });
   const { data: signUpData } = useQuery(FETCH_USER_BOARDS, {
     variables: {
-      boardId: String(router.query.projectid),
+      boardId: String(router.query.projectId),
     },
   });
   const { data: leaderData } = useQuery(FETCH_USER_WITH_USER_ID, {
@@ -42,12 +42,12 @@ export default function ProjectDetailContainenr() {
   const onClickLike = async () => {
     await createOrDeleteLike({
       variables: {
-        boardId: String(router.query.projectid),
+        boardId: String(router.query.projectId),
       },
       refetchQueries: [
         {
           query: FETCH_BOARD,
-          variables: { boardId: String(router.query.projectid) },
+          variables: { boardId: String(router.query.projectId) },
         },
       ],
     });
@@ -58,19 +58,19 @@ export default function ProjectDetailContainenr() {
       variables: {
         createUserBoardInput: {
           userId: userInfo.id,
-          boardId: String(router.query.projectid),
+          boardId: String(router.query.projectId),
         },
       },
       refetchQueries: [
         {
           query: FETCH_BOARD,
           fetchPolicy: "network-only",
-          variables: { boardId: String(router.query.projectid) },
+          variables: { boardId: String(router.query.projectId) },
         },
         {
           query: FETCH_USER_BOARDS,
           variables: {
-            boardId: String(router.query.projectid),
+            boardId: String(router.query.projectId),
           },
         },
       ],
@@ -82,7 +82,7 @@ export default function ProjectDetailContainenr() {
       variables: {
         updateUserBoardInput: {
           userId: event.target.id,
-          boardId: String(router.query.projectid),
+          boardId: String(router.query.projectId),
           isAccepted: true,
         },
       },
@@ -90,12 +90,12 @@ export default function ProjectDetailContainenr() {
         {
           query: FETCH_BOARD,
           fetchPolicy: "network-only",
-          variables: { boardId: String(router.query.projectid) },
+          variables: { boardId: String(router.query.projectId) },
         },
         {
           query: FETCH_USER_BOARDS,
           variables: {
-            boardId: String(router.query.projectid),
+            boardId: String(router.query.projectId),
           },
         },
       ],
@@ -106,17 +106,17 @@ export default function ProjectDetailContainenr() {
     await removeUserBoards({
       variables: {
         userId: event.target.id,
-        boardId: String(router.query.projectid),
+        boardId: String(router.query.projectId),
       },
       refetchQueries: [
         {
           query: FETCH_BOARD,
-          variables: { boardId: String(router.query.projectid) },
+          variables: { boardId: String(router.query.projectId) },
         },
         {
           query: FETCH_USER_BOARDS,
           variables: {
-            boardId: String(router.query.projectid),
+            boardId: String(router.query.projectId),
           },
         },
       ],

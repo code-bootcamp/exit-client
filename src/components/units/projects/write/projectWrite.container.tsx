@@ -196,7 +196,7 @@ export default function ProjectWrite(props: any) {
 
     const result = await updateBoard({
       variables: {
-        boardId: String(router.query.projectid),
+        boardId: String(router.query.projectId),
         updateBoardInput: {
           title: data.title,
           totalMember: Number(totalMember),

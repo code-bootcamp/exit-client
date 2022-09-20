@@ -57,15 +57,7 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                           )}
                         </S.IsLikedWrapper>
                       )}
-                      <S.ThumbImageWrapper>
-                        <img
-                          src={
-                            !!el.boardImage.url
-                              ? categoriesImgSources[el.categories?.[0]?.name]
-                              : el.boardImage.url
-                          }
-                        />
-                      </S.ThumbImageWrapper>
+                      <S.ThumbImageWrapper></S.ThumbImageWrapper>
                       <S.InfoWrapper>
                         <S.InfoLeftWrapper>
                           <S.CountWrapper>

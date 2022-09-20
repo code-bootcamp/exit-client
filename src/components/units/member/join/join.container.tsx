@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import JoinUI from "./Join.presenter";
+import JoinUI from "./join.presenter";
 import _ from "lodash";
 import { useMutation } from "@apollo/client";
 import {
@@ -9,7 +9,7 @@ import {
   CHECK_EMAIL_TOKEN,
   CREATE_USER,
   SEND_SIGNUP_EMAIL_TOKEN,
-} from "./Join.queries";
+} from "./join.queries";
 import {
   IMutation,
   IMutationCheckEmailDuplicateArgs,
@@ -19,7 +19,7 @@ import {
 } from "../../../../commons/types/generated/types";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { IJoinProps } from "./Join.types";
+import { IJoinProps } from "./join.types";
 import { Modal } from "antd";
 
 const schema = yup.object({

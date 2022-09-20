@@ -16,7 +16,7 @@ const HIDDEN_BANNER = [
   "/exiter/[userId]",
   "/myPage/edit",
   "/myPage",
-  "/projects/[projectId]",
+  "/exiting/[projectid]",
 ];
 const HIDDENN_MINI_BANNER = [
   "/exiter/userList",

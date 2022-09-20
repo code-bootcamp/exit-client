@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { style } from "@mui/system";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -22,6 +23,9 @@ export const UserImageBox = styled.div`
 `;
 export const UserImage = styled.img`
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10rem;
 `;
 export const UserNameBox = styled.div`
   display: flex;
@@ -144,9 +148,16 @@ export const MyProject = styled.div``;
 export const ProjectTitle = styled.div`
   font-weight: 700;
   font-size: 40px;
-  margin-bottom: 4.8rem;
+  margin-bottom: 3rem;
 `;
+export const Key = styled.div``;
 export const ProjectRow = styled.div`
+  margin-bottom: 10rem;
+  border-radius: 14px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+export const ProjectNoRow = styled.div`
   height: 376px;
   margin-bottom: 10rem;
   background: #f8f8f8;
@@ -155,10 +166,67 @@ export const ProjectRow = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const ProjectColumn = styled.p`
+export const NoProjectColumn = styled.p`
   font-weight: 700;
   font-size: 36px;
   color: #b2b2b2;
 `;
 export const LikeProject = styled.div``;
 export const HistoryProject = styled.div``;
+
+export const ProjectColumn = styled.div`
+  width: 376px;
+  height: 376px;
+  border-radius: 14px;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  margin-right: 2rem;
+  background-repeat: no-repeat center;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+export const ProjectTop = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+export const ProjectMain = styled.div``;
+export const LikeIcon = styled.img``;
+export const ProjectTitleBox = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+`;
+export const ProjectAdress = styled.div`
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
+`;
+export const ProjectBottom = styled.div`
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+`;
+export const ProjectColumnTitle = styled.div`
+  display: flex;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+`;
+export const BottomLeft = styled.div`
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+`;
+export const MemberIcon = styled.img``;
+export const BottomRight = styled.div`
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+`;

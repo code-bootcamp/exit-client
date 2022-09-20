@@ -45,7 +45,12 @@ export const RandomUserImageBox = styled.div`
   height: 100%;
   margin-right: 2.5rem;
 `;
-export const RandomUserImage = styled.img``;
+export const RandomUserImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+`;
 
 export const RandomUserInfoContainer = styled.div`
   width: 1056px;
@@ -178,8 +183,15 @@ export const UserColumnHead = styled.div`
 `;
 export const UserImageBox = styled.div`
   margin-right: 1rem;
+  width: 6rem;
+  height: 6rem;
 `;
-export const UserImage = styled.img``;
+export const UserImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 100px;
+`;
 export const UserHeadBox = styled.div`
   margin-bottom: 3rem;
 `;

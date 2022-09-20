@@ -2,9 +2,14 @@ import { useQuery } from "@apollo/client";
 import { FETCH_USER_RANDOM } from "./userList.queries";
 import * as S from "./userList.styles";
 import InfiniteScroll from "react-infinite-scroller";
+import { FETCH_PROJECT_OF_USER } from "../userDetail/userDetail.queries";
 
 export default function UserListPresenter(props: any) {
   const { data } = useQuery(FETCH_USER_RANDOM);
+  const { data: projectData } = useQuery(FETCH_PROJECT_OF_USER, {
+    variables: { userId: String(data?.fetchUserRandom.id) },
+  });
+
   return (
     <>
       <S.Wrapper>
@@ -14,12 +19,12 @@ export default function UserListPresenter(props: any) {
             <S.TopTitle>오늘의 엑시터를 소개합니다</S.TopTitle>
             <S.RandomUserContainer>
               <S.RandomUserImageBox>
-                {data?.fetchUserRandom.userImage[0] ? (
-                  <S.UserImage
-                    src={`https://storage.googleapis.com/${data?.fetchUserRandom.userImage.url}`}
+                {data?.fetchUserRandom.userImage.url !== "null" ? (
+                  <S.RandomUserImage
+                    src={`${data?.fetchUserRandom.userImage.url}`}
                   />
                 ) : (
-                  <S.UserImage src="/noImage.png" />
+                  <S.RandomUserImage src="/noImage.png" />
                 )}
               </S.RandomUserImageBox>
               <S.RandomUserInfoContainer>
@@ -40,28 +45,40 @@ export default function UserListPresenter(props: any) {
                 </S.RandomUserHead>
                 <S.UserInfoLabel>
                   <S.MyInfoTitle>저의 기술스택은</S.MyInfoTitle>{" "}
-                  <S.MyInfoContents>
-                    {data?.fetchUserRandom.tags.map((el: any, index: any) =>
-                      index !== 0 ? `, ${el.name}` : el.name
-                    )}
-                    이(가) 있습니다
-                  </S.MyInfoContents>
+                  {data?.fetchUserRandom.tags[0] ? (
+                    <S.MyInfoContents>
+                      {data?.fetchUserRandom.tags.map((el: any, index: any) =>
+                        index !== 0 ? `, ${el.name}` : el.name
+                      )}
+                      입니다
+                    </S.MyInfoContents>
+                  ) : (
+                    <S.MyInfoContents>준비중 입니다.</S.MyInfoContents>
+                  )}
                 </S.UserInfoLabel>
                 <S.UserInfoLabel>
                   <S.MyInfoTitle>저의 관심 분야는</S.MyInfoTitle>{" "}
-                  <S.MyInfoContents>
-                    {data?.fetchUserRandom.categories.map(
-                      (el: any, index: any) =>
-                        index !== 0 ? `, ${el.name}` : el.name
-                    )}
-                    입니다
-                  </S.MyInfoContents>
+                  {data?.fetchUserRandom.categories[0] ? (
+                    <S.MyInfoContents>
+                      {data?.fetchUserRandom.categories.map(
+                        (el: any, index: any) =>
+                          index !== 0 ? `, ${el.name}` : el.name
+                      )}
+                      입니다.
+                    </S.MyInfoContents>
+                  ) : (
+                    <S.MyInfoContents>찾고 있습니다.</S.MyInfoContents>
+                  )}
                 </S.UserInfoLabel>
                 <S.UserInfoLabel>
                   <S.MyInfoTitle>현재 참여중인 프로젝트는</S.MyInfoTitle>{" "}
-                  <S.MyInfoContents>
-                    "MeeT 대학교 카풀 서비스 플랫폼 " 입니다
-                  </S.MyInfoContents>
+                  {projectData?.fetchProjectOfUser.title ? (
+                    <S.MyInfoContents>
+                      " {projectData?.fetchProjectOfUser.title} " 입니다.
+                    </S.MyInfoContents>
+                  ) : (
+                    <S.MyInfoContents>없습니다.</S.MyInfoContents>
+                  )}
                 </S.UserInfoLabel>
                 <S.ButtonBox>
                   <S.UserChatButton>1:1 채팅하기</S.UserChatButton>
@@ -82,12 +99,10 @@ export default function UserListPresenter(props: any) {
                   <S.UserListColumn key={el.id}>
                     <S.UserColumnHead>
                       <S.UserImageBox>
-                        {el.userImage[0] ? (
-                          <S.UserImage
-                            src={`https://storage.googleapis.com/${el.userImage.url}`}
-                          />
+                        {el.userImage.url !== "null" ? (
+                          <S.UserImage src={`${el.userImage.url}`} />
                         ) : (
-                          <S.UserImage src="/user.png" />
+                          <S.UserImage src="/profile_img.png" />
                         )}
                       </S.UserImageBox>
                       <S.UserHeadBox>
@@ -112,8 +127,9 @@ export default function UserListPresenter(props: any) {
                     </S.UserColumnInfo>
                     <S.UserColumnInfo>
                       <S.UserLabelTitle>기술스택</S.UserLabelTitle>
+
                       <S.UserLabelBox>
-                        {el.keywords.map((el: any) => (
+                        {el.tags.map((el: any) => (
                           <S.UserLabelContents key={el.id}>
                             #{el.name}
                           </S.UserLabelContents>

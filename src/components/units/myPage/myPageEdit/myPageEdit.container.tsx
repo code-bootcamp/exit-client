@@ -1,57 +1,94 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FETCH_LOGINED_USER } from "../myPage.queries";
 import MyPageEditPresenter from "./myPageEdit.presenter";
-import { UPDATE_USER } from "./myPageEdit.queries";
+import { REMOVE_USER, UPDATE_USER } from "./myPageEdit.queries";
 
-const initialInputs = { nickname: "" };
 export default function MyPageEditContainer() {
   const router = useRouter();
-  const [inputs, setInputs] = useState(initialInputs);
+
   const { data } = useQuery(FETCH_LOGINED_USER);
   const [updateUser] = useMutation(UPDATE_USER);
   const [fileUrl, setFileUrl] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [userUrl, setUserUrl] = useState("");
   const [items, setItems] = useState([]);
+  const [keyword, setKeyword] = useState("");
+  const [keywordBox, setKeywordBox] = useState([]);
+  const [removeUser] = useMutation(REMOVE_USER);
 
   // 이미지파일 업로드
   const onChangeFileUrl = (fileUrl: string) => {
     setFileUrl(fileUrl);
   };
+
   useEffect(() => {
     if (fileUrl) {
       setFileUrl(fileUrl);
     }
   }, [fileUrl]);
   // 인풋값입력
-  const onChangeInputs = (event: any) => {
-    const _inputs = {
-      ...inputs,
-      [event.target.id]: event.target.value,
-    };
-    setInputs(_inputs);
-    console.log(inputs);
+  const onChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+  const onChangeUserUrl = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserUrl(e.target.value);
   };
 
-  const onUpdateButton = async (data: any) => {
-    const currentFiles = JSON.stringify(fileUrl);
-    // const defaultFiles = JSON.stringify(data?.fetchLoginedUser.userImage.url);
-    // const isChangedFile = currentFiles !== defaultFiles;
+  //키워드 엔터입력
+  let keyBox = [];
+  const onPushKeywords = (event: any) => {
+    if (event.key === "Enter") {
+      keyBox.push(...keywordBox, keyword);
+      setKeywordBox(keyBox);
+      event.target.value = "";
+      console.log(keywordBox);
+    }
+  };
+  const onChangeKeyword = (event: any) => {
+    setKeyword(event.target.value);
+  };
+  const onClickDeleteKey = (event: any) => {
+    const deleteKey = keywordBox.filter((el) => el !== event.target.id);
+    //         const filter = items.filter((el) => el !== event.target.value);
+    keyBox.push(...deleteKey);
+    setKeywordBox(keyBox);
+  };
 
-    const updateUserInput: any = {};
-    if (inputs.nickname) updateUserInput.nickname = inputs.nickname;
-    // if (isChangedFile) updateUserInput.image = fileUrl;
+  //내정보수정
+  const onUpdateButton = async () => {
+    //이미지
+    const currentProfile = JSON.stringify(fileUrl);
+    const defaultProfile = JSON.stringify(data.fetchLoginedUser.userImage.url);
+    const isChangedFiles = currentProfile !== defaultProfile;
+    const updateUserInput: any = {
+      userImage: {},
+    };
+    if (nickname) {
+      updateUserInput.nickname = nickname;
+    }
+    if (userUrl) {
+      updateUserInput.userUrl = userUrl;
+    }
+    if (isChangedFiles) {
+      updateUserInput.userImage.url = fileUrl;
+    }
 
-    const result = await updateUser({
-      variables: {
-        updateUserInput,
-      },
+    await updateUser({
+      variables: { updateUserInput },
+      refetchQueries: [
+        {
+          query: FETCH_LOGINED_USER,
+        },
+      ],
     });
+
     router.push(`/myPage`);
   };
 
-  //관심분야
-  const onChangeCategori = (event: any) => {
+  // 관심분야
+  const onClickCategori = (event: any) => {
     if (items.includes(event.target.id)) {
       const filter = items.filter((el) => el !== event.target.id);
       setItems(filter);
@@ -59,6 +96,7 @@ export default function MyPageEditContainer() {
       setItems([...items, event.target.id]);
     }
   };
+
   useEffect(() => {
     if (items.length > 5) {
       const filter = items;
@@ -69,17 +107,26 @@ export default function MyPageEditContainer() {
     }
   }, [items]);
 
-  const onClickCategori = (event: any) => {};
-
+  const onClickRemoveUser = () => {
+    removeUser();
+    router.push("/");
+  };
   return (
     <>
       <MyPageEditPresenter
         data={data}
-        onUpdateButton={onUpdateButton}
-        onChangeInputs={onChangeInputs}
-        onClickCategori={onClickCategori}
-        onChangeCategori={onChangeCategori}
+        fileUrl={fileUrl}
         items={items}
+        keywordBox={keywordBox}
+        onClickRemoveUser={onClickRemoveUser}
+        onChangeNickname={onChangeNickname}
+        onChangeUserUrl={onChangeUserUrl}
+        onChangeFileUrl={onChangeFileUrl}
+        onClickCategori={onClickCategori}
+        onUpdateButton={onUpdateButton}
+        onPushKeywords={onPushKeywords}
+        onChangeKeyword={onChangeKeyword}
+        onClickDeleteKey={onClickDeleteKey}
       />
     </>
   );

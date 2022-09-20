@@ -21,7 +21,12 @@ export const ProjectImageBox = styled.div`
   border-radius: 14px;
   margin-bottom: 4rem;
 `;
-export const ProjectImage = styled.img``;
+export const ProjectImage = styled.img`
+  width: 100%;
+  height: 100%;
+
+  border-radius: 14px;
+`;
 export const ProjectTitleContainer = styled.div`
   border-radius: 14px;
   background: #f8f8f8;
@@ -41,6 +46,7 @@ export const ProjectText = styled.span`
 export const ProjectKeywordBox = styled.div`
   display: flex;
 `;
+export const Key = styled.div``;
 export const ProjectKeyword = styled.div`
   background: #ececec;
   border-radius: 4px;
@@ -101,7 +107,6 @@ export const BoxColorContents = styled.p`
   color: #3ebd5d;
 `;
 export const ProjectInfoSkillBox = styled.div`
-  height: 272px;
   background-color: #f8f8f8;
   padding: 2rem 3rem;
   margin: 4rem 0;
@@ -128,19 +133,26 @@ export const Tag = styled.div`
   align-items: center;
   margin-right: 1.2rem;
 `;
-export const ProjectLeaderContainer = styled.div`
+export const ProjectLeaderContainer = styled.div``;
+export const LeaderWapper = styled.div`
   background: #f8f8f8;
-  border-radius: 14px;
   padding: 3rem;
+  border-radius: 14px;
 `;
 export const LeaderInfoContainer = styled.div`
   margin-bottom: 4rem;
   display: flex;
 `;
-export const LeaderImageBox = styled.div``;
-export const LeaderImage = styled.img`
+export const LeaderImageBox = styled.div`
+  width: 12rem;
+  height: 12rem;
   margin-right: 3rem;
+`;
+export const LeaderImage = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 10rem;
 `;
 export const LeaderInfoBox = styled.div``;
 export const LeaderName = styled.div`
@@ -180,6 +192,16 @@ export const ProjectJoinButton = styled.button`
   font-size: 40px;
   color: #ffffff;
 `;
+export const ProjectJoinCancleButton = styled.button`
+  margin-top: 10rem;
+  width: 100%;
+  height: 100px;
+  background: #f85a44;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 40px;
+  color: #ffffff;
+`;
 // 팀장 신청유저 css
 
 export const UserSignUpList = styled.div``;
@@ -195,11 +217,14 @@ export const SignUpTop = styled.div`
 `;
 export const SignUpImageBox = styled.div`
   width: 12rem;
-  border: 1px solid red;
+  height: 12rem;
   margin-right: 3rem;
 `;
 export const SignUpImage = styled.img`
-  width: 12rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  object-fit: cover;
 `;
 export const SignUpUserNameBox = styled.div`
   display: flex;
@@ -259,4 +284,16 @@ export const UserButtonAccept = styled.button`
   font-weight: 700;
   font-size: 24px;
   color: #ffffff;
+  cursor: pointer;
+`;
+
+export const UserButtonNoAccept = styled.button`
+  width: 493px;
+  height: 70px;
+  background: #f85a44;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
 `;

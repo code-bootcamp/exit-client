@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { style } from "@mui/system";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -35,6 +36,9 @@ export const UserImage = styled.div`
 `;
 export const UserEditImage = styled.img`
   width: 7rem;
+  position: relative;
+  top: -70px;
+  left: 130px;
 `;
 export const User = styled.div`
   width: 20rem;
@@ -70,8 +74,11 @@ export const UserInfo = styled.div`
 `;
 export const KeywordBox = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
+export const Key = styled.div``;
 export const Keyword = styled.div`
+  cursor: pointer;
   width: fit-content;
   background: #ececec;
   border-radius: 100px;
@@ -112,7 +119,7 @@ export const CategoryBox = styled.div`
 `;
 
 export const Category = styled.div``;
-export const SelectInput = styled.input`
+export const SelectInput = styled.div`
   margin-right: 1rem;
 `;
 export const SkillButton = styled.button`

@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-
 import UserListPresenter from "./userList.presenter";
 import { FETCH_USERS } from "./userList.queries";
 

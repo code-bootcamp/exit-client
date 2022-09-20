@@ -43,6 +43,8 @@
     "react-slick": "^0.29.0",
     "recoil": "^0.7.5",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^4.5.2",
+    "socket.io-client": "^4.5.2",
     "styled-components": "^5.3.5",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"

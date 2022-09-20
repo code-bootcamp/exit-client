@@ -1,25 +1,29 @@
+import { getDate } from "../../../../commons/libraries/utils";
 import * as S from "./projectDetail.styles";
 
-export default function ProjectDetailUI() {
+export default function ProjectDetailUI(props: any) {
   return (
     <>
       <S.Wrapper>
         <S.Container>
           <S.TopContainer>
             <S.ProjectImageBox>
-              <S.ProjectImage src="/example/ex1.png" />
+              <S.ProjectImage
+                src={`${props.data?.fetchBoard.boardImage.url}`}
+              />
             </S.ProjectImageBox>
             <S.ProjectTitleContainer>
-              <S.ProjectTitle>MEET 대학교 카풀서비스</S.ProjectTitle>
+              <S.ProjectTitle>{props.data?.fetchBoard.title}</S.ProjectTitle>
               <S.ProjectText>
-                SCS(Smart Charging Solution)는 개인 맞춤형 충전정보 및
-                자동예약/해지 서비스가 적용된 전기차 충전운영 통합 솔루션 플랫폼
-                서비스를 준비중인 예비창업 팀입니다.
+                {props.data?.fetchBoard.description}
               </S.ProjectText>
             </S.ProjectTitleContainer>
             <S.ProjectKeywordBox>
-              <S.ProjectKeyword>#비오는날은 쉬고싶은</S.ProjectKeyword>
-              <S.ProjectKeyword>#ENFP</S.ProjectKeyword>
+              {props.data?.fetchBoard.keywords.map((el: any) => (
+                <S.Key key={el.id}>
+                  <S.ProjectKeyword>{el.name}</S.ProjectKeyword>
+                </S.Key>
+              ))}
             </S.ProjectKeywordBox>
           </S.TopContainer>
           <S.MainContainer>
@@ -27,97 +31,181 @@ export default function ProjectDetailUI() {
             <S.ProjectInfoBox>
               <S.BoxTitle>모집현황</S.BoxTitle>
               <S.BoxContents>
-                3 / 5<S.MemberIcon />
+                {props.data?.fetchBoard.countMember} /{" "}
+                {props.data?.fetchBoard.totalMember}
+                <S.MemberIcon />
               </S.BoxContents>
             </S.ProjectInfoBox>
             <S.ProjectInfoBox>
-              <S.BoxTitle>받은 관심</S.BoxTitle>
+              <S.BoxTitle onClick={props.onClickLike}>받은 관심</S.BoxTitle>
               <S.BoxContents>
-                274
+                {props.data?.fetchBoard.countLike}
                 <S.LikeIcon />
               </S.BoxContents>
             </S.ProjectInfoBox>
-            {/* 팀장일시 신청자 목록 */}
-            <S.UserSignUpList>
-              <S.UserSignUpContainer>
-                <S.SignUpTop>
-                  <S.SignUpImageBox>
-                    <S.SignUpImage src="/user.png" />
-                  </S.SignUpImageBox>
-                  <S.SignUpUserNameBox>
-                    <S.SignUpUserName>우기공주</S.SignUpUserName>
-                    <S.SignUpUserKeyword>
-                      #비오는날에 쉬고싶은
-                    </S.SignUpUserKeyword>
-                  </S.SignUpUserNameBox>
-                </S.SignUpTop>
-                <S.SignUpMain>
-                  <S.SignUpInfoBox>
-                    <S.SignUpInfoTitle>관심분야</S.SignUpInfoTitle>
-                    <S.SignUpInfoTagBox>
-                      <S.Tag>건강 / 스포츠</S.Tag> <S.Tag>동물 / 식물</S.Tag>
-                    </S.SignUpInfoTagBox>
-                  </S.SignUpInfoBox>
-                  <S.SignUpInfoBox>
-                    <S.SignUpInfoTitle>기술스택</S.SignUpInfoTitle>
-                    <S.SignUpInfoTagBox>
-                      <S.Tag>건강 / 스포츠</S.Tag> <S.Tag>동물 / 식물</S.Tag>
-                    </S.SignUpInfoTagBox>
-                  </S.SignUpInfoBox>
-                  <S.SignUpButtonBox>
-                    <S.UserDetailButton>정보 더보기</S.UserDetailButton>
-                    <S.UserButtonAccept>수락</S.UserButtonAccept>
-                  </S.SignUpButtonBox>
-                </S.SignUpMain>
-              </S.UserSignUpContainer>
-            </S.UserSignUpList>
-            {/*  */}
+            {/* 로그인한사람이 팀장일시 신청자 목록 */}
+            {props.data?.fetchBoard.leader === props.userInfo.id ? (
+              <S.UserSignUpList>
+                {props.signUpData?.fetchUserBoards.map((el) => (
+                  <S.UserSignUpContainer key={el.user.id}>
+                    <S.SignUpTop>
+                      <S.SignUpImageBox>
+                        {el.user.userImage?.url !== "null" ? (
+                          <S.SignUpImage src={`${el.user.userImage?.url}`} />
+                        ) : (
+                          <S.SignUpImage src={`/profile_img.png`} />
+                        )}
+                      </S.SignUpImageBox>
+                      <S.SignUpUserNameBox>
+                        <S.SignUpUserName>{el.user.nickname}</S.SignUpUserName>
+                        <S.ProjectKeywordBox>
+                          {el.user.keywords.map((e) => (
+                            <S.Key key={e.id}>
+                              <S.SignUpUserKeyword>
+                                #{e.name}
+                              </S.SignUpUserKeyword>
+                            </S.Key>
+                          ))}
+                        </S.ProjectKeywordBox>
+                      </S.SignUpUserNameBox>
+                    </S.SignUpTop>
+                    <S.SignUpMain>
+                      <S.SignUpInfoBox>
+                        <S.SignUpInfoTitle>관심분야</S.SignUpInfoTitle>
+                        <S.SignUpInfoTagBox>
+                          {el.user.categories.map((e) => (
+                            <S.Key key={e.id}>
+                              <S.Tag>{e.name}</S.Tag>
+                            </S.Key>
+                          ))}
+                        </S.SignUpInfoTagBox>
+                      </S.SignUpInfoBox>
+                      <S.SignUpInfoBox>
+                        <S.SignUpInfoTitle>기술스택</S.SignUpInfoTitle>
+                        <S.SignUpInfoTagBox>
+                          {el.user.tags.map((e) => (
+                            <S.Key key={e.id}>
+                              <S.Tag>{e.name}</S.Tag>{" "}
+                            </S.Key>
+                          ))}
+                        </S.SignUpInfoTagBox>
+                      </S.SignUpInfoBox>
+                      <S.SignUpButtonBox>
+                        <S.UserDetailButton>정보 더보기</S.UserDetailButton>
+                        {el.isAccepted ? (
+                          <S.UserButtonNoAccept
+                            id={el.user.id}
+                            onClick={props.onClickSignUpUserNoAccept}
+                          >
+                            취소
+                          </S.UserButtonNoAccept>
+                        ) : (
+                          <S.UserButtonAccept
+                            id={el.user.id}
+                            onClick={props.onClickSignUpUserAccept}
+                          >
+                            수락
+                          </S.UserButtonAccept>
+                        )}
+                      </S.SignUpButtonBox>
+                    </S.SignUpMain>
+                  </S.UserSignUpContainer>
+                ))}
+              </S.UserSignUpList>
+            ) : (
+              ""
+            )}
             <S.ProjectInfoBox>
               <S.BoxTitle>1인당 보석금</S.BoxTitle>
               <S.BoxContents>
-                200000 <S.MoneyIcon />
+                {props.data?.fetchBoard.bail}
+                <S.MoneyIcon />
               </S.BoxContents>
             </S.ProjectInfoBox>
             <S.ProjectInfoDoubleBox>
               <S.DoubleBox>
                 <S.BoxTitle>모집 분야</S.BoxTitle>
-                <S.BoxColorContents>공유서비스</S.BoxColorContents>
+                <S.BoxColorContents>
+                  {props.data?.fetchBoard.categories[0]?.name}
+                </S.BoxColorContents>
               </S.DoubleBox>
               <S.DoubleBox>
                 <S.BoxTitle>모집 장소</S.BoxTitle>
-                <S.BoxColorContents>서울특별</S.BoxColorContents>
+                <S.BoxColorContents>
+                  {props.data?.fetchBoard.address}
+                </S.BoxColorContents>
               </S.DoubleBox>
             </S.ProjectInfoDoubleBox>
             <S.ProjectInfoSkillBox>
               <S.SkillTitle>모집기술</S.SkillTitle>
               <S.SkillTagBox>
-                <S.Tag>Vue</S.Tag> <S.Tag>Phino</S.Tag>
+                {props.data?.fetchBoard.tags.map((el: any) => (
+                  <S.Key key={el.id}>
+                    <S.Tag>{el.name}</S.Tag>
+                  </S.Key>
+                ))}
               </S.SkillTagBox>
             </S.ProjectInfoSkillBox>
             <S.ProjectInfoBox>
               <S.BoxTitle>모임 빈도</S.BoxTitle>
-              <S.BoxColorContents>주 2회</S.BoxColorContents>
+              <S.BoxColorContents>
+                주 {props.data?.fetchBoard.frequency}회
+              </S.BoxColorContents>
             </S.ProjectInfoBox>
             <S.ProjectInfoBox>
               <S.BoxTitle>진행 기간</S.BoxTitle>
-              <S.BoxColorContents>2022.08.24 ~ 2022.10.22</S.BoxColorContents>
+              <S.BoxColorContents>
+                {getDate(props.data?.fetchBoard.startAt)} ~{" "}
+                {getDate(props.data?.fetchBoard.endAt)}
+              </S.BoxColorContents>
             </S.ProjectInfoBox>
-            <S.ProjectLeaderContainer>
-              <S.LeaderInfoContainer>
-                <S.LeaderImageBox>
-                  <S.LeaderImage src="/user.png" />
-                </S.LeaderImageBox>
-                <S.LeaderInfoBox>
-                  <S.LeaderName>우기공주</S.LeaderName>
-                  <S.LeaderKeywordBox>
-                    <S.LeaderKeyword>#비오는날엔 쉬고싶은</S.LeaderKeyword>
-                    <S.LeaderKeyword>#ENFP</S.LeaderKeyword>
-                  </S.LeaderKeywordBox>
-                </S.LeaderInfoBox>
-              </S.LeaderInfoContainer>
-              <S.LeaderChatButton>팀장에게 채팅하기</S.LeaderChatButton>
-            </S.ProjectLeaderContainer>
-            <S.ProjectJoinButton>프로젝트 참여 신청하기</S.ProjectJoinButton>
+            {/* 팀장정보, 팀장일시 안보이게 */}
+            {props.data?.fetchBoard.leader === props.userInfo.id ? (
+              <S.ProjectJoinButton>프로젝트 시작하기</S.ProjectJoinButton>
+            ) : (
+              <S.ProjectLeaderContainer>
+                <S.LeaderWapper>
+                  <S.LeaderInfoContainer>
+                    <S.LeaderImageBox>
+                      {props.leaderData?.fetchUserWithUserId.userImage.url !==
+                      "null" ? (
+                        <S.LeaderImage
+                          src={`${props.leaderData?.fetchUserWithUserId.userImage.url}`}
+                        />
+                      ) : (
+                        <S.LeaderImage src="/profile_img.png" />
+                      )}
+                    </S.LeaderImageBox>
+                    <S.LeaderInfoBox>
+                      <S.LeaderName>
+                        {props.leaderData?.fetchUserWithUserId.nickname}
+                      </S.LeaderName>
+                      <S.LeaderKeywordBox>
+                        {props.leaderData?.fetchUserWithUserId.keywords.map(
+                          (el: any) => (
+                            <S.Key key={el.id}>
+                              <S.LeaderKeyword>#{el.name}</S.LeaderKeyword>
+                            </S.Key>
+                          )
+                        )}
+                      </S.LeaderKeywordBox>
+                    </S.LeaderInfoBox>
+                  </S.LeaderInfoContainer>
+                  <S.LeaderChatButton>팀장에게 채팅하기</S.LeaderChatButton>
+                </S.LeaderWapper>
+                {props.joined.flat().includes(props.userInfo.id) ? (
+                  <S.ProjectJoinCancleButton
+                    onClick={props.onClickSignUpProject}
+                  >
+                    프로젝트 참여 취소하기
+                  </S.ProjectJoinCancleButton>
+                ) : (
+                  <S.ProjectJoinButton onClick={props.onClickSignUpProject}>
+                    프로젝트 참여 신청하기
+                  </S.ProjectJoinButton>
+                )}
+              </S.ProjectLeaderContainer>
+            )}
           </S.MainContainer>
         </S.Container>
       </S.Wrapper>

@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import {
   FieldValues,
   FormState,
@@ -19,20 +18,28 @@ export interface IJoinProps {
 }
 
 export interface IJoinUIProps {
+  time: { min: string; sec: string };
   email: string;
   token: string;
-  time: { min: string; sec: string };
+  password: string;
+  password2: string;
   joinStep: number;
   isStarted: boolean;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
+  formState: FormState<FieldValues>;
+  isEmailDuplicated: boolean | null;
   onClickSendEmailToken: () => void;
   onClickJoin: (data: any) => Promise<void>;
   onClickClose: () => void;
   onClickCheckToken: () => void;
-  formState: FormState<FieldValues>;
   serverEmailErrorMessage: string;
   serverTokenErrorMessage: string;
 }
 
-export interface IJoinUIUserInfoItemProps {}
+export interface IJoinUIUserInfoItemProps {
+  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  onClickJoin: (data: any) => Promise<void>;
+  register: UseFormRegister<FieldValues>;
+  formState: FormState<FieldValues>;
+}

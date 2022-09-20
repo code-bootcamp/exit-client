@@ -34,10 +34,10 @@ export default function ExitingList() {
   // 모달 여닫은 후
   useEffect(() => {
     // 세션스토리지에서 검색어 찾아오기
-    const searchWords = JSON.parse(
+    const searchWords: any = JSON.parse(
       sessionStorage.getItem("searchWords") || "[]"
     );
-    setSearchWords([...searchWords]);
+    setSearchWords(searchWords);
     // 검색어가 없다면
     if (searchWords === []) {
       setFilteredBoards([]);
@@ -93,12 +93,13 @@ export default function ExitingList() {
           })
         );
 
-        const filteredBoards = tempFilteredBoards.map(
+        const filteredBoards: any = tempFilteredBoards.map(
           (el) => el.data.fetchBoard
         );
 
         if (filteredBoards) {
           setFilteredBoards(filteredBoards);
+          console.log(filteredBoards);
         } else {
           setFilteredBoards([]);
         }
@@ -114,8 +115,10 @@ export default function ExitingList() {
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS, {
-    variables: { isSuccess: false, status: false },
+    variables: { isSuccess: false, status: false }, // 성공여부 false, 모집마감 false
   });
+
+  console.log(data);
 
   const { data: likedData } = useQuery<
     Pick<IQuery, "fetchLikes">,
@@ -168,15 +171,15 @@ export default function ExitingList() {
   return (
     <ExitingListUI
       data={data}
-      filteredBoards={filteredBoards}
       likedData={likedData}
+      searchWords={searchWords}
+      filteredBoards={filteredBoards}
       filterData={filterData}
       onFetchMore={onFetchMore}
+      isModalVisible={isModalVisible}
       onClickProject={onClickProject}
       onClickFilterButton={onClickFilterButton}
-      isModalVisible={isModalVisible}
       setIsModalVisible={setIsModalVisible}
-      searchWords={searchWords}
     />
   );
 }

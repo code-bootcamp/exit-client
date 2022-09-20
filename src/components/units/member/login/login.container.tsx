@@ -8,7 +8,11 @@ import {
 } from "../../../../commons/types/generated/types";
 import { FETCH_LOGINED_USER, LOGIN } from "./login.queries";
 import { useRecoilState } from "recoil";
-import { accessTokenState, userInfoState } from "../../../commons/store";
+import {
+  accessTokenState,
+  isModalVisibleState,
+  userInfoState,
+} from "../../../commons/store";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -25,9 +29,11 @@ const schema = yup.object({
 });
 
 export default function Login(props: any) {
-  const [isScrollBlocked, setIsScrollBlocked] = useState(true);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(isModalVisibleState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const [isScrollBlocked, setIsScrollBlocked] = useState(true);
   const [serverEmailErrorMessage, setServerEmailErrorMessage] = useState("");
   const [serverPasswordErrorMessage, setServerPasswordErrorMessage] =
     useState("");
@@ -95,7 +101,8 @@ export default function Login(props: any) {
       setUserInfo(userInfo);
       router.push("/");
       setIsScrollBlocked(false);
-      props.setIsModalVisible?.(false);
+      // props.setIsModalVisible?.(false);
+      setIsModalVisible(false);
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes("이메일")) {
@@ -112,13 +119,14 @@ export default function Login(props: any) {
   };
 
   const onClickJoin = () => {
-    console.log("check");
+    // console.log("check");
     setIsClickedJoin(true);
   };
 
   const onClickClose = () => {
     console.log("모달 닫기: 여기는 login 컨테이너");
-    props.setIsModalVisible?.(false);
+    // props.setIsModalVisible?.(false);
+    setIsModalVisible(false);
     setIsScrollBlocked(false);
   };
 
@@ -132,11 +140,11 @@ export default function Login(props: any) {
       onClickLogin={onClickLogin}
       onClickJoin={onClickJoin}
       onClickClose={onClickClose}
+      onClickFindPassword={onClickFindPassword}
       serverEmailErrorMessage={serverEmailErrorMessage}
       serverPasswordErrorMessage={serverPasswordErrorMessage}
       isClickedFindPassword={isClickedFindPassword}
       isClickedJoin={isClickedJoin}
-      onClickFindPassword={onClickFindPassword}
     />
   );
 }

@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled from "@emotion/styled";
 
 interface IText01Props {
-  contents: string;
+  contents: string | undefined;
 }
 
 const Text01UI = styled.h2`

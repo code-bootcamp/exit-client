@@ -35,10 +35,11 @@ export default function ExitedList() {
   // 모달 여닫은 후
   useEffect(() => {
     // 세션스토리지에서 검색어 찾아오기
-    const searchWords = JSON.parse(
+    const searchWords: any = JSON.parse(
       sessionStorage.getItem("searchWords") || "[]"
     );
-    setSearchWords([...searchWords]);
+    // setSearchWords([...searchWords]);
+    setSearchWords(searchWords);
     // 검색어가 없다면
     if (searchWords === []) {
       setFilteredBoards([]);
@@ -72,7 +73,7 @@ export default function ExitedList() {
           })
         );
         const filteredBoardIDs = result
-          .map((el) => el.data.fetchBoards.map((el: any) => el.id))
+          .map((el: any) => el.data.fetchBoards.map((el: any) => el.id))
           .filter((el) => el.length > 0)
           .reduce((prev, cur) => {
             return [...prev, ...cur];
@@ -92,7 +93,7 @@ export default function ExitedList() {
           })
         );
 
-        const filteredBoards = tempFilteredBoards.map(
+        const filteredBoards: any = tempFilteredBoards.map(
           (el) => el.data.fetchBoard
         );
 
@@ -113,7 +114,7 @@ export default function ExitedList() {
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS, {
-    variables: { isSuccess: true },
+    variables: { isSuccess: true }, // 성공여부: true
   });
 
   const { data: likedData } = useQuery<

@@ -1,11 +1,13 @@
 import { useRecoilState } from "recoil";
 import Login from "../../../units/member/login/login.container";
-import { userInfoState } from "../../store";
+import { isModalVisibleState, userInfoState } from "../../store";
 import * as S from "./topMenu.styles";
 import { ITopMenuUIProps } from "./topMenu.types";
 
 export default function TopMenuUI(props: ITopMenuUIProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(isModalVisibleState);
 
   return (
     <>
@@ -21,12 +23,11 @@ export default function TopMenuUI(props: ITopMenuUIProps) {
           로그아웃
         </button>
       )} */}
-
         <button onClick={props.onClickLogin}>로그인</button>
-        {props.isModalVisible && (
+        {/* {props.isModalVisible && (
           <Login setIsModalVisible={props.setIsModalVisible} />
-        )}
-
+        )} */}
+        {isModalVisible && <Login />}
         {/* <S.UserImageWrapper>
         <img src="/user_image.png" />
       </S.UserImageWrapper> */}

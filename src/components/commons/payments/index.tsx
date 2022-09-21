@@ -37,7 +37,7 @@ export default function Payment(props: any) {
         buyer_tel: "010-2745-5704",
         buyer_addr: "서울특별시 구로구 구로동",
         buyer_postcode: "01181",
-        m_redirect_url: `http://localhost:3000/myPage/${userInfo.id}`, // 변경해야됨
+        m_redirect_url: `http://localhost:3000/`, // 변경해야됨
       },
       async (rsp: any) => {
         // callback

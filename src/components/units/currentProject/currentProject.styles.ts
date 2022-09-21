@@ -333,7 +333,7 @@ export const CheckGpsButton = styled.button`
 
 export const ChatRoomWrapper = styled.div`
   width: 100%;
-  background-color: #666;
+  /* background-color: #666; */
   border-radius: 14px;
   height: calc(100% - 230px);
 `;

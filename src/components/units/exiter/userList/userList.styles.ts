@@ -225,7 +225,9 @@ export const UserLabelTitle = styled.p`
   letter-spacing: -0.02em;
   margin-bottom: 0.8rem;
 `;
-export const Key = styled.div``;
+export const Key = styled.div`
+  display: flex;
+`;
 export const UserLabelContents = styled.div`
   margin-bottom: 2rem;
   margin-right: 0.5rem;

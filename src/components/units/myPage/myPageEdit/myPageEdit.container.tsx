@@ -17,8 +17,8 @@ export default function MyPageEditContainer() {
   const [keyword, setKeyword] = useState("");
   const [keywordBox, setKeywordBox] = useState([]);
   const [removeUser] = useMutation(REMOVE_USER);
-
   // 이미지파일 업로드
+
   const onChangeFileUrl = (fileUrl: string) => {
     setFileUrl(fileUrl);
   };
@@ -43,7 +43,7 @@ export default function MyPageEditContainer() {
       keyBox.push(...keywordBox, keyword);
       setKeywordBox(keyBox);
       event.target.value = "";
-      console.log(keywordBox);
+      console.log(keywordBox.map((el) => el));
     }
   };
   const onChangeKeyword = (event: any) => {
@@ -64,6 +64,8 @@ export default function MyPageEditContainer() {
     const isChangedFiles = currentProfile !== defaultProfile;
     const updateUserInput: any = {
       userImage: {},
+      keywords: [],
+      categories: [],
     };
     if (nickname) {
       updateUserInput.nickname = nickname;
@@ -73,6 +75,12 @@ export default function MyPageEditContainer() {
     }
     if (isChangedFiles) {
       updateUserInput.userImage.url = fileUrl;
+    }
+    if (keywordBox) {
+      updateUserInput.keywords = keywordBox;
+    }
+    if (items) {
+      updateUserInput.categories = items;
     }
 
     await updateUser({

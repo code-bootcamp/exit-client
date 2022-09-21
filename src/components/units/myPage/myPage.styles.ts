@@ -75,7 +75,7 @@ export const Amount = styled.div`
 `;
 export const Color = styled.p`
   margin-left: 1rem;
-  margin-right: 10rem;
+  /* margin-right: 10rem; */
   color: #3ebd5d;
 `;
 
@@ -85,6 +85,7 @@ export const PointToggleButton = styled.img`
 `;
 export const PointContentsRow = styled.div`
   display: flex;
+  /* border: 1px solid red; */
   padding: 0 4rem;
   justify-content: space-between;
   align-items: center;
@@ -109,14 +110,15 @@ export const ContentsSubTitle = styled.span`
 export const PointHistoryBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 14.5rem;
+  /* margin-right: 14.5rem; */
 `;
 export const PointHistory = styled.p`
   font-weight: 700;
   font-size: 30px;
   margin-bottom: 1rem;
-  text-align: right;
   color: #3770f6;
+  display: flex;
+  justify-content: flex-end;
 `;
 export const PointHistoryDate = styled.span`
   font-weight: 400;
@@ -162,12 +164,15 @@ export const ProjectTitle = styled.div`
   font-size: 40px;
   margin-bottom: 3rem;
 `;
-export const Key = styled.div``;
+export const Key = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+`;
 export const ProjectRow = styled.div`
   margin-bottom: 10rem;
   border-radius: 14px;
   display: flex;
-  flex-wrap: wrap;
 `;
 export const ProjectNoRow = styled.div`
   height: 376px;

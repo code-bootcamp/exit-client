@@ -5,17 +5,17 @@ import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { io, Socket } from "socket.io-client";
 import { userInfoState } from "../../store";
-import ChatFormUI from "./chat.presenter";
-import { FETCH_LOGS } from "./chat.queries";
+import ChatFormUI from "./chat02.presenter";
+import { FETCH_LOGS } from "./chat02.queries";
 
 const url = "https://teamserver05.shop/chat";
 
-export default function ChatContainer(props: any) {
+export default function ChatContainerOne(props: any) {
   const socket: Socket = io(url, { transports: ["websocket"] });
   const [userInfo] = useRecoilState(userInfoState);
 
   const router = useRouter();
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState("0404");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const [msgData, setMsgData] = useState<string[]>([]);
@@ -41,7 +41,7 @@ export default function ChatContainer(props: any) {
   }, [room]);
 
   useEffect(() => {
-    setRoom(props.roomCode);
+    setRoom("0404");
     return messagesEndRef?.current?.scrollIntoView({
       behavior: "smooth",
       block: "nearest",

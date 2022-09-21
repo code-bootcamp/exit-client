@@ -6,6 +6,7 @@ import MyPagePresenter from "./myPage.presenter";
 import {
   FETCH_LIKES,
   FETCH_LOGINED_USER,
+  FETCH_PAYMENTS,
   FETCH_POINT_HISTORIES,
   FETCH_PROJECTS_OF_USER,
   FETCH_PROJECT_OF_USER,
@@ -29,6 +30,7 @@ export default function MyPageContainer() {
       userId: String(data?.fetchLoginedUser.id),
     },
   });
+  const { data: paymentData } = useQuery(FETCH_PAYMENTS);
 
   const onClickMoveMypageEdit = () => {
     router.push(`/myPage/edit`);
@@ -59,6 +61,7 @@ export default function MyPageContainer() {
         myProjectData={myProjectData}
         endProjectData={endProjectData}
         likeProjectData={likeProjectData}
+        paymentData={paymentData}
         onClickVisible={onClickVisible}
         onClickMoveMypageEdit={onClickMoveMypageEdit}
         onClickMoveToMyProject={onClickMoveToMyProject}

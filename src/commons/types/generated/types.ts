@@ -86,7 +86,10 @@ export type IComment = {
   __typename?: 'Comment';
   board: IBoard;
   comment: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  deletedAt: Scalars['DateTime'];
   id: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
   user: IUser;
 };
 
@@ -724,8 +727,11 @@ export type IQueryGetLocationLeaderArgs = {
 export type ISubComment = {
   __typename?: 'SubComment';
   comment: IComment;
+  createdAt: Scalars['DateTime'];
+  deletedAt: Scalars['DateTime'];
   id: Scalars['String'];
   subComment: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
   user: IUser;
 };
 

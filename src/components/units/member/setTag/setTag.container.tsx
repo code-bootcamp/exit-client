@@ -15,7 +15,6 @@ export default function SetTag() {
     useRecoilState(isModalVisibleState);
   const [selectedTags, setSelectedTags] = useState([]);
   const { data } = useQuery(FETCH_TAGS);
-  // console.log(data);
 
   const [updateUser] = useMutation<
     Pick<IMutation, "updateUser">,
@@ -45,6 +44,7 @@ export default function SetTag() {
           },
         },
       });
+      Modal.success({ content: "exiter가 되신 것을 환영합니다!" });
       setIsModalVisible(false);
     } catch (error) {
       if (error instanceof Error) {

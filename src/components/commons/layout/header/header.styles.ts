@@ -24,4 +24,6 @@ export const InnerWrapper = styled.div`
   }
 `;
 
-export const Logo = styled.h1``;
+export const Logo = styled.h1`
+  cursor: pointer;
+`;

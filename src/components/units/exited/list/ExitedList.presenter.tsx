@@ -149,10 +149,7 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                         <S.InfoLeftWrapper>
                           <S.CountWrapper>
                             <S.IconWrapper>
-                              <img
-                                src="/icons/icon_member_count.png"
-                                alt="멤버수"
-                              />
+                              <img src="/icons/icon_member.png" alt="멤버수" />
                             </S.IconWrapper>
                             <S.Count>
                               {el.countMember}/{el.totalMember}

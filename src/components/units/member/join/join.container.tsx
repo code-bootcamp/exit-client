@@ -211,7 +211,7 @@ export default function Join(props: IJoinProps) {
           createUserInput,
         },
       });
-      // Modal.success({ content: "가입되었습니다." });
+      // Modal.success({ content: "가입이 완료되었습니다." });
 
       const result = await login({
         variables: {

@@ -1,13 +1,20 @@
 import axios from "axios";
 
-export const alterAddress = (x,y) => {
-  const result = axios.get("dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${x}&y=${y}`,
-  { headers: { Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}` } }
-).then((result) => {
-//법정동 기준으로 동단위의 값을 가져온다
-  let location = result.documents[0].region_3depth_name;
-
-})
-
-
+export const getAddress = async (lat: any, lng: any) => {
+  try {
+    const result = await axios
+      .get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=37.566826,126.9786567&key=AIzaSyCOr5GLVd5UuMVfEruBcjE2i3WYUU3Tt_s`
+      )
+      .then((res) => {
+        // console.log(res);
+        const result = res.data.results[5].formatted_address.slice(5);
+        console.log(result);
+        return result;
+      });
+    console.log(result);
+    return result;
+  } catch (error) {
+    // console.log(error.message);
+  }
 };

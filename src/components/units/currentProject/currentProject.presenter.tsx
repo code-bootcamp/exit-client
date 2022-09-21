@@ -10,9 +10,7 @@ import ko from "date-fns/locale/ko";
 import Map from "../../commons/map";
 import moment from "moment";
 import "moment/locale/ko";
-import { globalStyles } from "../../../commons/styles/globalStyles";
-import { LocationCityRounded } from "@material-ui/icons";
-import getAddress from "../../../commons/libraries/getAddress";
+import { getAddress } from "../../../commons/libraries/getAddress";
 
 interface DatePickerProps {
   label?: string;
@@ -33,7 +31,7 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
     // autoplaySpeed: 2000,
     // slidesToScroll: 2,
   };
-
+  console.log(props.attendanceData);
   return (
     <S.Background>
       <S.Wrapper>
@@ -107,12 +105,12 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
               <PieChart
                 data={[
                   {
-                    value: Number(props.attendancePercent),
+                    value: Number(props.attendancePercent) / 10,
                     color: "#3EBD5D",
                     name: "progress",
                   },
                 ]}
-                reveal={Number(props.attendancePercent)}
+                reveal={Number(props.attendancePercent) / 10}
                 lineWidth={24}
                 background="#F8F8F8"
                 startAngle={268}
@@ -121,7 +119,7 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                 animate
                 label={({ dataEntry }) => dataEntry.value + "%"}
                 labelStyle={{
-                  fontSize: "26px;",
+                  fontSize: "26px",
                   fontWeight: "900",
                   fill: "#3EBD5D",
                 }}
@@ -147,7 +145,6 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
             <S.CalendarWrapper>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <CalendarPicker
-                  // label="날짜를 선택해주세요"
                   locale={ko}
                   value={props.attendancePercent}
                   // minDate={props.minDay}
@@ -156,30 +153,23 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                   mask={"____-__-__"}
                   onChange={props.onChangeDate}
                   renderInput={(params: any) => <TextField {...params} />}
-                  sx={globalStyles}
                 />
               </LocalizationProvider>
             </S.CalendarWrapper>
             <S.PresentMemberList>
-              {props?.selectedDayAttendence?.map((el: any) => (
+              {props.attendanceData?.fetchAttendance?.map((el) => (
                 <S.PresentMember>
                   <S.PresentMemberLeftWrapper>
                     <S.PresentMemberName>{el.nickname}</S.PresentMemberName>
-                    <S.PresentAddress>{`${
-                      (el.latitude, el.longitude)
-                    }`}</S.PresentAddress>
+                    {/* <S.PresentAddress>{el.latitude, el.longitude}</S.PresentAddress> */}
                   </S.PresentMemberLeftWrapper>
                   <S.PresentMemberRightWrapper>
                     <S.AttendedAt>
-                      {moment(el.attendedAt).format("A HH:mm")}
+                      {moment(el.attendedAt).format("HH:mm")}
                     </S.AttendedAt>
                   </S.PresentMemberRightWrapper>
                 </S.PresentMember>
               ))}
-
-              {/* {props.data?.fetchUserBoards?.map(el => (
-               
-              ))} */}
             </S.PresentMemberList>
           </S.AttendanceDataWrapper>
         </S.Column>
@@ -192,7 +182,9 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
               )}
               {props.userInfo.nickname && "님"}
             </S.WelcomeMessage>
-            <S.CheckGpsButton>출석체크 하기</S.CheckGpsButton>
+            <S.CheckGpsButton onClick={props.onClickAttend}>
+              출석체크 하기
+            </S.CheckGpsButton>
           </S.WelcomeMessageWrapper>
           <S.ChatRoomWrapper></S.ChatRoomWrapper>
         </S.Column>

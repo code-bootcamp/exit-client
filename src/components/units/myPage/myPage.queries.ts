@@ -79,3 +79,12 @@ export const FETCH_PROJECTS_OF_USER = gql`
     }
   }
 `;
+
+export const FETCH_PAYMENTS = gql`
+  query fetchPayments {
+    fetchPayments {
+      id
+      amount
+    }
+  }
+`;

@@ -36,11 +36,17 @@ export default function UserListPresenter(props: any) {
                     </S.HeadUserNickname>
                   </S.InfoTitle>
                   <S.InfoKeywordContainer>
-                    {data?.fetchUserRandom.keywords.map((el: any) => (
-                      <S.InfoKeywordBox key={el.id}>
-                        <S.InfoKeyword>#{el.name} </S.InfoKeyword>
-                      </S.InfoKeywordBox>
-                    ))}
+                    {data?.fetchUserRandom.keywords.map(
+                      (el: any, index: any) => (
+                        <S.InfoKeywordBox key={el.id}>
+                          {index < 3 ? (
+                            <S.InfoKeyword>#{el.name} </S.InfoKeyword>
+                          ) : (
+                            ""
+                          )}
+                        </S.InfoKeywordBox>
+                      )
+                    )}
                   </S.InfoKeywordContainer>
                 </S.RandomUserHead>
                 <S.UserInfoLabel>
@@ -108,11 +114,17 @@ export default function UserListPresenter(props: any) {
                       <S.UserHeadBox>
                         <S.UserNickname>{el.nickname}</S.UserNickname>
 
-                        <S.UserKeywords>
-                          {el.keywords.map((el: any) => (
-                            <S.Keyword key={el.id}>#{el.name}</S.Keyword>
+                        <S.Key>
+                          {el.keywords.map((el: any, index: any) => (
+                            <S.UserKeywords>
+                              {index < 3 ? (
+                                <S.Keyword key={el.id}>#{el.name}</S.Keyword>
+                              ) : (
+                                ""
+                              )}
+                            </S.UserKeywords>
                           ))}
-                        </S.UserKeywords>
+                        </S.Key>
                       </S.UserHeadBox>
                     </S.UserColumnHead>
                     <S.UserColumnInfo>

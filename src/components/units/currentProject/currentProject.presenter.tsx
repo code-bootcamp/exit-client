@@ -11,6 +11,7 @@ import Map from "../../commons/map";
 import moment from "moment";
 import "moment/locale/ko";
 import { getAddress } from "../../../commons/libraries/getAddress";
+import ChatContainer from "../../commons/chat/01/chat.container";
 
 interface DatePickerProps {
   label?: string;
@@ -186,7 +187,10 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
               출석체크 하기
             </S.CheckGpsButton>
           </S.WelcomeMessageWrapper>
-          <S.ChatRoomWrapper></S.ChatRoomWrapper>
+          <S.ChatRoomWrapper>
+            {" "}
+            <ChatContainer roomCode={props.board?.fetchBoard.id} />{" "}
+          </S.ChatRoomWrapper>
         </S.Column>
       </S.Wrapper>
     </S.Background>

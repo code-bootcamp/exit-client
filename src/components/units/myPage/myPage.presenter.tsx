@@ -42,21 +42,22 @@ export default function MyPagePresenter(props: any) {
                 <S.Amount>
                   {props.data?.fetchLoginedUser.point} <S.Color>P</S.Color>{" "}
                 </S.Amount>
-                <S.PointToggleButton src="/icons/icon_arrow_green.png" />
+                {/* <S.PointToggleButton src="/icons/icon_arrow_green.png" /> */}
               </S.PointRight>
             </S.PointHeadRow>
-            <S.PointContentsRow>
-              <S.PointContentsBox>
-                <S.ContentsTilte>프로젝트 성공 환급금 지급</S.ContentsTilte>
-                <S.ContentsSubTitle>적립</S.ContentsSubTitle>
-              </S.PointContentsBox>
-              <S.PointHistoryBox>
-                <S.PointHistory>+ 200000 P</S.PointHistory>
-                <S.PointHistoryDate> 2022.09.12</S.PointHistoryDate>
-              </S.PointHistoryBox>
-            </S.PointContentsRow>
+            {props.paymentData?.fetchPayments.map((el) => (
+              <S.PointContentsRow key={el.id}>
+                <S.PointContentsBox>
+                  <S.ContentsSubTitle>충전</S.ContentsSubTitle>
+                </S.PointContentsBox>
+                <S.PointHistoryBox>
+                  <S.PointHistory>+ {el.amount} P</S.PointHistory>
+                  <S.PointHistoryDate> 2022.09.12</S.PointHistoryDate>
+                </S.PointHistoryBox>
+              </S.PointContentsRow>
+            ))}
             <S.PointButtonContainer>
-              <S.RefundButton>환급하기</S.RefundButton>
+              {/* <S.RefundButton>환급하기</S.RefundButton> */}
               <S.ChargingButton onClick={props.onClickVisible}>
                 충전하기
               </S.ChargingButton>

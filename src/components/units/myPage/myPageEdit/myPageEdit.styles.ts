@@ -119,7 +119,7 @@ export const CategoryBox = styled.div`
 `;
 
 export const Category = styled.div``;
-export const SelectInput = styled.div`
+export const SelectInput = styled.input`
   margin-right: 1rem;
 `;
 export const SkillButton = styled.button`

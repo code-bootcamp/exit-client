@@ -97,10 +97,13 @@ export default function MyPageEditPresenter(props: any) {
                 {FAVORITE_CATEGORIES.map((el: any) => (
                   <S.Category key={uuidv4()}>
                     <S.CategoryBox>
-                      <S.SelectInput id={el} onClick={props.onClickCategori}>
-                        {el}
-                        {props.items ? "ㅁ" : ""}
-                      </S.SelectInput>
+                      <S.SelectInput
+                        type="checkbox"
+                        id={el}
+                        checked={props.items.includes(el) ? true : false}
+                        onClick={props.onClickCategori}
+                      />
+                      {el}
                     </S.CategoryBox>
                   </S.Category>
                 ))}

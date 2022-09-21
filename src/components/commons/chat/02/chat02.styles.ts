@@ -1,11 +1,9 @@
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.form`
-  height: 100%;
-`;
+export const Wrapper = styled.form``;
 export const Container = styled.div`
   width: 376px;
-  height: 100%;
+  height: 650px;
   /* border: 1px solid red; */
   border-radius: 14px;
 `;
@@ -27,9 +25,7 @@ export const ProjectName = styled.div`
 `;
 export const Main = styled.div`
   width: 100%;
-  height: 575px;
-  border-bottom-left-radius: 14px;
-  border-bottom-right-radius: 14px;
+  height: 65rem;
   padding: 2rem;
   display: flex;
   flex-direction: column;

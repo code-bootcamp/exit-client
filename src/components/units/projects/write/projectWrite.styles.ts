@@ -232,7 +232,7 @@ export const CalendarButtonBox = styled.div`
   align-items: center;
   cursor: pointer;
 `;
-export const RecruitmentLabel = styled.div``;
+
 export const RecruitmentPeriodWrapper = styled.div``;
 // export const RecruitmentModal = styled(Modal)``
 // export const RecruitmentPeriod = styled(Calendar)`
@@ -256,4 +256,14 @@ export const Icon2 = styled.img`
   width: 6rem;
   height: 6rem;
   z-index: 1;
+`;
+
+export const RecruitmentBox = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+export const ProjectPeriodBox = styled.div`
+  display: flex;
+  justify-content: end;
 `;

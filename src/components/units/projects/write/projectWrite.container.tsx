@@ -8,13 +8,15 @@ import {
   UPLOAD_BOARD_IMAGE,
 } from "./projectWrite.queries";
 import { useForm } from "react-hook-form";
-import moment from "moment";
 import { useRecoilState } from "recoil";
 import { isEditState } from "../../../commons/store";
+import { DatePickerProps } from "antd";
+import _ from "lodash";
+import moment from "moment";
 
 export default function ProjectWrite(props: any) {
   useEffect(() => {
-    console.log(props.fetchCar);
+    console.log(props.data);
     if (props.data !== undefined) {
       setIsEdit(true);
       if (props.data?.fetchBoard.boardImage.url) {
@@ -37,6 +39,14 @@ export default function ProjectWrite(props: any) {
         setCategories(props.data?.fetchBoard.categories.name);
       }
 
+      if (props.data?.fetchBoard.startAt) {
+        setProjectPeriod(moment(props.data?.fetchBoard.startAt));
+      }
+
+      if (props.data?.fetchBoard.closedAt) {
+        setRecruitment(moment(props.data?.fetchBoard.closedAt));
+      }
+
       reset({
         title: props.data.fetchBoard.title,
         description: props.data.fetchBoard.description,
@@ -51,9 +61,9 @@ export default function ProjectWrite(props: any) {
 
         categories: [...categories],
 
-        // startAt: props.data.startAt || "2022-09-16", // 달력
+        startAt: projectPeriod,
         // endAt: props.data.endAt || "2022-09-16", // 달력
-        // closedAt: "2022-09-16", // 달력
+        closedAt: recruitment,
       });
     }
   }, [props.data]);
@@ -64,16 +74,14 @@ export default function ProjectWrite(props: any) {
 
   const [keywords, setKeywords] = useState([]);
   const [tags, setTags] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState("");
   const [address, setAddress] = useState("");
   const [file, setFile] = useState();
   const [imageUrl, setImageUrl] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
-  // const [projectPeriod, setProjectPeriod] = useState(new Date())
-  // const [recruitment, setRecruitment] = useState(new Date())
 
-  const [projectPeriod, setProjectPeriod] = useState([]);
-  const [recruitment, setRecruitment] = useState([]);
+  const [projectPeriod, setProjectPeriod] = useState("");
+  const [recruitment, setRecruitment] = useState("");
 
   const [frequency, setFrequency] = useState(1);
   const [totalMember, setTotalMember] = useState(1); // slider value
@@ -126,25 +134,31 @@ export default function ProjectWrite(props: any) {
     };
   }
 
-  const onChangeRecruitment = () => {
-    // console.log(recruitment)
-    const newRecruitment = moment(recruitment).format("YYYY-MM-DD");
-    setRecruitment(newRecruitment);
+  const onChangeRecruitment: DatePickerProps["onChange"] = (
+    date,
+    dateString
+  ) => {
+    console.log(dateString);
+    setRecruitment(dateString);
   };
 
-  // 입력 후 모달 꺼짐
-  const onCompleteRecruitmentPeriod = (data: any) => {
-    setRecruitment(data.recruitment);
-    setIsOpen(false);
-    // console.log("모달 꺼짐")
+  const onChangeProjectPeriod: DatePickerProps["onChange"] = (
+    date,
+    dateString
+  ) => {
+    console.log(dateString);
+    setProjectPeriod(dateString);
   };
+
+  // const updateDate = (recruitment, dateString) => {
+  //   setRecruitment();
+  // };
 
   const onClickSubmit = async (data: any) => {
     setIsEdit(false);
     console.log(data);
     let myImageUrl = "";
     // console.log(file)
-
     if (file) {
       const result1 = await uploadBoardImage({
         variables: {
@@ -155,7 +169,6 @@ export default function ProjectWrite(props: any) {
       myImageUrl = result1.data?.uploadBoardImage || "";
       // console.log(myImageUrl)
     }
-
     await createBoard({
       variables: {
         createBoardInput: {
@@ -165,14 +178,14 @@ export default function ProjectWrite(props: any) {
           bail: Number(data.bail),
           address: address,
           frequency: Number(frequency),
-          startAt: data.startAt || "2022-09-16",
-          endAt: data.endAt || "2022-09-16",
-          closedAt: "2022-09-16",
+          startAt: projectPeriod[0],
+          endAt: projectPeriod[1],
+          closedAt: recruitment,
           boardImage: { url: myImageUrl },
           // tags: [...tags] || ["Java", "Mysql"], // 구현 중 하드코딩
           tags: ["Java", "Mysql"], // 구현 중 하드코딩
           keywords: [...keywords],
-          categories: [...categories],
+          categories: [categories],
         },
       },
     });
@@ -211,7 +224,7 @@ export default function ProjectWrite(props: any) {
           // // tags: [...tags] || ["Java", "Mysql"], // 구현 중 하드코딩
           // tags: ["Java", "Mysql"], // 구현 중 하드코딩
           keywords: [...data.keywords],
-          categories: [...categories],
+          categories: [categories],
         },
       },
     });
@@ -249,7 +262,6 @@ export default function ProjectWrite(props: any) {
       categories={categories}
       onChangeFile={onChangeFile}
       imageUrl={imageUrl}
-      onCompleteRecruitmentPeriod={onCompleteRecruitmentPeriod}
       isOpen={isOpen}
       recruitment={recruitment}
       onChangeRecruitment={onChangeRecruitment}
@@ -259,6 +271,7 @@ export default function ProjectWrite(props: any) {
       onClickRecruitment={onClickRecruitment}
       onClickImage={onClickImage}
       fileRef={fileRef}
+      onChangeProjectPeriod={onChangeProjectPeriod}
     />
   );
 }

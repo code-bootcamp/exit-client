@@ -31,7 +31,7 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
     // autoplaySpeed: 2000,
     // slidesToScroll: 2,
   };
-  console.log(props.attendanceData);
+  // console.log(props.attendanceData);
   return (
     <S.Background>
       <S.Wrapper>

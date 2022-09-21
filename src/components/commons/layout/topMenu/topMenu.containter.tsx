@@ -14,6 +14,7 @@ export default function TopMenu() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
+  const [isMinimodalVisible, setIsMiniModalVisible] = useState(false);
 
   const { data } = useQuery<
     Pick<IQuery, "fetchUserWithUserId">,
@@ -26,7 +27,17 @@ export default function TopMenu() {
     setIsModalVisible(true);
   };
 
+  const onClickProfile = () => {
+    setIsMiniModalVisible((prev) => !prev);
+  };
+
   return (
-    <TopMenuUI onClickLogin={onClickLogin} data={data} userInfo={userInfo} />
+    <TopMenuUI
+      onClickLogin={onClickLogin}
+      data={data}
+      userInfo={userInfo}
+      onClickProfile={onClickProfile}
+      isMinimodalVisible={isMinimodalVisible}
+    />
   );
 }

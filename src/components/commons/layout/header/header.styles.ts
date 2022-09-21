@@ -3,6 +3,8 @@ import { breakPoints } from "../../../../commons/styles/media";
 
 export const Wrapper = styled.header`
   width: 100%;
+  position: relative;
+  z-index: 100;
 `;
 
 export const InnerWrapper = styled.div`
@@ -12,7 +14,6 @@ export const InnerWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden;
 
   @media (min-width: 1680px) and (max-width: 1940px) {
     width: 160rem;

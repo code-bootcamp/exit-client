@@ -268,12 +268,18 @@ export const ThumbImageWrapper = styled.div`
   width: 100%;
   height: 100%;
   background-color: #000;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 export const ThumbImage = styled.img`
   /* width: auto; */
   width: 100%;
-  height: 100%;
+  height: auto;
   margin: 0 auto;
   /* transition: 0.3s; */
 `;

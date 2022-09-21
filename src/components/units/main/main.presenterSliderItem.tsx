@@ -1,7 +1,10 @@
 import * as S from "./main.styles";
 import { v4 as uuidv4 } from "uuid";
 import { IMainUISliderItem } from "./main.types";
-import { getDate } from "../../../commons/libraries/utils";
+import {
+  categoriesImgSources,
+  getDate,
+} from "../../../commons/libraries/utils";
 import { useRecoilState } from "recoil";
 import { userInfoState } from "../../commons/store";
 import moment from "moment";
@@ -20,9 +23,6 @@ const IMAGE_TEMP_SOURCE = [
 export default function MainUISliderItem(props: IMainUISliderItem) {
   const router = useRouter();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  // const onClickListItem = () => {
-  //   router.push(`/projects/${props.el.id}`);
-  // };
   return (
     <>
       <S.ListItem key={uuidv4()}>
@@ -46,9 +46,11 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               </S.Countdown>
             )}
           <S.ThumbImageWrapper>
-            <S.ThumbImage
-              src={`${IMAGE_TEMP_SOURCE[Math.floor(Math.random() * 6)]}`}
-            />
+            {props.el.boardImage.url ? (
+              <img src={props.el.boardImage.url} />
+            ) : (
+              <img src={categoriesImgSources[props.el.categories?.[0]?.name]} />
+            )}
           </S.ThumbImageWrapper>
           <S.ThumbInfoWrapper>
             <S.ThumbInfoLeft>

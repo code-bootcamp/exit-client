@@ -17,7 +17,8 @@ export default function MiniMypageContainer() {
   const [logout] = useMutation(LOGOUT);
   const onClickLogout = () => {
     logout();
-    router.push("/");
+    // router.push("/");
+    location.reload();
   };
   const onClickMypage = () => {
     router.push("/myPage");

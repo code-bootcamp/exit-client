@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
 import { IFilterItemProps } from "./Modal01.types";
 
-// 준휘님,, 이렇게 펼쳐놓고 가시면,,
-// 제가 코드가 사라지는 매직-! 을 보여줄 수 있어용
-// 조.심.하.시.라.구.욧
-// 그럼 이만..(스르륵)
-
 export const Background = styled.div`
   width: 100vw;
   height: 100vh;

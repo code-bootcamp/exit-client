@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 import MyPagePresenter from "./myPage.presenter";
 import {
@@ -12,6 +13,7 @@ import {
 
 export default function MyPageContainer() {
   const router = useRouter();
+  const [visible, setVisible] = useState(false);
   const { data } = useQuery(FETCH_LOGINED_USER);
   const { data: likeProjectData } = useQuery(FETCH_LIKES, {
     variables: { userId: String(data?.fetchLoginedUser.id) },
@@ -32,16 +34,35 @@ export default function MyPageContainer() {
     router.push(`/myPage/edit`);
   };
 
-  console.log(likeProjectData?.fetchLikes);
+  const onClickMoveToMyProject = (event: any) => {
+    if (myProjectData.fetchProjectOfUser.isSuccess) {
+      router.push(`/currentProject/${event.target.id}`);
+    }
+    router.push(`/exiting/${event.target.id}`);
+  };
+
+  const onClickMoveToLikeProject = (event: any) => {
+    router.push(`/exiting/${event.target.id}`);
+  };
+  const onClickVisible = () => {
+    setVisible(!visible);
+    console.log(visible);
+  };
+
   return (
     <>
       <MyPagePresenter
         data={data}
+        visible={visible}
+        setVisible={setVisible}
         pointData={pointData}
         myProjectData={myProjectData}
         endProjectData={endProjectData}
         likeProjectData={likeProjectData}
+        onClickVisible={onClickVisible}
         onClickMoveMypageEdit={onClickMoveMypageEdit}
+        onClickMoveToMyProject={onClickMoveToMyProject}
+        onClickMoveToLikeProject={onClickMoveToLikeProject}
       />
     </>
   );

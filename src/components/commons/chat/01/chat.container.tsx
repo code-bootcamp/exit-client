@@ -42,6 +42,10 @@ export default function ChatContainer(props: any) {
 
   useEffect(() => {
     setRoom("0404");
+    return messagesEndRef?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
   }, [props.data]);
 
   const onClickSubmit = async (data: any) => {

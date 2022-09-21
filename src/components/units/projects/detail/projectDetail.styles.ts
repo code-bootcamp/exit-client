@@ -24,7 +24,7 @@ export const ProjectImageBox = styled.div`
 export const ProjectImage = styled.img`
   width: 100%;
   height: 100%;
-
+  object-fit: cover;
   border-radius: 14px;
 `;
 export const ProjectTitleContainer = styled.div`
@@ -36,7 +36,7 @@ export const ProjectTitleContainer = styled.div`
 export const ProjectTitle = styled.h2`
   font-weight: 700;
   font-size: 48px;
-  line-height: 58px;
+
   margin-bottom: 2rem;
 `;
 export const ProjectText = styled.span`
@@ -83,10 +83,22 @@ export const BoxTitle = styled.div`
 export const BoxContents = styled.div`
   font-weight: 700;
   font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
-export const MemberIcon = styled.div``;
-export const LikeIcon = styled.div``;
-export const MoneyIcon = styled.div``;
+export const Icon = styled.img`
+  position: relative;
+  top: -3.5px;
+  width: 3rem;
+  margin-left: 1rem; ;
+`;
+export const LikeIcon = styled.img`
+  width: 3rem;
+`;
+export const MoneyIcon = styled.img`
+  width: 3rem;
+`;
 export const ProjectInfoDoubleBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -192,6 +204,31 @@ export const ProjectJoinButton = styled.button`
   font-size: 40px;
   color: #ffffff;
 `;
+export const ProjectLeaderButton = styled.div``;
+export const ProjectButtonBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rem;
+`;
+export const ProjectDeleteButton = styled.button`
+  width: 523px;
+  height: 100px;
+  border-radius: 14px;
+  border: 2px solid #ff6969;
+  color: #ff6969;
+  font-weight: 700;
+  font-size: 40px;
+`;
+export const ProjectUpdateButton = styled.button`
+  width: 523px;
+  height: 100px;
+  background: #000000;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 40px;
+`;
+
 export const ProjectJoinCancleButton = styled.button`
   margin-top: 10rem;
   width: 100%;

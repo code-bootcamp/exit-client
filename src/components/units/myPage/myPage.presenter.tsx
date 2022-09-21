@@ -1,10 +1,20 @@
-import { getDate } from "../../../commons/libraries/utils";
-import Payment from "../../../commons/payments";
+import {
+  categoriesImgSources,
+  getDate,
+} from "../../../commons/libraries/utils";
+import PaymentModalContainer from "../../commons/modal/paymentModal/paymentModal.contaner";
+import Payment from "../../commons/payments";
 import * as S from "./myPage.styles";
 
 export default function MyPagePresenter(props: any) {
   return (
     <>
+      {props.visible ? (
+        <PaymentModalContainer setVisible={props.setVisible} />
+      ) : (
+        ""
+      )}
+
       <S.Wrapper>
         <S.Container>
           <S.TopConainer onClick={props.onClickMoveMypageEdit}>
@@ -47,8 +57,8 @@ export default function MyPagePresenter(props: any) {
             </S.PointContentsRow>
             <S.PointButtonContainer>
               <S.RefundButton>환급하기</S.RefundButton>
-              <S.ChargingButton>
-                <Payment />
+              <S.ChargingButton onClick={props.onClickVisible}>
+                충전하기
               </S.ChargingButton>
             </S.PointButtonContainer>
           </S.PointContainer>
@@ -58,39 +68,91 @@ export default function MyPagePresenter(props: any) {
               <S.ProjectTitle>나의 프로젝트</S.ProjectTitle>
               {props.myProjectData?.fetchProjectOfUser.id ? (
                 <S.ProjectRow>
-                  <S.ProjectColumn
-                    style={{
-                      backgroundImage: `url(${props.myProjectData?.fetchProjectOfUser.boardImage.url})`,
-                    }}
-                  >
-                    <S.ProjectTop>
-                      <S.LikeIcon />
-                    </S.ProjectTop>
-                    <S.ProjectMain>
-                      <S.ProjectTitleBox>
-                        <S.ProjectAdress>
-                          [{props.myProjectData?.fetchProjectOfUser.address}]
-                        </S.ProjectAdress>
-                        <S.ProjectColumnTitle>
-                          {props.myProjectData?.fetchProjectOfUser.title}
-                        </S.ProjectColumnTitle>
-                      </S.ProjectTitleBox>
-                      <S.ProjectBottom>
-                        <S.BottomLeft>
-                          <S.MemberIcon />
-                          {props.myProjectData?.fetchProjectOfUser.totalMember}
-                          <S.LikeIcon />
-                          {props.myProjectData?.fetchProjectOfUser.countLike}
-                        </S.BottomLeft>
-                        <S.BottomRight>
-                          참여일
-                          {getDate(
-                            props.myProjectData?.fetchProjectOfUser.startAt
-                          )}{" "}
-                        </S.BottomRight>
-                      </S.ProjectBottom>
-                    </S.ProjectMain>
-                  </S.ProjectColumn>
+                  {props.myProjectData?.fetchProjectOfUser.boardImage.url !==
+                  "null" ? (
+                    <S.ProjectColumn
+                      id={props.myProjectData?.fetchProjectOfUser.id}
+                      style={{
+                        backgroundImage: `url(${props.myProjectData?.fetchProjectOfUser.boardImage.url})`,
+                      }}
+                      onClick={props.onClickMoveToMyProject}
+                    >
+                      <S.ProjectTop>
+                        <S.LikeIcon />
+                      </S.ProjectTop>
+                      <S.ProjectMain>
+                        <S.ProjectTitleBox>
+                          <S.ProjectAdress>
+                            [{props.myProjectData?.fetchProjectOfUser.address}]
+                          </S.ProjectAdress>
+                          <S.ProjectColumnTitle>
+                            {props.myProjectData?.fetchProjectOfUser.title}
+                          </S.ProjectColumnTitle>
+                        </S.ProjectTitleBox>
+                        <S.ProjectBottom>
+                          <S.BottomLeft>
+                            <S.MemberIcon />
+                            {
+                              props.myProjectData?.fetchProjectOfUser
+                                .totalMember
+                            }
+                            <S.LikeIcon />
+                            {props.myProjectData?.fetchProjectOfUser.countLike}
+                          </S.BottomLeft>
+                          <S.BottomRight>
+                            참여일
+                            {getDate(
+                              props.myProjectData?.fetchProjectOfUser.startAt
+                            )}{" "}
+                          </S.BottomRight>
+                        </S.ProjectBottom>
+                      </S.ProjectMain>
+                    </S.ProjectColumn>
+                  ) : (
+                    <S.ProjectColumn
+                      id={props.myProjectData?.fetchProjectOfUser.id}
+                      style={{
+                        backgroundImage: `url(${
+                          categoriesImgSources[
+                            props.myProjectData?.fetchProjectOfUser
+                              .categories?.[0]?.name
+                          ]
+                        })`,
+                      }}
+                      onClick={props.onClickMoveToMyProject}
+                    >
+                      <S.ProjectTop>
+                        <S.LikeIcon />
+                      </S.ProjectTop>
+                      <S.ProjectMain>
+                        <S.ProjectTitleBox>
+                          <S.ProjectAdress>
+                            [{props.myProjectData?.fetchProjectOfUser.address}]
+                          </S.ProjectAdress>
+                          <S.ProjectColumnTitle>
+                            {props.myProjectData?.fetchProjectOfUser.title}
+                          </S.ProjectColumnTitle>
+                        </S.ProjectTitleBox>
+                        <S.ProjectBottom>
+                          <S.BottomLeft>
+                            <S.MemberIcon />
+                            {
+                              props.myProjectData?.fetchProjectOfUser
+                                .totalMember
+                            }
+                            <S.LikeIcon />
+                            {props.myProjectData?.fetchProjectOfUser.countLike}
+                          </S.BottomLeft>
+                          <S.BottomRight>
+                            참여일
+                            {getDate(
+                              props.myProjectData?.fetchProjectOfUser.startAt
+                            )}{" "}
+                          </S.BottomRight>
+                        </S.ProjectBottom>
+                      </S.ProjectMain>
+                    </S.ProjectColumn>
+                  )}
                 </S.ProjectRow>
               ) : (
                 <S.ProjectNoRow>
@@ -108,8 +170,10 @@ export default function MyPagePresenter(props: any) {
                     <S.Key key={el.id}>
                       {el.board.boardImage?.url !== "null" ? (
                         <S.ProjectColumn
+                          id={el.board.id}
+                          onClick={props.onClickMoveToLikeProject}
                           style={{
-                            backgroundImage: `url(${"/categories/category_animal_plant.png"})`,
+                            backgroundImage: `url(${el.board.boardImage?.url})`,
                           }}
                         >
                           <S.ProjectTop>
@@ -140,8 +204,14 @@ export default function MyPagePresenter(props: any) {
                         </S.ProjectColumn>
                       ) : (
                         <S.ProjectColumn
+                          id={el.board.id}
+                          onClick={props.onClickMoveToLikeProject}
                           style={{
-                            backgroundImage: `url(${el.board.boardImage?.url})`,
+                            backgroundImage: `url(${
+                              categoriesImgSources[
+                                el.board.categories?.[0]?.name
+                              ]
+                            })`,
                           }}
                         >
                           <S.ProjectTop>
@@ -186,37 +256,79 @@ export default function MyPagePresenter(props: any) {
               <S.ProjectTitle>프로젝트 히스토리</S.ProjectTitle>
               {props.endProjectData?.fetchProjectsOfUser[0] ? (
                 <S.ProjectRow>
-                  {props.endProjectData?.fetchProjectsOfUser.map((el) => (
-                    <S.ProjectColumn
-                      style={{
-                        backgroundImage: `url(${"/categories/category_animal_plant.png"})`,
-                      }}
-                      key={el.id}
-                    >
-                      <S.ProjectTop>
-                        <S.LikeIcon />
-                      </S.ProjectTop>
-                      <S.ProjectMain>
-                        <S.ProjectTitleBox>
-                          <S.ProjectAdress>[{el?.address}]</S.ProjectAdress>
-                          <S.ProjectColumnTitle>
-                            {el?.title}
-                          </S.ProjectColumnTitle>
-                        </S.ProjectTitleBox>
-                        <S.ProjectBottom>
-                          <S.BottomLeft>
-                            <S.MemberIcon />
-                            {el?.totalMember}
+                  {props.endProjectData?.fetchProjectsOfUser.map((el: any) => (
+                    <S.Key key={el.id}>
+                      {el.board.boardImage.url !== "null" ? (
+                        <S.ProjectColumn
+                          id={el.board.id}
+                          onClick={props.onClickMoveToLikeProject}
+                          style={{
+                            backgroundImage: `url(${"/categories/category_animal_plant.png"})`,
+                          }}
+                        >
+                          <S.ProjectTop>
                             <S.LikeIcon />
-                            {el?.countLike}
-                          </S.BottomLeft>
-                          <S.BottomRight>
-                            참여일
-                            {getDate(el.startAt)}
-                          </S.BottomRight>
-                        </S.ProjectBottom>
-                      </S.ProjectMain>
-                    </S.ProjectColumn>
+                          </S.ProjectTop>
+                          <S.ProjectMain>
+                            <S.ProjectTitleBox>
+                              <S.ProjectAdress>[{el?.address}]</S.ProjectAdress>
+                              <S.ProjectColumnTitle>
+                                {el?.title}
+                              </S.ProjectColumnTitle>
+                            </S.ProjectTitleBox>
+                            <S.ProjectBottom>
+                              <S.BottomLeft>
+                                <S.MemberIcon />
+                                {el?.totalMember}
+                                <S.LikeIcon />
+                                {el?.countLike}
+                              </S.BottomLeft>
+                              <S.BottomRight>
+                                참여일
+                                {getDate(el.startAt)}
+                              </S.BottomRight>
+                            </S.ProjectBottom>
+                          </S.ProjectMain>
+                        </S.ProjectColumn>
+                      ) : (
+                        <S.ProjectColumn
+                          id={el.board.id}
+                          onClick={props.onClickMoveToLikeProject}
+                          style={{
+                            backgroundImage: `url(${
+                              categoriesImgSources[
+                                props.myProjectData?.fetchProjectOfUser
+                                  .categories?.[0]?.name
+                              ]
+                            })`,
+                          }}
+                        >
+                          <S.ProjectTop>
+                            <S.LikeIcon />
+                          </S.ProjectTop>
+                          <S.ProjectMain>
+                            <S.ProjectTitleBox>
+                              <S.ProjectAdress>[{el?.address}]</S.ProjectAdress>
+                              <S.ProjectColumnTitle>
+                                {el?.title}
+                              </S.ProjectColumnTitle>
+                            </S.ProjectTitleBox>
+                            <S.ProjectBottom>
+                              <S.BottomLeft>
+                                <S.MemberIcon />
+                                {el?.totalMember}
+                                <S.LikeIcon />
+                                {el?.countLike}
+                              </S.BottomLeft>
+                              <S.BottomRight>
+                                참여일
+                                {getDate(el.startAt)}
+                              </S.BottomRight>
+                            </S.ProjectBottom>
+                          </S.ProjectMain>
+                        </S.ProjectColumn>
+                      )}
+                    </S.Key>
                   ))}
                 </S.ProjectRow>
               ) : (

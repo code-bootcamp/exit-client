@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { breakPoints } from "../../../../commons/styles/media";
 
 export const GNB = styled.ul`
   display: flex;
@@ -15,7 +14,8 @@ export const NavigationItem = styled.li`
 export const NavigationLink = styled.a`
   font-size: 2.2rem;
   font-weight: 700;
+  transition: 0.1s;
   &:hover {
-    color: #3ebd5d;
+    color: #3ebd5d !important;
   }
 `;

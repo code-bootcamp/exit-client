@@ -17,4 +17,5 @@ export interface ICurrentProjectUIProps {
   onChangeDate: any;
   attendancePercent: number;
   selectedDayAttendence: IAttendance[];
+  onClickAttend: () => void;
 }

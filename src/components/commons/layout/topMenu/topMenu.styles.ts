@@ -23,10 +23,19 @@ export const TopMenuButton = styled.button`
     @media (max-width: 1400px) {
       margin-right: 25px;
     }
-    /* @media (max-width: 1200px) {
-      margin-right: 10px;
-    } */
   }
 `;
 
-export const UserImageWrapper = styled.div``;
+export const UserImageWrapper = styled.div`
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+`;
+
+export const UserImage = styled.img`
+  width: 100%;
+`;
+
+export const LoginButton = styled.button`
+  font-size: 2rem;
+`;

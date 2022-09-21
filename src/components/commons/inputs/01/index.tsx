@@ -40,7 +40,7 @@ export const ErrorMessage = styled.p`
   font-weight: 500;
   color: #f85a44;
   position: absolute;
-  bottom: 3px;
+  bottom: 7px;
   left: 6px;
 `;
 

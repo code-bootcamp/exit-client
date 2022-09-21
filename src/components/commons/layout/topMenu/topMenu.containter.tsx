@@ -1,29 +1,32 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { IMutation } from "../../../../commons/types/generated/types";
-import { isModalVisibleState } from "../../store";
+import {
+  IMutation,
+  IQuery,
+  IQueryFetchUserWithUserIdArgs,
+} from "../../../../commons/types/generated/types";
+import { isModalVisibleState, userInfoState } from "../../store";
 import TopMenuUI from "./topMenu.presenter";
-import { LOGOUT } from "./topMenu.queries";
+import { FETCH_USER_WITH_USER_ID } from "./topMenu.queries";
 
 export default function TopMenu() {
-  const [logout] = useMutation<Pick<IMutation, "logout">>(LOGOUT);
-  // const [isModalVisible, setIsModalVisible] = useState(false);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
 
-  const onClickLogout = async () => {
-    try {
-      await logout();
-      location.reload();
-    } catch (error) {}
-  };
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUserWithUserId">,
+    IQueryFetchUserWithUserIdArgs
+  >(FETCH_USER_WITH_USER_ID, {
+    variables: { userId: userInfo.id },
+  });
 
   const onClickLogin = () => {
     setIsModalVisible(true);
   };
 
   return (
-    <TopMenuUI onClickLogin={onClickLogin} onClickLogout={onClickLogout} />
+    <TopMenuUI onClickLogin={onClickLogin} data={data} userInfo={userInfo} />
   );
 }

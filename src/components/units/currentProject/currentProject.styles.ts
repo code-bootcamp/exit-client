@@ -136,6 +136,7 @@ export const MemberName = styled.em`
   width: 30px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #000;
 `;
 
 export const ProjectBailWrapper = styled.div`

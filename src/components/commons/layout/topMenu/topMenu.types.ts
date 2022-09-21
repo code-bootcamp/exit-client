@@ -1,4 +1,7 @@
+import { IQuery } from "../../../../commons/types/generated/types";
+
 export interface ITopMenuUIProps {
+  data: Pick<IQuery, "fetchUserWithUserId"> | undefined;
   onClickLogin: () => void;
-  onClickLogout: () => void;
+  userInfo: { id: string; nickname: string; email: string };
 }

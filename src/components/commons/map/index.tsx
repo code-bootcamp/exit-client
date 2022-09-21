@@ -16,25 +16,16 @@ export default function Map(props: any) {
       window.kakao.maps.load(function () {
         const container = document.getElementById("map");
         const options = {
-          // center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-          center: new window.kakao.maps.LatLng(
-            // 37.48503069999982,
-            // 126.89242730000012
-            props.lat,
-            props.lng
-          ),
+          center: new window.kakao.maps.LatLng(props.lat, props.lng),
           level: 3,
         };
 
         const map = new window.kakao.maps.Map(container, options);
         map.setDraggable(false); // 이동불가 설정
         map.setZoomable(false); // 확대, 축소 불가
-        // let drawingFlag = false; // 원이 그려지고 있는 상태에 대한 변수
         let centerPosition; // 원의 중심좌표
         let drawingCircle; // 그려지고 있는 원을 표시할 원 객체
-        // let drawingLine; // 그려지고 있는 원의 반지름을 표시할 선 객체
         let drawingOverlay: any; // 그려지고 있는 원의 반경을 표시할 커스텀오버레이
-        // let drawingDot; // 그려지고 있는 원의 중심점을 표시할 커스텀오버레이
 
         // let circles = [];
 
@@ -60,28 +51,6 @@ export default function Map(props: any) {
 
         drawingOverlay?.setPosition?.(centerPosition);
         drawingCircle.setMap(map);
-
-        //     // 주소 state 연동
-        //     let geocoder = new window.kakao.maps.services.Geocoder();
-        //     geocoder.addressSearch(
-        //       addressInputs.address,
-        //       function (result: any, status: any) {
-        //         // 검색 성공
-        //         if (status === window.kakao.maps.services.Status.OK) {
-        //           let coords = new window.kakao.maps.LatLng(
-        //             result[0].y,
-        //             result[0].x
-        //           );
-        //           setLatLng({
-        //             lat: result[0].x,
-        //             lng: result[0].y,
-        //           });
-        //           // 마커 위치 갱신
-        //           let marker = new window.kakao.maps.Marker({
-        //             map: map,
-        //             position: coords,
-        //           });
-        //           map.setCenter(coords);
       });
     };
   }, [props]);

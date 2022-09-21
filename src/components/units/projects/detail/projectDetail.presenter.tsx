@@ -1,17 +1,35 @@
-import { getDate } from "../../../../commons/libraries/utils";
+import {
+  categoriesImgSources,
+  getDate,
+} from "../../../../commons/libraries/utils";
 import * as S from "./projectDetail.styles";
 
 export default function ProjectDetailUI(props: any) {
+  console.log(
+    `${categoriesImgSources[props.data?.fetchBoard.categories?.[0]?.name]}`
+  );
   return (
     <>
       <S.Wrapper>
         <S.Container>
           <S.TopContainer>
+            {/* 이미지 없을경우  */}
             <S.ProjectImageBox>
-              <S.ProjectImage
-                src={`${props.data?.fetchBoard.boardImage.url}`}
-              />
+              {props.data?.fetchBoard.boardImage.url === "null" ? (
+                <S.ProjectImage
+                  src={`${
+                    categoriesImgSources[
+                      props.data?.fetchBoard.categories?.[0]?.name
+                    ]
+                  }`}
+                />
+              ) : (
+                <S.ProjectImage
+                  src={`${props.data?.fetchBoard.boardImage.url}`}
+                />
+              )}
             </S.ProjectImageBox>
+
             <S.ProjectTitleContainer>
               <S.ProjectTitle>{props.data?.fetchBoard.title}</S.ProjectTitle>
               <S.ProjectText>
@@ -33,14 +51,14 @@ export default function ProjectDetailUI(props: any) {
               <S.BoxContents>
                 {props.data?.fetchBoard.countMember} /{" "}
                 {props.data?.fetchBoard.totalMember}
-                <S.MemberIcon />
+                <S.Icon src="/icons/member_icon.png" />
               </S.BoxContents>
             </S.ProjectInfoBox>
             <S.ProjectInfoBox>
               <S.BoxTitle onClick={props.onClickLike}>받은 관심</S.BoxTitle>
               <S.BoxContents>
                 {props.data?.fetchBoard.countLike}
-                <S.LikeIcon />
+                <S.Icon src="/icons/heart_icon.png" />
               </S.BoxContents>
             </S.ProjectInfoBox>
             {/* 로그인한사람이 팀장일시 신청자 목록 */}
@@ -119,7 +137,7 @@ export default function ProjectDetailUI(props: any) {
               <S.BoxTitle>1인당 보석금</S.BoxTitle>
               <S.BoxContents>
                 {props.data?.fetchBoard.bail}
-                <S.MoneyIcon />
+                <S.Icon src="/icons/money_icon.png" />
               </S.BoxContents>
             </S.ProjectInfoBox>
             <S.ProjectInfoDoubleBox>
@@ -161,7 +179,13 @@ export default function ProjectDetailUI(props: any) {
             </S.ProjectInfoBox>
             {/* 팀장정보, 팀장일시 안보이게 */}
             {props.data?.fetchBoard.leader === props.userInfo.id ? (
-              <S.ProjectJoinButton>프로젝트 시작하기</S.ProjectJoinButton>
+              <S.ProjectLeaderButton>
+                <S.ProjectJoinButton>프로젝트 시작하기</S.ProjectJoinButton>
+                <S.ProjectButtonBox>
+                  <S.ProjectDeleteButton>삭제</S.ProjectDeleteButton>
+                  <S.ProjectUpdateButton>수정</S.ProjectUpdateButton>
+                </S.ProjectButtonBox>
+              </S.ProjectLeaderButton>
             ) : (
               <S.ProjectLeaderContainer>
                 <S.LeaderWapper>

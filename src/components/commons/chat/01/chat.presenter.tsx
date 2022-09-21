@@ -7,6 +7,8 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../store";
 
 export interface IFormValueChat {
   contents?: string;
@@ -23,6 +25,7 @@ interface IPropsLiveChatUI {
   messagesEndRef?: LegacyRef<HTMLDivElement>;
 }
 export default function ChatFormUI(props: IPropsLiveChatUI) {
+  const [userInfo] = useRecoilState(userInfoState);
   return (
     <S.Wrapper onSubmit={props.handleSubmit(props.onClickSubmit)}>
       <S.Container>
@@ -32,34 +35,46 @@ export default function ChatFormUI(props: IPropsLiveChatUI) {
         <S.Main>
           {props.data?.fetchLogs.map((el: any) => (
             <S.Key key={uuidv4()}>
-              <S.Receive>
-                <S.ReceiveText ref={props.messagesEndRef}>
-                  {el.message}
-                </S.ReceiveText>
-              </S.Receive>
-              <S.Send></S.Send>
+              {el.user.id !== userInfo.id ? (
+                <S.Receive>
+                  <S.Receiver>{el.user.nickname}</S.Receiver>
+                  <S.ReceiveText ref={props.messagesEndRef}>
+                    {el.message}
+                  </S.ReceiveText>
+                </S.Receive>
+              ) : (
+                <S.Send>
+                  <S.SendText>{`${el.user.nickname}: ${el.message}`}</S.SendText>
+                </S.Send>
+              )}
             </S.Key>
           ))}
           {props.msgData?.map((el: any) => (
             <S.Key key={uuidv4()}>
-              <S.Receive>
-                <S.ReceiveText ref={props.messagesEndRef}></S.ReceiveText>
-              </S.Receive>
-              <S.Send>
-                <S.SendText>{el}</S.SendText>
-              </S.Send>
+              {el[0] === userInfo.nickname ? (
+                <S.Send>
+                  <S.SendText>{el[1]}</S.SendText>
+                </S.Send>
+              ) : (
+                <S.Receive>
+                  <S.Receiver>{el[0]}</S.Receiver>
+                  <S.ReceiveText ref={props.messagesEndRef}>
+                    {el[1]}
+                  </S.ReceiveText>
+                </S.Receive>
+              )}
             </S.Key>
           ))}
+          <S.InputContainner>
+            <S.Input
+              placeholder="메세지를 입력해주세요."
+              onKeyDown={props.onKeyDown}
+              type="text"
+              {...props.register("contents", { required: true })}
+            />
+            <S.Button>전송</S.Button>
+          </S.InputContainner>
         </S.Main>
-        <S.InputContainner>
-          <S.Input
-            placeholder="궁금한 점을 물어보세요! 실시간으로 답변해드립니다!"
-            onKeyDown={props.onKeyDown}
-            type="text"
-            {...props.register("contents", { required: true })}
-          />
-          <S.Button>전송</S.Button>
-        </S.InputContainner>
       </S.Container>
     </S.Wrapper>
   );

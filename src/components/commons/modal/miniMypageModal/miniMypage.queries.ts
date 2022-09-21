@@ -1,25 +1,16 @@
 import { gql } from "@apollo/client";
-export const FETCH_USER_WITH_USER_ID = gql`
-  query fetchUserWithUserId($userId: String!) {
-    fetchUserWithUserId(userId: $userId) {
+
+export const FETCH_LOGINED_USER = gql`
+  query fetchLoginedUser {
+    fetchLoginedUser {
       id
+      email
       nickname
+      point
       userUrl
       userImage {
         id
         url
-      }
-      tags {
-        id
-        name
-      }
-      keywords {
-        id
-        name
-      }
-      categories {
-        id
-        name
       }
     }
   }
@@ -34,13 +25,14 @@ export const FETCH_PROJECT_OF_USER = gql`
       totalMember
       countLike
       startAt
-      categories {
-        id
-        name
-      }
       boardImage {
         url
       }
     }
+  }
+`;
+export const LOGOUT = gql`
+  mutation logout {
+    logout
   }
 `;

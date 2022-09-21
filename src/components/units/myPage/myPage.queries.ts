@@ -56,6 +56,12 @@ export const FETCH_LIKES = gql`
         totalMember
         countLike
         startAt
+        categories {
+          name
+        }
+        boardImage {
+          url
+        }
       }
     }
   }

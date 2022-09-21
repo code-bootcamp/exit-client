@@ -1,5 +1,9 @@
-import { getDate } from "../../../../commons/libraries/utils";
+import {
+  categoriesImgSources,
+  getDate,
+} from "../../../../commons/libraries/utils";
 import * as S from "./userDetail.styles";
+
 export default function UserDetailPresenter(props: any) {
   return (
     <>
@@ -65,6 +69,8 @@ export default function UserDetailPresenter(props: any) {
                     {props.projectData?.fetchProjectOfUser.boardImage.url !==
                     "null" ? (
                       <S.ProjectColumn
+                        id={props.projectData?.fetchProjectOfUser.id}
+                        onClick={props.onClickMoveToDetail}
                         style={{
                           backgroundImage: `url(${props.projectData?.fetchProjectOfUser.boardImage.url})`,
                         }}
@@ -111,8 +117,15 @@ export default function UserDetailPresenter(props: any) {
                       </S.ProjectColumn>
                     ) : (
                       <S.ProjectColumn
+                        id={props.projectData?.fetchProjectOfUser.id}
+                        onClick={props.onClickMoveToDetail}
                         style={{
-                          backgroundImage: `url(${"/categories/category_animal_plant.png"})`,
+                          backgroundImage: `url(${
+                            categoriesImgSources[
+                              props.projectData?.fetchProjectOfUser
+                                .categories?.[0]?.name
+                            ]
+                          })`,
                         }}
                       >
                         <S.LikeBox>
@@ -169,50 +182,45 @@ export default function UserDetailPresenter(props: any) {
                 {props.data?.fetchUserWithUserId.nickname}님의 히스토리입니다
               </S.Title>
               <S.ProjectRow>
-                <S.ProjectColumn>
-                  <S.LikeBox>
-                    <S.MyLike src="/icons/icon_heart_off.png" />
-                  </S.LikeBox>
-                  <S.Project>
-                    <S.ProjectTitleBox>
-                      <S.Place>[경기도] </S.Place>
-                      <S.ProjectTitle> MEET 대학교 카풀서비스</S.ProjectTitle>
-                    </S.ProjectTitleBox>
-                    <S.ProjectInfo>
-                      <S.InfoLeft>
-                        <S.MemberIcon />
-                        <S.MemberNum>5</S.MemberNum>
-                        <S.LikeIcon src="/icons/icon_heart_off.png" />{" "}
-                        <S.LikeNum>274</S.LikeNum>
-                      </S.InfoLeft>
-                      <S.InfoRight>
-                        <S.JoinDate>참여일 2022.09.10</S.JoinDate>
-                      </S.InfoRight>
-                    </S.ProjectInfo>
-                  </S.Project>
-                </S.ProjectColumn>
-                <S.ProjectColumn>
-                  <S.LikeBox>
-                    <S.MyLike src="/icons/icon_heart_off.png" />
-                  </S.LikeBox>
-                  <S.Project>
-                    <S.ProjectTitleBox>
-                      <S.Place>[경기도] </S.Place>
-                      <S.ProjectTitle> MEET 대학교 카풀서비스</S.ProjectTitle>
-                    </S.ProjectTitleBox>
-                    <S.ProjectInfo>
-                      <S.InfoLeft>
-                        <S.MemberIcon />
-                        <S.MemberNum>5</S.MemberNum>
-                        <S.LikeIcon src="/icons/icon_heart_off.png" />{" "}
-                        <S.LikeNum>274</S.LikeNum>
-                      </S.InfoLeft>
-                      <S.InfoRight>
-                        <S.JoinDate>참여일 2022.09.10</S.JoinDate>
-                      </S.InfoRight>
-                    </S.ProjectInfo>
-                  </S.Project>
-                </S.ProjectColumn>
+                {props.projectsData?.fetchfetchProjectsOfUser ? (
+                  <S.ProjectColumn
+                    onClick={props.onClickMoveToDetail}
+                    id={props.projectsData?.fetchfetchProjectsOfUser.id}
+                    style={{
+                      backgroundImage: `url(${
+                        categoriesImgSources[
+                          props.projectsData?.fetchProjectsOfUser
+                            .categories?.[0]?.name
+                        ]
+                      })`,
+                    }}
+                  >
+                    <S.LikeBox>
+                      <S.MyLike src="/icons/icon_heart_off.png" />
+                    </S.LikeBox>
+                    <S.Project>
+                      <S.ProjectTitleBox>
+                        <S.Place>[경기도] </S.Place>
+                        <S.ProjectTitle> MEET 대학교 카풀서비스</S.ProjectTitle>
+                      </S.ProjectTitleBox>
+                      <S.ProjectInfo>
+                        <S.InfoLeft>
+                          <S.MemberIcon />
+                          <S.MemberNum>5</S.MemberNum>
+                          <S.LikeIcon src="/icons/icon_heart_off.png" />{" "}
+                          <S.LikeNum>274</S.LikeNum>
+                        </S.InfoLeft>
+                        <S.InfoRight>
+                          <S.JoinDate>참여일 2022.09.10</S.JoinDate>
+                        </S.InfoRight>
+                      </S.ProjectInfo>
+                    </S.Project>
+                  </S.ProjectColumn>
+                ) : (
+                  <S.ProjectColumnNodata>
+                    <S.NodataText>진행중인 프로젝트가 없습니다.</S.NodataText>
+                  </S.ProjectColumnNodata>
+                )}
               </S.ProjectRow>
             </S.TableContents>
           </S.DetailMainContainer>

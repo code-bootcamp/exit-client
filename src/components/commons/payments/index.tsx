@@ -3,7 +3,8 @@ import { gql, useMutation } from "@apollo/client";
 import Head from "next/head";
 import styled from "@emotion/styled";
 import { useRecoilState } from "recoil";
-import { userInfoState } from "../../components/commons/store";
+import { userInfoState } from "../store";
+import { message } from "antd";
 declare const window: typeof globalThis & {
   IMP: any;
 };
@@ -22,7 +23,6 @@ export default function Payment(props: any) {
   const [createPayment] = useMutation(CERATE_PAYMENT);
 
   const onClickPayment = () => {
-    console.log(userInfo.id);
     const IMP = window.IMP; // 생략 가능
     IMP.init("imp61031678"); // Example: imp00000000
 
@@ -30,8 +30,8 @@ export default function Payment(props: any) {
       {
         pg: "nice",
         pay_method: "card",
-        name: "exit 보석금 충전하기",
-        amount: 100, //  변경해야됨
+        name: "exit 포인트 충전",
+        amount: Number(props.point), //  변경해야됨
         buyer_email: userInfo.email,
         buyer_name: userInfo.nickname,
         buyer_tel: "010-2745-5704",
@@ -45,25 +45,25 @@ export default function Payment(props: any) {
           await createPayment({
             variables: {
               impUid: rsp.imp_uid,
-              amount: 100,
+              amount: Number(props.point),
             },
           });
           router.push(`/`);
         } else {
-          alert("결제에 실패했습니다! 다시 시도해주세요");
+          message.error("결제에 실패했습니다! 다시 시도해주세요");
         }
       }
     );
   };
 
   const Button = styled.button`
-    width: 523px;
-    height: 100px;
-    background: #3ebd5d;
+    font-weight: 400;
+    width: 310px;
+    height: 70px;
     border-radius: 14px;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 40px;
+    color: #fff;
+    background-color: #3ebd5d;
+    font-size: 24px;
   `;
 
   return (

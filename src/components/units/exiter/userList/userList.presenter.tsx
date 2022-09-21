@@ -118,10 +118,18 @@ export default function UserListPresenter(props: any) {
                     <S.UserColumnInfo>
                       <S.UserLabelTitle>관심분야</S.UserLabelTitle>
                       <S.UserLabelBox>
-                        {el.categories.map((el: any) => (
-                          <S.UserLabelContents key={el.id}>
-                            #{el.name}
-                          </S.UserLabelContents>
+                        {el.categories.map((el: any, index: any) => (
+                          <S.Key key={el.id}>
+                            {index > 1 ? (
+                              <S.UserLabelContents>
+                                +{el.name.slice(0, 0)}
+                              </S.UserLabelContents>
+                            ) : (
+                              <S.UserLabelContents>
+                                #{el.name}
+                              </S.UserLabelContents>
+                            )}
+                          </S.Key>
                         ))}
                       </S.UserLabelBox>
                     </S.UserColumnInfo>
@@ -129,10 +137,20 @@ export default function UserListPresenter(props: any) {
                       <S.UserLabelTitle>기술스택</S.UserLabelTitle>
 
                       <S.UserLabelBox>
-                        {el.tags.map((el: any) => (
-                          <S.UserLabelContents key={el.id}>
-                            #{el.name}
-                          </S.UserLabelContents>
+                        {el.tags.map((el: any, index: any) => (
+                          <S.Key key={el.id}>
+                            {index > 1 ? (
+                              <S.UserLabelContents>
+                                +{el.name.slice(0, 0)}
+                              </S.UserLabelContents>
+                            ) : (
+                              <S.UserLabelContents>
+                                {el.name.length > 6
+                                  ? `${el.name.slice(0, 6)}...`
+                                  : `${el.name}`}
+                              </S.UserLabelContents>
+                            )}
+                          </S.Key>
                         ))}
                       </S.UserLabelBox>
                     </S.UserColumnInfo>

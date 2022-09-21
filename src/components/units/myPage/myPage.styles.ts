@@ -140,7 +140,19 @@ export const RefundButton = styled.button`
   font-size: 40px;
   margin-right: 1rem;
 `;
-export const ChargingButton = styled.div``;
+export const ChargingButton = styled.div`
+  width: 523px;
+  height: 100px;
+  background: #3ebd5d;
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 40px;
+  margin-right: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export const ProjectContainer = styled.div`
   margin-top: 10rem;
 `;
@@ -187,6 +199,7 @@ export const ProjectColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 `;
 export const ProjectTop = styled.div`
   display: flex;

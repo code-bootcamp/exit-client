@@ -13,7 +13,6 @@ export default function Main() {
   const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(
     FETCH_BOARDS
   );
-
-  // return <MainUI data={data} />;
-  return <div>메인 보수 작업 예정</div>;
+  console.log(data);
+  return <MainUI data={data} />;
 }

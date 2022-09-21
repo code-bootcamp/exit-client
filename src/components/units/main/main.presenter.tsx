@@ -12,9 +12,8 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "../../commons/store";
 import { useQuery } from "@apollo/client";
 import { FETCH_LIKES } from "./main.queries";
-import MainUISliderItem2 from "./main.presenterSliderItem2";
-import MainUISliderItem3 from "./main.presenterSliderItem3";
 import { useCallback, useState } from "react";
+import { useRouter } from "next/router";
 
 // 하드코딩된 부분
 const FAVORITE_CATEGORIES = [
@@ -31,12 +30,38 @@ const FAVORITE_CATEGORIES = [
 export default function MainUI(props: IMainUIProps) {
   const [dragging, setDragging] = useState<boolean>(false);
 
+  const router = useRouter();
+
+  const handleBeforeChange = useCallback(() => {
+    setDragging(true);
+  }, [setDragging]);
+
+  const handleAfterChange = useCallback(() => {
+    setDragging(false);
+  }, [setDragging]);
+
+  const onClickCard = useCallback(
+    (path) => (e: React.SyntheticEvent) => {
+      if (dragging) {
+        e.stopPropagation();
+        return;
+      }
+      if (path.includes("https")) {
+        window.open(path, "_blank");
+      } else {
+        router.push(path);
+      }
+    },
+    [dragging]
+  );
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const settings = {
     dots: false,
     infinite: true,
     autoplay: true,
-
+    dragging: true,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
@@ -49,7 +74,6 @@ export default function MainUI(props: IMainUIProps) {
       },
     ],
   };
-
   const { data } = useQuery<Pick<IQuery, "fetchLikes">, IQueryFetchLikesArgs>(
     FETCH_LIKES,
     {
@@ -69,63 +93,25 @@ export default function MainUI(props: IMainUIProps) {
               다양한 신규 프로젝트
             </S.SectionTitle>
             <S.ListLink>
-              <Link href="/projects">
-                <S.More>전체 프로젝트 더보기</S.More>
-              </Link>
+              <S.More>전체 프로젝트 더보기</S.More>
             </S.ListLink>
           </S.Row>
         </S.SectionInfo>
         <S.SliderWrapper>
           <S.ListSlider {...settings}>
             {/* 최신순 게시물 10개 */}
-            {props.data?.fetchBoards.slice(0, 10).map((el: IBoard) => (
-              <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
+            {props.data?.fetchBoards.slice(0, 10).map((el: any) => (
+              <MainUISliderItem
+                key={uuidv4()}
+                el={el}
+                likedBoards={data}
+                onClick={onClickCard(el.path)}
+              />
             ))}
           </S.ListSlider>
         </S.SliderWrapper>
       </S.Section>
       {/* 리스트2: 분야1 */}
-      <S.Section>
-        <S.SectionInfo>
-          <S.Exiting>exting</S.Exiting>
-          <S.Row>
-            <S.SectionTitle>교육 분야 프로젝트</S.SectionTitle>
-            <S.ListLink>
-              <Link href="/projects">
-                <S.More>전체 프로젝트 더보기</S.More>
-              </Link>
-            </S.ListLink>
-          </S.Row>
-        </S.SectionInfo>
-        <S.SliderWrapper>
-          <S.ListSlider {...settings}>
-            {props.data?.fetchBoards.slice(0, 10).map((el: IBoard) => (
-              <MainUISliderItem2 key={uuidv4()} el={el} likedBoards={data} />
-            ))}
-          </S.ListSlider>
-        </S.SliderWrapper>
-      </S.Section>
-      {/* 리스트3: 분야2 */}
-      <S.Section>
-        <S.SectionInfo>
-          <S.Exiting>exting</S.Exiting>
-          <S.Row>
-            <S.SectionTitle>의료/병원 분야 프로젝트</S.SectionTitle>
-            <S.ListLink>
-              <Link href="/projects">
-                <S.More>전체 프로젝트 더보기</S.More>
-              </Link>
-            </S.ListLink>
-          </S.Row>
-        </S.SectionInfo>
-        <S.SliderWrapper>
-          <S.ListSlider {...settings}>
-            {props.data?.fetchBoards.slice(0, 10).map((el: IBoard) => (
-              <MainUISliderItem3 key={uuidv4()} el={el} likedBoards={data} />
-            ))}
-          </S.ListSlider>
-        </S.SliderWrapper>
-      </S.Section>
       <S.MainAdSection>
         <S.AdWrapper>
           <S.AdText>

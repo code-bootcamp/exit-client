@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   width: 376px;
   height: 418px;
   padding: 3rem;
+  background-color: #fff;
 `;
 export const Container = styled.div``;
 export const Header = styled.div``;
@@ -81,4 +82,5 @@ export const Logout = styled.div`
   font-weight: 700;
   font-size: 20px;
   color: #d7d7d7;
+  cursor: pointer;
 `;

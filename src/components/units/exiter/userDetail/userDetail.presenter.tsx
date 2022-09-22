@@ -2,6 +2,7 @@ import {
   categoriesImgSources,
   getDate,
 } from "../../../../commons/libraries/utils";
+import ChatContainerOne from "../../../commons/chat/02/chat02.container";
 import * as S from "./userDetail.styles";
 
 export default function UserDetailPresenter(props: any) {
@@ -31,7 +32,17 @@ export default function UserDetailPresenter(props: any) {
             </S.UserKeywordsBox>
             <S.UserChatButtonBox>
               <S.ChatLine></S.ChatLine>
-              <S.UserChatButton>1:1 채팅하기</S.UserChatButton>
+              <S.UserChatButton onClick={props.onClcikVisible}>
+                1:1 채팅하기
+              </S.UserChatButton>
+              {props.visible ? (
+                <ChatContainerOne
+                  setVisible={props.setVisible}
+                  data={props.data?.fetchUserWithUserId.id}
+                />
+              ) : (
+                ""
+              )}
               <S.ChatLine></S.ChatLine>
             </S.UserChatButtonBox>
           </S.DetailTopContainer>

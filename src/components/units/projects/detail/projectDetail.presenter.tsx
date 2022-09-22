@@ -182,8 +182,12 @@ export default function ProjectDetailUI(props: any) {
               <S.ProjectLeaderButton>
                 <S.ProjectJoinButton>프로젝트 시작하기</S.ProjectJoinButton>
                 <S.ProjectButtonBox>
-                  <S.ProjectDeleteButton>삭제</S.ProjectDeleteButton>
-                  <S.ProjectUpdateButton>수정</S.ProjectUpdateButton>
+                  <S.ProjectDeleteButton onClick={props.onClickDeleteProject}>
+                    삭제
+                  </S.ProjectDeleteButton>
+                  <S.ProjectUpdateButton onClick={props.onClickMoveToUpdate}>
+                    수정
+                  </S.ProjectUpdateButton>
                 </S.ProjectButtonBox>
               </S.ProjectLeaderButton>
             ) : (

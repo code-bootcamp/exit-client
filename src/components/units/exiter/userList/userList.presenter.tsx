@@ -87,7 +87,12 @@ export default function UserListPresenter(props: any) {
                   )}
                 </S.UserInfoLabel>
                 <S.ButtonBox>
-                  <S.UserChatButton>1:1 채팅하기</S.UserChatButton>
+                  <S.UserChatButton
+                    id={data?.fetchUserRandom.id}
+                    onClick={props.onClickMoveToDetail}
+                  >
+                    정보 더보기
+                  </S.UserChatButton>
                 </S.ButtonBox>
               </S.RandomUserInfoContainer>
             </S.RandomUserContainer>
@@ -138,7 +143,9 @@ export default function UserListPresenter(props: any) {
                               </S.UserLabelContents>
                             ) : (
                               <S.UserLabelContents>
-                                #{el.name}
+                                {el.name.length > 6
+                                  ? `#${el.name.slice(0, 5)}...`
+                                  : `#${el.name}`}
                               </S.UserLabelContents>
                             )}
                           </S.Key>

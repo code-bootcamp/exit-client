@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import { accessTokenState, userInfoState } from "../../../commons/store";
 import { FETCH_USER_WITH_USER_ID } from "../../exiter/userDetail/userDetail.queries";
+import { FETCH_BOARDS } from "../list/projectsList.queries";
 
 import ProjectDetailUI from "./projectDetail.presenter";
 import {
@@ -11,6 +12,7 @@ import {
   CREATE_USER_BOARD,
   FETCH_BOARD,
   FETCH_USER_BOARDS,
+  REMOVE_BOARD,
   REMOVE_USER_BOARDS,
   UPDATE_USER_BOARD,
 } from "./projectDetail.queries";
@@ -34,9 +36,10 @@ export default function ProjectDetailContainenr() {
   const [createUserBoard] = useMutation(CREATE_USER_BOARD);
   const [updateUserBoard] = useMutation(UPDATE_USER_BOARD);
   const [removeUserBoards] = useMutation(REMOVE_USER_BOARDS);
+  const [removeBoard] = useMutation(REMOVE_BOARD);
 
   let joined = [];
-  joined.push(signUpData?.fetchUserBoards.map((el) => el.user.id));
+  joined.push(signUpData?.fetchUserBoards.map((el: any) => el.user.id));
 
   //찜하기
   const onClickLike = async () => {
@@ -135,6 +138,27 @@ export default function ProjectDetailContainenr() {
       awaitRefetchQueries: true,
     });
   };
+  // 수정이동
+  const onClickMoveToUpdate = () => {
+    router.push(`/exiting/${router.query.projectId}/edit`);
+  };
+  const onClickDeleteProject = async () => {
+    await removeBoard({
+      variables: {
+        boardId: String(router.query.projectId),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARDS,
+        },
+        {
+          query: FETCH_BOARD,
+          variables: { boardId: String(router.query.projectId) },
+        },
+      ],
+    });
+    router.push("/exiting");
+  };
 
   return (
     <>
@@ -147,6 +171,8 @@ export default function ProjectDetailContainenr() {
         onClickSignUpProject={onClickSignUpProject}
         onClickSignUpUserAccept={onClickSignUpUserAccept}
         onClickSignUpUserNoAccept={onClickSignUpUserNoAccept}
+        onClickMoveToUpdate={onClickMoveToUpdate}
+        onClickDeleteProject={onClickDeleteProject}
         joined={joined}
       />
     </>

@@ -65,8 +65,8 @@ export const UserChatButtonBox = styled.div`
   /* border: 1px solid; */
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
 `;
 export const ChatLine = styled.div`
   border: 1px solid #f0f0f0;
@@ -80,8 +80,6 @@ export const UserChatButton = styled.button`
   border-radius: 14px;
   font-weight: 700;
   font-size: 18px;
-  line-height: 22px;
-  text-align: center;
   color: #ffffff;
 `;
 export const DetailMainContainer = styled.div``;

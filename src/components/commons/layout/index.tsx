@@ -15,6 +15,7 @@ const Body = styled.main``;
 const HIDDEN_BANNER = [
   "/exiter/userList",
   "/exiter/[userId]",
+  "/exiting/write",
   "/myPage/edit",
   "/myPage",
   "/projects/[projectId]",
@@ -28,11 +29,13 @@ const HIDDEN_MINI_BANNER = [
 ];
 const HIDDEN_TOGGLE_BUTTON = [
   "/exiter/[userId]",
-  "/exiter/[userId]",
+  "/exiting/write",
   "/myPage/edit",
   "/myPage",
   "/projects/[projectId]",
   "/currentProject/[projectId]",
+  "/exiting/[projectId]]",
+  ,
 ];
 
 export default function Layout(props: ILayoutProps) {
@@ -44,9 +47,10 @@ export default function Layout(props: ILayoutProps) {
   return (
     <>
       <Header />
-      {!isToggleButton && <ToggleButtonContainenr />}
+      {isToggleButton && <ToggleButtonContainenr />}
       {!isHiddenBanner && <Banner />}
       {isHiddenMiniBanner && <MiniBanner />}
+
       <Body>{props.children}</Body>
       {/* <Footer /> */}
     </>

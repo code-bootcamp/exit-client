@@ -118,3 +118,9 @@ export const REMOVE_USER_BOARDS = gql`
     removeUserBoards(userId: $userId, boardId: $boardId)
   }
 `;
+
+export const REMOVE_BOARD = gql`
+  mutation removeBoard($boardId: String!) {
+    removeBoard(boardId: $boardId)
+  }
+`;

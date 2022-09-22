@@ -20,6 +20,7 @@ const VISIBLE_AD_BANNER = ["/exiting", "/exited"];
 const HIDDEN_BANNER = [
   "/exiter/userList",
   "/exiter/[userId]",
+  "/exiting/write",
   "/myPage/edit",
   "/myPage",
   "/projects/[projectId]",
@@ -36,11 +37,13 @@ const HIDDEN_MINI_BANNER = [
 ];
 const HIDDEN_TOGGLE_BUTTON = [
   "/exiter/[userId]",
-  "/exiter/[userId]",
+  "/exiting/write",
   "/myPage/edit",
   "/myPage",
   "/projects/[projectId]",
   "/currentProject/[projectId]",
+  "/exiting/[projectId]]",
+  ,
 ];
 const HIDDEN_FOOTER = ["/currentProject/[projectId]"];
 
@@ -55,7 +58,7 @@ export default function Layout(props: ILayoutProps) {
   return (
     <>
       <Header />
-      {!isToggleButton && <ToggleButtonContainenr />}
+      {isToggleButton && <ToggleButtonContainenr />}
       {!isHiddenBanner && <Banner />}
       {isHiddenMiniBanner && <MiniBanner />}
       {isVisibleAdBanner && <AdBanner />}

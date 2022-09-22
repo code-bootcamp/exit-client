@@ -83,4 +83,7 @@ export const Logout = styled.div`
   font-size: 20px;
   color: #d7d7d7;
   cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10rem;
 `;

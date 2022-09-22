@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { io, Socket } from "socket.io-client";
 import { userInfoState } from "../../store";
-import ChatFormUI from "./chat02.presenter";
-import { FETCH_LOGS } from "./chat02.queries";
+import ChatFormUI from "./chat03.presenter";
+import { FETCH_LOGS } from "./chat03.queries";
 
 const url = "https://teamserver05.shop/chat";
 

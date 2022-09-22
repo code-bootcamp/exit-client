@@ -26,15 +26,15 @@ export default function MiniMypageUI(props: any) {
             <S.MyProjectContainer>
               <S.MyProjectTitle>내 모임</S.MyProjectTitle>
               <S.MyProjectPage>
-                {props.myProject?.fetchProjectOfUser.title}
+                {props.myProject?.fetchProjectOfUser.title
+                  ? props.myProject?.fetchProjectOfUser.title
+                  : "현재 진행중인 프로젝트가 없습니다"}
               </S.MyProjectPage>
             </S.MyProjectContainer>
-            <S.MyProjectContainer>
-              <S.MyProjectTitle>신규 채팅</S.MyProjectTitle>
-              <S.MyProjectPage>
-                신규 알림이 없습니다(아마 채팅하려나?)
-              </S.MyProjectPage>
-            </S.MyProjectContainer>
+            {/* <S.MyProjectContainer>
+              <S.MyProjectTitle>나의 채팅</S.MyProjectTitle>
+              <S.MyProjectPage></S.MyProjectPage>
+            </S.MyProjectContainer> */}
             <S.Logout onClick={props.onClickLogout}>로그아웃</S.Logout>
           </S.Main>
         </S.Container>

@@ -11,7 +11,7 @@ import {
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { userInfoState } from "../../../commons/store";
+import { isModalVisibleState, userInfoState } from "../../../commons/store";
 
 const schema = yup.object({
   password: yup.string().required("비밀번호를 입력해주세요. (+ 추가설명)"),
@@ -27,6 +27,8 @@ const schema = yup.object({
 
 export default function ResetPassword(props: IResetPasswordProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [isModalVisibleState, setIsModalVisibleState] =
+    useRecoilState(isModalVisibleState);
   const router = useRouter();
 
   const { register, handleSubmit, formState, watch } = useForm({
@@ -51,6 +53,7 @@ export default function ResetPassword(props: IResetPasswordProps) {
         },
       },
     });
+    setIsModalVisibleState(false);
   };
 
   return (

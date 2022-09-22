@@ -3,16 +3,21 @@ import { useRouter } from "next/router";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
+  IQueryFetchCategoryArgs,
 } from "../../../commons/types/generated/types";
 import MainUI from "./main.presenter";
-import { FETCH_BOARDS } from "./main.queries";
+import { FETCH_BOARDS, FETCH_CATEGORIES } from "./main.queries";
 
 export default function Main() {
-  const router = useRouter();
-
   const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(
-    FETCH_BOARDS
+    FETCH_BOARDS,
+    {
+      variables: {
+        isSuccess: false,
+        status: false,
+      },
+    }
   );
-  console.log(data);
+
   return <MainUI data={data} />;
 }

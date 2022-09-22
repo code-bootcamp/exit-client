@@ -6,12 +6,17 @@ import Banner from "./banner/banner.container";
 import { useRouter } from "next/router";
 import MiniBanner from "./miniBanner/miniBanner.container";
 import ToggleButtonContainenr from "./toggleButton/toggleButton.contaier";
+import Footer from "./footer/footer.container";
+import AdBanner from "./adBanner";
 
 interface ILayoutProps {
   children: ReactNode;
 }
 
 const Body = styled.main``;
+
+const VISIBLE_AD_BANNER = ["/exiting", "/exited"];
+
 const HIDDEN_BANNER = [
   "/exiter/userList",
   "/exiter/[userId]",
@@ -20,7 +25,10 @@ const HIDDEN_BANNER = [
   "/myPage",
   "/projects/[projectId]",
   "/currentProject/[projectId]",
+  "/exited",
+  "/exiting",
 ];
+
 const HIDDEN_MINI_BANNER = [
   "/exiter/userList",
   "/exiter/[userId]",
@@ -37,12 +45,15 @@ const HIDDEN_TOGGLE_BUTTON = [
   "/exiting/[projectId]]",
   ,
 ];
+const HIDDEN_FOOTER = ["/currentProject/[projectId]"];
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
   const isHiddenBanner = HIDDEN_BANNER.includes(router.pathname);
   const isHiddenMiniBanner = HIDDEN_MINI_BANNER.includes(router.pathname);
   const isToggleButton = HIDDEN_TOGGLE_BUTTON.includes(router.pathname);
+  const isHiddenFooter = HIDDEN_FOOTER.includes(router.pathname);
+  const isVisibleAdBanner = VISIBLE_AD_BANNER.includes(router.pathname);
 
   return (
     <>
@@ -50,9 +61,9 @@ export default function Layout(props: ILayoutProps) {
       {isToggleButton && <ToggleButtonContainenr />}
       {!isHiddenBanner && <Banner />}
       {isHiddenMiniBanner && <MiniBanner />}
-
+      {isVisibleAdBanner && <AdBanner />}
       <Body>{props.children}</Body>
-      {/* <Footer /> */}
+      {!isHiddenFooter && <Footer />}
     </>
   );
 }

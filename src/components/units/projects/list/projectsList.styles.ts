@@ -107,6 +107,8 @@ export const ThumbImageWrapper = styled.div`
   overflow: hidden;
   img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -210,4 +212,87 @@ export const BailIconWrapper = styled.div`
 export const Bail = styled.strong`
   font-size: 3.4rem;
   font-weight: 700;
+`;
+
+export const RandomProjectWrapper = styled.div`
+  width: 100%;
+  height: 480px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: linear-gradient(250deg, #000000 90.52%, rgba(0, 0, 0, 0) 100%);
+  background-color: gray;
+  margin-bottom: 80px;
+  /* padding-top: 110px; */
+`;
+
+export const RandomProjectImageWrapper = styled.div`
+  width: 50%;
+  height: 480px;
+  background-repeat: no-repeat;
+  background-size: 80% 100%;
+  background-image: url(${(props: any) => props.src});
+`;
+
+export const RandomProjectTextWrapper = styled.div`
+  width: 50%;
+`;
+export const RandomProjectTitle = styled.h3`
+  font-size: 4.8rem;
+  color: #fff;
+  font-weight: 700;
+`;
+
+export const RandomProjectDescription = styled.p`
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 20px 0;
+  width: 730px;
+  word-break: keep-all;
+`;
+
+export const RandomProjectBailWrapper = styled.div`
+  display: flex;
+`;
+
+export const RandomProjectBail = styled.em`
+  font-size: 4rem;
+  color: #fff;
+  font-weight: 700;
+  padding-left: 10px;
+`;
+
+export const RandomProjectBailIcon = styled.div`
+  width: 44px;
+  height: 44px;
+  position: relative;
+  top: -5px;
+
+  img {
+    width: 100%;
+  }
+`;
+
+export const Exiting = styled.p`
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #3ebd5d;
+  margin-bottom: 1rem;
+
+  ::selection {
+    background-color: #3ebd5d;
+  }
+`;
+
+export const SectionTitle = styled.h2`
+  width: 100%;
+  font-size: 4.8rem;
+  font-weight: 700;
+  word-break: keep-all;
+  margin-bottom: 30px;
+
+  ::selection {
+    background-color: #000;
+  }
 `;

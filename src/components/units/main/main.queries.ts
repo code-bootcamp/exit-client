@@ -36,3 +36,12 @@ export const FETCH_LIKES = gql`
     }
   }
 `;
+
+export const FETCH_CATEGORIES = gql`
+  query fetchCategories {
+    fetchCategories {
+      id
+      name
+    }
+  }
+`;

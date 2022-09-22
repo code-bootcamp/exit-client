@@ -2,6 +2,7 @@ import {
   UploadButton,
   UploadFileHidden,
   UploadImage,
+  Label,
 } from "./UploadsWrite.styles";
 
 export default function UploadsWriteUI(props: any) {
@@ -11,7 +12,7 @@ export default function UploadsWriteUI(props: any) {
         <UploadImage onClick={props.onClickUpload} src={`${props.fileUrl}`} />
       ) : (
         <UploadButton onClick={props.onClickUpload}>
-          프로젝트 이미지 업로드
+          <Label>프로젝트 이미지 업로드</Label>
         </UploadButton>
       )}
       <UploadFileHidden

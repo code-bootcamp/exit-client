@@ -33,16 +33,15 @@ const FAVORITE_CATEGORIES = [
 
 const ADDRESS = [
   "서울",
-  "부산",
   "광주",
   "대구",
-  "인천",
-  "세종",
-  "강원",
   "대전",
   "부산",
   "울산",
+  "인천",
+  "강원",
   "경기",
+  "세종",
   "제주",
 ];
 
@@ -90,7 +89,7 @@ export default function WriteUI(props: any) {
             <S.SetBox>
               <S.SetTitleBox>
                 <S.SetMiniTitle>최대 100만원</S.SetMiniTitle>
-                <S.SetTitle>1인당보석금</S.SetTitle>
+                <S.SetTitle>1인당 보석금</S.SetTitle>
               </S.SetTitleBox>
               <S.SetRight>
                 <S.MoneyInput onChange={props.onChangeBail} name="SelectMoney">
@@ -109,9 +108,11 @@ export default function WriteUI(props: any) {
               <S.SetRight>
                 모집인원{" "}
                 <S.TextColor>
-                  {props.totalMember
-                    ? props.totalMember
-                    : props.data?.fetchBoard.totalMember}{" "}
+                  <span style={{ color: "#3EBD5D" }}>
+                    {props.totalMember
+                      ? props.totalMember
+                      : props.data?.fetchBoard.totalMember}{" "}
+                  </span>
                   명
                 </S.TextColor>
               </S.SetRight>
@@ -139,6 +140,7 @@ export default function WriteUI(props: any) {
                       display: "flex",
                       alignItems: "center",
                       marginBottom: "10rem",
+                      marginTop: "3rem",
                     }}
                   />
                 </Col>
@@ -205,9 +207,11 @@ export default function WriteUI(props: any) {
                 프로젝트 정기 모임{" "}
                 <S.TextColor>
                   주{" "}
-                  {props.frequency
-                    ? props.frequency
-                    : props.data?.fetchBoard.frequency}
+                  <span style={{ marginRight: "0.3rem", color: "#3EBD5D" }}>
+                    {props.frequency
+                      ? props.frequency
+                      : props.data?.fetchBoard.frequency}
+                  </span>
                   회
                 </S.TextColor>
               </S.SetRight>
@@ -246,20 +250,41 @@ export default function WriteUI(props: any) {
               <S.SetTitle>모집 마감일</S.SetTitle>
               <S.SetRight>
                 <S.TextColor>
-                  {props.closeDate
-                    ? props.closeDate
-                    : props.data?.fetchBoard.closeDate}
+                  <span style={{ marginRight: "0.3rem", color: "#3EBD5D" }}>
+                    {props.closeDate
+                      ? props.closeDate
+                      : props.data?.fetchBoard.closeDate}
+                  </span>{" "}
+                  모집 마감
                 </S.TextColor>
-                모집 마감
-                <DatePicker onChange={props.onChangeClosedAt} />
+                <DatePicker
+                  style={{
+                    marginTop: "0.5rem",
+                    // width: "36.1rem"
+                    height: "43px",
+                    // fontSize: "3.6rem",
+                    border: "none",
+                    color: "white",
+                    fontSize: "40px",
+                  }}
+                  onChange={props.onChangeClosedAt}
+                />
               </S.SetRight>
             </S.SetBox>
 
             <S.SetBox>
               <S.SetTitle>프로젝트기간</S.SetTitle>
               <S.SetRight>
-                총 프로젝트기간<S.TextColor></S.TextColor>
-                <RangePicker onChange={props.onChangeRangeDate} />
+                <S.TextColor> 총 프로젝트기간</S.TextColor>
+                <RangePicker
+                  style={{
+                    marginTop: "0.5rem",
+                    height: "43px",
+                    border: "none",
+                    fontSize: "40px",
+                  }}
+                  onChange={props.onChangeRangeDate}
+                />
               </S.SetRight>
             </S.SetBox>
           </S.ProjectSetting>

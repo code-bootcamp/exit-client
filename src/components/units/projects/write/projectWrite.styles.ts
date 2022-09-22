@@ -191,22 +191,29 @@ export const CreateButton = styled.button`
 `;
 
 export const Radio = styled.input`
-  /* position: absolute;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0; */
+  position: absolute;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 
-  /* content: '';
-    position: absolute;
-    top: 1px;
-    left: 5px;
-    width: 14px;
-    height: 14px;
-    background: #e86138;
-    border-radius: 100%;
-    box-shadow: none; */
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 5px;
+  width: 14px;
+  height: 14px;
+  background: #e86138;
+  border-radius: 100%;
+  box-shadow: none;
+
+  :checked {
+    position: relative;
+    height: 20px;
+    padding: 30px;
+    line-height: 20px;
+  }
 `;
 
 export const AddressLabel = styled.div``;

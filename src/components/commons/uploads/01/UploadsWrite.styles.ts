@@ -35,3 +35,8 @@ export const UploadFalse = styled.div`
   width: 20rem;
   height: 20rem;
 `;
+
+export const Label = styled.span`
+  font-size: 4rem;
+  font-weight: bold;
+`;

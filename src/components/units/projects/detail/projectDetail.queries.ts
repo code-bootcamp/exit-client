@@ -5,7 +5,6 @@ export const FETCH_BOARD = gql`
     fetchBoard(boardId: $boardId) {
       id
       title
-      context
       totalMember
       countMember
       countLike
@@ -117,5 +116,11 @@ export const UPDATE_USER_BOARD = gql`
 export const REMOVE_USER_BOARDS = gql`
   mutation removeUserBoards($userId: String, $boardId: String) {
     removeUserBoards(userId: $userId, boardId: $boardId)
+  }
+`;
+
+export const REMOVE_BOARD = gql`
+  mutation removeBoard($boardId: String!) {
+    removeBoard(boardId: $boardId)
   }
 `;

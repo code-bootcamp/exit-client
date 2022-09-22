@@ -5,7 +5,6 @@ export const FETCH_BOARDS = gql`
     fetchBoards {
       id
       title
-      # leader
       address
       totalMember
       countMember
@@ -33,6 +32,15 @@ export const FETCH_LIKES = gql`
         id
         title
       }
+    }
+  }
+`;
+
+export const FETCH_CATEGORIES = gql`
+  query fetchCategories {
+    fetchCategories {
+      id
+      name
     }
   }
 `;

@@ -1,6 +1,7 @@
 import ProjectWrite from "../../../../src/components/units/projects/write/projectWrite.container";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import WriteContainer from "../../../../src/components/units/projects/write02/write.container";
 
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: String!) {
@@ -41,5 +42,6 @@ export default function ProjectEditPage() {
     variables: { boardId: String(router.query.projectId) },
   });
 
-  return <ProjectWrite isEdit={true} data={data} />;
+  // return <ProjectWrite />;
+  return <WriteContainer isEdit={true} data={data} />;
 }

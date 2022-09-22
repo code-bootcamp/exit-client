@@ -157,20 +157,6 @@ export default function ProjectWrite(props: any) {
   // };
 
   const onClickSubmit = async (data: any) => {
-    setIsEdit(false);
-    console.log(data);
-    let myImageUrl = "";
-    // console.log(file)
-    if (file) {
-      const result1 = await uploadBoardImage({
-        variables: {
-          image: [file],
-        },
-      });
-      console.log(result1);
-      myImageUrl = result1.data?.uploadBoardImage || "";
-      // console.log(myImageUrl)
-    }
     await createBoard({
       variables: {
         createBoardInput: {
@@ -183,7 +169,7 @@ export default function ProjectWrite(props: any) {
           startAt: projectPeriod[0],
           endAt: projectPeriod[1],
           closedAt: recruitment,
-          boardImage: { url: myImageUrl },
+          boardImage: { url: imageUrl },
           // tags: [...tags] || ["Java", "Mysql"], // 구현 중 하드코딩
           tags: ["Java", "Mysql"], // 구현 중 하드코딩
           keywords: [data.keywords],

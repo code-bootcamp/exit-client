@@ -7,7 +7,7 @@ import {
   UserImage,
   UploadTrue,
   UploadFalse,
-} from "./Uploads01.styles";
+} from "./Uploads.styles";
 
 export default function Uploads01UI(props: any) {
   const { data } = useQuery(FETCH_LOGINED_USER);
@@ -42,13 +42,7 @@ export default function Uploads01UI(props: any) {
           )}
         </UploadTrue>
       )}
-      {/* {props.fileUrl ? (
-        <UploadImage onClick={props.onClickUpload} src={`${props.fileUrl}`} />
-      ) : (
-        <UploadButton type="button" onClick={props.onClickUpload}>
-          <UserImage src="/profile_img.png"></UserImage>
-        </UploadButton>
-      )} */}
+
       <UploadFileHidden
         type="file"
         ref={props.fileRef}

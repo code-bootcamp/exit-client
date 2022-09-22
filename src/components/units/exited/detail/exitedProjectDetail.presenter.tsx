@@ -17,7 +17,9 @@ export default function ExitedProjectDetailUI(
           ) : (
             <S.ProjectImage
               src={
-                categoriesImgSources[props.data.fetchBoard.categories[0]?.name]
+                categoriesImgSources[
+                  props.data.fetchBoard.categories[0]?.name
+                ] || "/map_temp.png"
               }
             />
           )}
@@ -69,7 +71,10 @@ export default function ExitedProjectDetailUI(
             </S.ProjectMembersWrapper>
             <S.MemberCountWrapper>
               <S.MemberCount>
-                {props.data?.fetchBoard.totalMember}
+                {props.data?.fetchBoard.countMember
+                  ? props.data?.fetchBoard.countMember + 1
+                  : 1}{" "}
+                / {props.data?.fetchBoard.totalMember}
               </S.MemberCount>
               <S.MemberIconWrapper>
                 <img src="/icons/icon_member_black.png" alt="" />

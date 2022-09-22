@@ -7,9 +7,14 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "../../../commons/store";
 import Modal01 from "../../../commons/modal/01/Modal01.container";
 import { IExitingListUIProps } from "./projectsList.types";
+import { Modal } from "antd";
+import { Content } from "antd/lib/layout/layout";
 
 export default function ExitingListUI(props: IExitingListUIProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  // console.log(props.randomData);
+  // console.log(props.userData);
+  // console.log(props.userData?.fetchUserWithNickname?.categories?.[0]?.name);
   console.log(props.filteredBoards);
   return (
     <>
@@ -23,6 +28,42 @@ export default function ExitingListUI(props: IExitingListUIProps) {
       )}
       <S.Wrapper>
         <S.InnerWrapper>
+          {props.randomData && (
+            <>
+              <S.Exiting>exting</S.Exiting>
+              <S.SectionTitle>
+                {userInfo.nickname &&
+                  `${userInfo.nickname}님의 선호 카테고리와 일치하는 `}
+                오늘의 프로젝트
+              </S.SectionTitle>
+              <S.RandomProjectWrapper>
+                <S.RandomProjectImageWrapper
+                  src={
+                    categoriesImgSources[
+                      props.userData?.fetchUserWithNickname?.categories?.[0]
+                        ?.name
+                    ]
+                  }
+                ></S.RandomProjectImageWrapper>
+                <S.RandomProjectTextWrapper>
+                  <S.RandomProjectTitle>
+                    {props.randomData?.fetchBoardRandom?.title}
+                  </S.RandomProjectTitle>
+                  <S.RandomProjectDescription>
+                    {props.randomData?.fetchBoardRandom?.description}
+                  </S.RandomProjectDescription>
+                  <S.RandomProjectBailWrapper>
+                    <S.RandomProjectBailIcon>
+                      <img src="/icons/icon_bail.svg" />
+                    </S.RandomProjectBailIcon>
+                    <S.RandomProjectBail>
+                      {props.randomData?.fetchBoardRandom?.bail}
+                    </S.RandomProjectBail>
+                  </S.RandomProjectBailWrapper>
+                </S.RandomProjectTextWrapper>
+              </S.RandomProjectWrapper>
+            </>
+          )}
           <S.ListFilterWrapper>
             <S.FilterButton onClick={props.onClickFilterButton}>
               <img
@@ -58,18 +99,22 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        {/* <img
-                          src={
-                            !!el.boardImage.url
-                              ? categoriesImgSources[el.categories?.[0]?.name]
-                              : el.boardImage.url
-                          }
-                        /> */}
-                        {el.boardImage.url !== "null" ? (
+                        {!!el.boardImage.url && (
+                          <img
+                            src={
+                              categoriesImgSources[el.categories?.[0]?.name] ||
+                              "/slider_default.png"
+                            }
+                          />
+                        )}
+                        {el.boardImage.url ? (
                           <img src={el.boardImage.url} />
                         ) : (
                           <img
-                            src={categoriesImgSources[el.categories[0]?.name]}
+                            src={
+                              categoriesImgSources[el.categories[0]?.name] ||
+                              "/slider_default.png"
+                            }
                           />
                         )}
                       </S.ThumbImageWrapper>
@@ -131,25 +176,29 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                           {props.likedData?.fetchLikes.filter(
                             (likedEl: any) => likedEl.board.id === el.id
                           ).length ? (
-                            <img src="/icons/icon_heart.png" />
+                            <img src="/icons/icon_heart_white.png" />
                           ) : (
                             <img src="/icons/icon_heart_off.png" />
                           )}
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        {/* <img
-                          src={
-                            !!el.boardImage.url
-                              ? categoriesImgSources[el.categories?.[0]?.name]
-                              : el.boardImage.url
-                          }
-                        /> */}
-                        {el.boardImage.url !== "null" ? (
+                        {!!el.boardImage.url && (
+                          <img
+                            src={
+                              categoriesImgSources[el.categories?.[0]?.name] ||
+                              "/slider_default.png"
+                            }
+                          />
+                        )}
+                        {el.boardImage.url ? (
                           <img src={el.boardImage.url} />
                         ) : (
                           <img
-                            src={categoriesImgSources[el.categories[0]?.name]}
+                            src={
+                              categoriesImgSources[el.categories[0]?.name] ||
+                              "/slider_default.png"
+                            }
                           />
                         )}
                       </S.ThumbImageWrapper>
@@ -157,10 +206,7 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                         <S.InfoLeftWrapper>
                           <S.CountWrapper>
                             <S.IconWrapper>
-                              <img
-                                src="/icons/icon_member_count.png"
-                                alt="멤버수"
-                              />
+                              <img src="/icons/icon_member.png" alt="멤버수" />
                             </S.IconWrapper>
                             <S.Count>
                               {el.countMember}/{el.totalMember}

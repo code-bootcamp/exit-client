@@ -9,9 +9,9 @@ export default function HeaderUI() {
       <S.Wrapper>
         <S.InnerWrapper>
           <S.Logo>
-            <Link href="/">
+            <a href="/">
               <img src="/logo.svg" alt="exit" />
-            </Link>
+            </a>
           </S.Logo>
           <Navigation />
           <TopMenu />

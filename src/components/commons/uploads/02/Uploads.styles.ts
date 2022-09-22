@@ -5,6 +5,7 @@ export const UploadImage = styled.img`
   height: 100%;
   border-radius: 10rem;
   object-fit: cover;
+
   /* margin-right: 24px; */
   cursor: pointer;
 `;
@@ -13,7 +14,9 @@ export const UploadButton = styled.button`
   width: 100%;
   height: 100%;
   border-radius: 10rem;
-  outline: none;
+  font-weight: 700;
+  font-size: 40px;
+  border: 1px solid #d7d7d7;
   cursor: pointer;
 `;
 export const UserImage = styled.img`
@@ -28,10 +31,12 @@ export const UploadFileHidden = styled.input`
 `;
 
 export const UploadTrue = styled.div`
-  width: 20rem;
-  height: 20rem;
+  width: 100%;
+
+  height: 100%;
 `;
 export const UploadFalse = styled.div`
-  width: 20rem;
-  height: 20rem;
+  width: 100%;
+
+  height: 100%;
 `;

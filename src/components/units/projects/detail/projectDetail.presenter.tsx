@@ -180,7 +180,9 @@ export default function ProjectDetailUI(props: any) {
             {/* 팀장정보, 팀장일시 안보이게 */}
             {props.data?.fetchBoard.leader === props.userInfo.id ? (
               <S.ProjectLeaderButton>
-                <S.ProjectJoinButton>프로젝트 시작하기</S.ProjectJoinButton>
+                <S.ProjectJoinButton onClick={props.onClickStart}>
+                  프로젝트 시작하기
+                </S.ProjectJoinButton>
                 <S.ProjectButtonBox>
                   <S.ProjectDeleteButton onClick={props.onClickDeleteProject}>
                     삭제

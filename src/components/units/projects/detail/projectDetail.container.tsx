@@ -160,6 +160,10 @@ export default function ProjectDetailContainenr() {
     router.push("/exiting");
   };
 
+  const onClickStart = () => {
+    router.push(`/currentProject/${router.query.projectId}`);
+  };
+
   return (
     <>
       <ProjectDetailUI
@@ -174,6 +178,7 @@ export default function ProjectDetailContainenr() {
         onClickMoveToUpdate={onClickMoveToUpdate}
         onClickDeleteProject={onClickDeleteProject}
         joined={joined}
+        onClickStart={onClickStart}
       />
     </>
   );

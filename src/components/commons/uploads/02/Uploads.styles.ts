@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const UploadImage = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 14px;
+  border-radius: 10rem;
   object-fit: cover;
 
   /* margin-right: 24px; */
@@ -13,7 +13,7 @@ export const UploadImage = styled.img`
 export const UploadButton = styled.button`
   width: 100%;
   height: 100%;
-  border-radius: 14px;
+  border-radius: 10rem;
   font-weight: 700;
   font-size: 40px;
   border: 1px solid #d7d7d7;
@@ -22,7 +22,7 @@ export const UploadButton = styled.button`
 export const UserImage = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 14px;
+  border-radius: 10rem;
   object-fit: cover;
 `;
 

@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useRef } from "react";
-import UploadsWriteUI from "../02/Uploads.presenter";
-import Uploads01UI from "./Uploads.presenter";
-import { UPLOAD_USER_IMAGE } from "./Uploads01.queries";
+import UploadsWrite01UI from "./UploadsWrite.presenter";
+import Uploads01UI from "./UploadsWrite.presenter";
+import { UPLOAD_USER_IMAGE } from "./UploadsWrite.queries";
 
 export default function UploadWrite(props: any) {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -25,7 +25,7 @@ export default function UploadWrite(props: any) {
   };
   return (
     <>
-      <UploadsWriteUI
+      <UploadsWrite01UI
         fileRef={fileRef}
         fileUrl={props.fileUrl}
         defaultFileUrl={props.defaultFileUrl}

@@ -9,17 +9,40 @@ import {
   UploadFalse,
 } from "./Uploads.styles";
 
-export default function UploadsWriteUI(props: any) {
+export default function Uploads01UI(props: any) {
   const { data } = useQuery(FETCH_LOGINED_USER);
   return (
     <>
-      {props.fileUrl ? (
-        <UploadImage onClick={props.onClickUpload} src={`${props.fileUrl}`} />
+      {data?.fetchLoginedUser.userImage?.url !== "null" ? (
+        <UploadFalse>
+          {props.fileUrl ? (
+            <UploadImage
+              onClick={props.onClickUpload}
+              src={`${props.fileUrl}`}
+            />
+          ) : (
+            <UploadButton type="button" onClick={props.onClickUpload}>
+              <UserImage
+                src={`${data?.fetchLoginedUser.userImage?.url}`}
+              ></UserImage>
+            </UploadButton>
+          )}
+        </UploadFalse>
       ) : (
-        <UploadButton onClick={props.onClickUpload}>
-          프로젝트 이미지 업로드
-        </UploadButton>
+        <UploadTrue>
+          {props.fileUrl ? (
+            <UploadImage
+              onClick={props.onClickUpload}
+              src={`${props.fileUrl}`}
+            />
+          ) : (
+            <UploadButton type="button" onClick={props.onClickUpload}>
+              <UserImage src="/profile_img.png"></UserImage>
+            </UploadButton>
+          )}
+        </UploadTrue>
       )}
+
       <UploadFileHidden
         type="file"
         ref={props.fileRef}

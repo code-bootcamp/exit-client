@@ -90,8 +90,8 @@ export default function ProjectWriteUI(props: any) {
           >
             <Slider
               handleStyle={{
-                width: "6rem",
-                height: "6rem",
+                width: "4rem",
+                height: "4rem",
                 borderColor: "#D7D7D7",
               }}
               trackStyle={{
@@ -124,7 +124,8 @@ export default function ProjectWriteUI(props: any) {
               onChange={props.onChangeCategories}
               checked={
                 props.categories === "여행" ||
-                props.data?.fetchBoard.categories.name === "여행"
+                props.data?.fetchBoard.categories.map((e: any) => e.name) ===
+                  "여행"
               }
             />
             <label htmlFor="categories1">
@@ -138,7 +139,8 @@ export default function ProjectWriteUI(props: any) {
               onChange={props.onChangeCategories}
               checked={
                 props.categories === "SNS" ||
-                props.data?.fetchBoard.categories.name === "SNS"
+                props.data?.fetchBoard.categories.map((e: any) => e.name) ===
+                  "SNS"
               }
             />
             <label htmlFor="categories2">
@@ -152,7 +154,8 @@ export default function ProjectWriteUI(props: any) {
               onChange={props.onChangeCategories}
               checked={
                 props.categories === "게임" ||
-                props.data?.fetchBoard.categories.name === "게임"
+                props.data?.fetchBoard.categories.map((e: any) => e.name) ===
+                  "게임"
               }
             />
             <label htmlFor="categories3">
@@ -699,8 +702,8 @@ export default function ProjectWriteUI(props: any) {
           <Box sx={{ width: "100rem", marginTop: 10, marginLeft: 3 }}>
             <Slider
               handleStyle={{
-                width: "6rem",
-                height: "6rem",
+                width: "4rem",
+                height: "4rem",
                 borderColor: "#D7D7D7",
               }}
               trackStyle={{

@@ -16,7 +16,7 @@ import moment from "moment";
 
 export default function ProjectWrite(props: any) {
   useEffect(() => {
-    console.log(props.data);
+    console.log(props.data?.fetchBoard);
     if (props.data !== undefined) {
       setIsEdit(true);
       if (props.data?.fetchBoard.boardImage.url) {
@@ -36,7 +36,9 @@ export default function ProjectWrite(props: any) {
       }
 
       if (props.data?.fetchBoard.categories.name) {
-        setCategories(props.data?.fetchBoard.categories.name);
+        setCategories(
+          props.data?.fetchBoard.categories.map((e: any) => e.name)
+        );
       }
 
       if (props.data?.fetchBoard.startAt) {
@@ -59,7 +61,7 @@ export default function ProjectWrite(props: any) {
         // // tags: [...tags] || ["Java", "Mysql"], // 구현 중 하드코딩
         // tags: ["Java", "Mysql"], // 구현 중 하드코딩
 
-        categories: [...categories],
+        categories: [categories],
 
         startAt: projectPeriod,
         // endAt: props.data.endAt || "2022-09-16", // 달력
@@ -184,7 +186,7 @@ export default function ProjectWrite(props: any) {
           boardImage: { url: myImageUrl },
           // tags: [...tags] || ["Java", "Mysql"], // 구현 중 하드코딩
           tags: ["Java", "Mysql"], // 구현 중 하드코딩
-          keywords: [...keywords],
+          keywords: [data.keywords],
           categories: [categories],
         },
       },
@@ -209,7 +211,7 @@ export default function ProjectWrite(props: any) {
 
     const result = await updateBoard({
       variables: {
-        boardId: String(router.query.projectid),
+        boardId: String(router.query.projectId),
         updateBoardInput: {
           title: data.title,
           totalMember: Number(totalMember),
@@ -223,7 +225,7 @@ export default function ProjectWrite(props: any) {
           boardImage: { url: myImageUrl },
           // // tags: [...tags] || ["Java", "Mysql"], // 구현 중 하드코딩
           // tags: ["Java", "Mysql"], // 구현 중 하드코딩
-          keywords: [...data.keywords],
+          keywords: [data.keywords],
           categories: [categories],
         },
       },

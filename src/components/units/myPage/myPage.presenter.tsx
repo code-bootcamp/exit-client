@@ -259,9 +259,9 @@ export default function MyPagePresenter(props: any) {
                 <S.ProjectRow>
                   {props.endProjectData?.fetchProjectsOfUser.map((el: any) => (
                     <S.Key key={el.id}>
-                      {el.board.boardImage.url !== "null" ? (
+                      {el.board?.boardImage.url !== "null" ? (
                         <S.ProjectColumn
-                          id={el.board.id}
+                          id={el.board?.id}
                           onClick={props.onClickMoveToLikeProject}
                           style={{
                             backgroundImage: `url(${"/categories/category_animal_plant.png"})`,

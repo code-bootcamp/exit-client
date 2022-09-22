@@ -12,8 +12,10 @@ import ExitingListUI from "./projectsList.presenter";
 import {
   FETCH_BOARD,
   FETCH_BOARDS,
+  FETCH_BOARD_RANDOM,
   FETCH_CATEGORIES_TAGS,
   FETCH_LIKES,
+  FETCH_USER_WITH_NICKNAME,
 } from "./projectsList.queries";
 
 export default function ExitingList() {
@@ -99,7 +101,7 @@ export default function ExitingList() {
 
         if (filteredBoards) {
           setFilteredBoards(filteredBoards);
-          console.log(filteredBoards);
+          // console.log(filteredBoards);
         } else {
           setFilteredBoards([]);
         }
@@ -111,6 +113,20 @@ export default function ExitingList() {
     FetchBoardsWithSearchModal();
   }, [searchWords]);
 
+  const { data: userData } = useQuery(FETCH_USER_WITH_NICKNAME, {
+    variables: {
+      nickname: userInfo.nickname,
+    },
+  });
+
+  const { data: randomData } = useQuery(FETCH_BOARD_RANDOM, {
+    variables: {
+      categoryId: userData?.fetchUserWithNickname?.categories?.[0].id,
+    },
+  });
+
+  // console.log(randomData);
+
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
@@ -118,7 +134,7 @@ export default function ExitingList() {
     variables: { isSuccess: false, status: false }, // 성공여부 false, 모집마감 false
   });
 
-  console.log(data);
+  // console.log(data);
 
   const { data: likedData } = useQuery<
     Pick<IQuery, "fetchLikes">,
@@ -180,6 +196,8 @@ export default function ExitingList() {
       onClickProject={onClickProject}
       onClickFilterButton={onClickFilterButton}
       setIsModalVisible={setIsModalVisible}
+      userData={userData}
+      randomData={randomData}
     />
   );
 }

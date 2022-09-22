@@ -6,9 +6,9 @@ import { breakPoints } from "../../../../commons/styles/media";
 
 export const Visual = styled.section`
   width: 100%;
+  height: 520px;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  background-color: #3ebd5d;
   margin-bottom: 90px;
 `;
 
@@ -18,9 +18,18 @@ export const BannerSlider = styled(Slider)`
 `;
 
 export const BannerItem = styled.div`
+  width: 100vw;
+  height: 520px;
+
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+  background-image: url(${(props: any) => props.src});
+`;
+
+export const LargeBannerImageWrapper = styled.div`
   width: 100%;
   height: 520px;
-  background-color: #3ebd5d;
 `;
 
 export const Inner = styled.div`
@@ -28,7 +37,7 @@ export const Inner = styled.div`
   height: 100%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   @media (max-width: 1700px) {
     width: 94vw;
@@ -133,4 +142,8 @@ export const BannerSubTitle = styled.strong`
     line-height: 1.2;
     text-align: center;
   }
+`;
+
+export const BannerSubTitleGray = styled(BannerSubTitle)`
+  color: #b2b2b2;
 `;

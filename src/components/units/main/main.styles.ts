@@ -7,6 +7,7 @@ import { breakPoints } from "../../../commons/styles/media";
 export const Wrapper = styled.div`
   width: 100%;
   overflow: hidden;
+  padding-bottom: 50px;
 `;
 
 export const Section = styled.section``;
@@ -64,7 +65,7 @@ export const SectionTitle = styled.h2`
   &:last-of-type {
   }
 
-  @media (max-width: ${breakPoints.xxl}) {
+  @media (max-width: 1600px) {
     font-size: 4.3rem;
   }
   @media (min-width: ${breakPoints.sm}) and (max-width: ${breakPoints.xxl}) {
@@ -97,6 +98,8 @@ export const More = styled.span`
   letter-spacing: -0.02em;
   display: flex;
   justify-content: flex-end;
+  position: relative;
+  left: 530px;
 
   @media (min-width: ${breakPoints.xl}) and (max-width: ${breakPoints.xxl}) {
     font-size: 2.2rem;

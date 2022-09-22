@@ -111,7 +111,7 @@ export const FindPassword = (props: IFindPasswordProps) => {
     if (isStarted === false) {
       // console.log("타이머 start");
       setIsStarted(true);
-      let time = 20;
+      let time = 30;
       let timer: any = null;
       timer = setInterval(function () {
         if (time > 0) {
@@ -146,12 +146,14 @@ export const FindPassword = (props: IFindPasswordProps) => {
       });
       // props.setIsModalVisible?.(false);
       // setFindPasswordStep(2);
+      setIsModalVisible(false);
 
       // setFindPasswordStep(2); 비밀번호 재설정으로 넘어가기
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes("인증")) {
           setServerEmailTokenErrorMessage(error.message);
+          setIsModalVisible(false);
         }
       }
     }

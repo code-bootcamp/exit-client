@@ -144,6 +144,7 @@ export const MemberCountWrapper = styled.div`
 export const MemberCountImageWrapper = styled.div``;
 export const MemberCount = styled.p`
   font-size: 3.5rem;
+  font-weight: 700;
 `;
 
 export const MemberIconWrapper = styled.p`

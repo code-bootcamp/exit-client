@@ -9,23 +9,18 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "../../commons/store";
 import moment from "moment";
 import { useRouter } from "next/router";
-
-const IMAGE_TEMP_SOURCE = [
-  "/categories/e-commerce.png",
-  "/categories/education.png",
-  "/categories/game.png",
-  "/categories/medical.png",
-  "/categories/o2o.png",
-  "/categories/o2o.png",
-  "/categories/utile.png",
-];
+import { imageOptimizer } from "next/dist/server/image-optimizer";
 
 export default function MainUISliderItem(props: IMainUISliderItem) {
   const router = useRouter();
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  const onClickListItem = (id: any) => () => {
+    router.push(`/exiting/${id}`);
+  };
   return (
     <>
-      <S.ListItem key={uuidv4()}>
+      <S.ListItem key={uuidv4()} onClick={onClickListItem(props.el.id)}>
         <S.ThumbWrapper>
           {/* Likes */}
           {Object.values(userInfo).every((el) => el !== "") && (
@@ -33,23 +28,30 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               {props.likedBoards?.fetchLikes.filter(
                 (likedEl) => likedEl.board.id === props.el.id
               ).length ? (
-                <img src="/icons/icon_heart.png" />
+                <img src="/icons/icon_heart_white.png" />
               ) : (
                 <img src="/icons/icon_heart_off.png" />
               )}
             </S.IsLikedWrapper>
           )}
-          {props.el.closedAt &&
-            moment().diff(moment(props.el.closedAt), "days") < 8 && (
-              <S.Countdown>
-                D-{moment().diff(moment(props.el.closedAt), "days")}
-              </S.Countdown>
-            )}
+          {moment().diff(moment(props.el.closedAt), "days") < 8 && (
+            <S.Countdown>
+              D-{Math.abs(moment().diff(moment(props.el.closedAt), "days"))}
+            </S.Countdown>
+          )}
           <S.ThumbImageWrapper>
-            {props.el.boardImage.url ? (
+            {props.el.boardImage.url === undefined && (
+              <img src="/slider_default.png" />
+            )}
+            {props.el.boardImage.url !== "null" ? (
               <img src={props.el.boardImage.url} />
             ) : (
-              <img src={categoriesImgSources[props.el.categories?.[0]?.name]} />
+              <img
+                src={
+                  categoriesImgSources[props.el.categories?.[0]?.name] ||
+                  "/slider_default.png"
+                }
+              />
             )}
           </S.ThumbImageWrapper>
           <S.ThumbInfoWrapper>
@@ -81,7 +83,7 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
             </S.ProjectTitle>
             <S.TagsWrapper>
               {/* 하드코딩된 부분 */}
-              <S.Tag>React</S.Tag>
+              {/* <S.Tag>React</S.Tag>
               <S.Tag>Photoshop</S.Tag>
               <S.Tag>Java</S.Tag>
               <S.Tag>HTML/CSS</S.Tag>
@@ -90,7 +92,10 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               <S.Tag>Figma</S.Tag>
               <S.Tag>Figma</S.Tag>
               <S.Tag>JavaScript</S.Tag>
-              <S.Tag>TypeScript</S.Tag>
+              <S.Tag>TypeScript</S.Tag> */}
+              {props.el.categories.map((el) => (
+                <S.Tag>{el.name}</S.Tag>
+              ))}
             </S.TagsWrapper>
           </div>
           <S.BailWrapper>

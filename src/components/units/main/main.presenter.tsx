@@ -12,10 +12,11 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "../../commons/store";
 import { useQuery } from "@apollo/client";
 import { FETCH_LIKES } from "./main.queries";
-import { useCallback, useState } from "react";
+import moment from "moment";
+
+import { useState } from "react";
 import { useRouter } from "next/router";
 
-// 하드코딩된 부분
 const FAVORITE_CATEGORIES = [
   "공유 서비스",
   "여행",
@@ -29,39 +30,17 @@ const FAVORITE_CATEGORIES = [
 
 export default function MainUI(props: IMainUIProps) {
   const [dragging, setDragging] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
   const router = useRouter();
 
-  const handleBeforeChange = useCallback(() => {
-    setDragging(true);
-  }, [setDragging]);
-
-  const handleAfterChange = useCallback(() => {
-    setDragging(false);
-  }, [setDragging]);
-
-  const onClickCard = useCallback(
-    (path) => (e: React.SyntheticEvent) => {
-      if (dragging) {
-        e.stopPropagation();
-        return;
-      }
-      if (path.includes("https")) {
-        window.open(path, "_blank");
-      } else {
-        router.push(path);
-      }
-    },
-    [dragging]
-  );
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const settings = {
     dots: false,
     infinite: true,
     autoplay: true,
-    dragging: true,
-    beforeChange: handleBeforeChange,
-    afterChange: handleAfterChange,
+    autoplaySpeed: 3000,
+    dragging: false,
+
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
@@ -74,6 +53,7 @@ export default function MainUI(props: IMainUIProps) {
       },
     ],
   };
+
   const { data } = useQuery<Pick<IQuery, "fetchLikes">, IQueryFetchLikesArgs>(
     FETCH_LIKES,
     {
@@ -93,25 +73,82 @@ export default function MainUI(props: IMainUIProps) {
               다양한 신규 프로젝트
             </S.SectionTitle>
             <S.ListLink>
-              <S.More>전체 프로젝트 더보기</S.More>
+              <Link href="/exiting">
+                <S.More>전체 프로젝트 더보기</S.More>
+              </Link>
             </S.ListLink>
           </S.Row>
         </S.SectionInfo>
         <S.SliderWrapper>
           <S.ListSlider {...settings}>
             {/* 최신순 게시물 10개 */}
-            {props.data?.fetchBoards.slice(0, 10).map((el: any) => (
-              <MainUISliderItem
-                key={uuidv4()}
-                el={el}
-                likedBoards={data}
-                onClick={onClickCard(el.path)}
-              />
-            ))}
+            {props.data?.fetchBoards
+              .slice(0, 10)
+              .filter(
+                (el: IBoard) => moment().diff(moment(el?.startAt), "days") < 0
+              )
+              .map((el: IBoard) => (
+                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
+              ))}
           </S.ListSlider>
         </S.SliderWrapper>
       </S.Section>
       {/* 리스트2: 분야1 */}
+      <S.Section>
+        <S.SectionInfo>
+          <S.Exiting>exting</S.Exiting>
+          <S.Row>
+            <S.SectionTitle>공유서비스 분야 프로젝트</S.SectionTitle>
+            <S.ListLink>
+              <Link href="/exiting">
+                <S.More>전체 프로젝트 더보기</S.More>
+              </Link>
+            </S.ListLink>
+          </S.Row>
+        </S.SectionInfo>
+        <S.SliderWrapper>
+          <S.ListSlider {...settings}>
+            {props.data?.fetchBoards
+              .filter(
+                (el: IBoard) => el.categories?.[0]?.name === "공유서비스"
+                // &&
+                // moment().diff(moment(el?.startAt), "days") > 0
+              )
+              .slice(0, 10)
+              .map((el: IBoard) => (
+                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
+              ))}
+          </S.ListSlider>
+        </S.SliderWrapper>
+      </S.Section>
+      {/* 리스트3: 분야2 */}
+      <S.Section>
+        <S.SectionInfo>
+          <S.Exiting>exting</S.Exiting>
+          <S.Row>
+            <S.SectionTitle>여행 분야 프로젝트</S.SectionTitle>
+            <S.ListLink>
+              <Link href="/exiting">
+                <S.More>전체 프로젝트 더보기</S.More>
+              </Link>
+            </S.ListLink>
+          </S.Row>
+        </S.SectionInfo>
+        <S.SliderWrapper>
+          <S.ListSlider {...settings}>
+            {props.data?.fetchBoards
+              .slice(0, 10)
+              .filter(
+                (el: IBoard) => el.categories?.[0]?.name === "여행"
+                // &&
+                // moment().diff(moment(el?.startAt), "days") > 7
+              )
+              .map((el: IBoard) => (
+                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
+              ))}
+          </S.ListSlider>
+        </S.SliderWrapper>
+      </S.Section>
       <S.MainAdSection>
         <S.AdWrapper>
           <S.AdText>
@@ -130,7 +167,14 @@ export default function MainUI(props: IMainUIProps) {
         <S.CategoriesWrapper>
           <S.Inner>
             {FAVORITE_CATEGORIES.map((el: string) => (
-              <S.Category key={uuidv4()}>{el}</S.Category>
+              <S.Category
+                key={uuidv4()}
+                onClick={() => {
+                  router.push("/exiting");
+                }}
+              >
+                {el}
+              </S.Category>
             ))}
           </S.Inner>
         </S.CategoriesWrapper>

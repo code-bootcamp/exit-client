@@ -13,6 +13,7 @@ const ImgContainer = styled.div`
   position: fixed;
   bottom: 5rem;
   right: 10rem;
+  z-index: 100;
 `;
 const WriteButton = styled.img`
   cursor: pointer;

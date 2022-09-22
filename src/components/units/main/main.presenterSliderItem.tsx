@@ -34,11 +34,11 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               )}
             </S.IsLikedWrapper>
           )}
-          {moment().diff(moment(props.el.closedAt), "days") < 8 && (
+          {/* {moment().diff(moment(props.el.closedAt), "days") < 8 && (
             <S.Countdown>
               D-{Math.abs(moment().diff(moment(props.el.closedAt), "days"))}
             </S.Countdown>
-          )}
+          )} */}
           <S.ThumbImageWrapper>
             {props.el.boardImage.url === undefined && (
               <img src="/slider_default.png" />
@@ -82,18 +82,7 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               [{props.el.address}] {props.el.title}
             </S.ProjectTitle>
             <S.TagsWrapper>
-              {/* 하드코딩된 부분 */}
-              {/* <S.Tag>React</S.Tag>
-              <S.Tag>Photoshop</S.Tag>
-              <S.Tag>Java</S.Tag>
-              <S.Tag>HTML/CSS</S.Tag>
-              <S.Tag>Spring</S.Tag>
-              <S.Tag>AfterEffect</S.Tag>
-              <S.Tag>Figma</S.Tag>
-              <S.Tag>Figma</S.Tag>
-              <S.Tag>JavaScript</S.Tag>
-              <S.Tag>TypeScript</S.Tag> */}
-              {props.el.categories.map((el) => (
+              {props.el.tags?.map((el) => (
                 <S.Tag>{el.name}</S.Tag>
               ))}
             </S.TagsWrapper>

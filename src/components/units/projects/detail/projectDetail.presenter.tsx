@@ -197,8 +197,7 @@ export default function ProjectDetailUI(props: any) {
                 <S.LeaderWapper>
                   <S.LeaderInfoContainer>
                     <S.LeaderImageBox>
-                      {props.leaderData?.fetchUserWithUserId.userImage.url !==
-                      "null" ? (
+                      {!!props.leaderData?.fetchUserWithUserId.userImage.url ? (
                         <S.LeaderImage
                           src={`${props.leaderData?.fetchUserWithUserId.userImage.url}`}
                         />
@@ -209,12 +208,15 @@ export default function ProjectDetailUI(props: any) {
                     <S.LeaderInfoBox>
                       <S.LeaderName>
                         {props.leaderData?.fetchUserWithUserId.nickname}
+                        {console.log(
+                          props.leaderData?.fetchUserWithUserId.nickname
+                        )}
                       </S.LeaderName>
                       <S.LeaderKeywordBox>
                         {props.leaderData?.fetchUserWithUserId.keywords.map(
                           (el: any) => (
                             <S.Key key={el.id}>
-                              <S.LeaderKeyword>#{el.name}</S.LeaderKeyword>
+                              <S.LeaderKeyword>{el.name}</S.LeaderKeyword>
                             </S.Key>
                           )
                         )}

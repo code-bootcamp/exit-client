@@ -15,7 +15,9 @@ export default function ExitingListUI(props: IExitingListUIProps) {
   // console.log(props.randomData);
   // console.log(props.userData);
   // console.log(props.userData?.fetchUserWithNickname?.categories?.[0]?.name);
-  console.log(props.filteredBoards);
+  // console.log(props.filteredBoards);
+  console.log(props.randomData);
+  // console.log(userInfo, setUserInfo);
   return (
     <>
       {props.isModalVisible && (

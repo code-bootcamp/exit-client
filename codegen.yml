@@ -1,4 +1,5 @@
-schema: https://teamserver05.shop/graphql
+# schema: https://teamserver05.shop/graphql
+schema: http://34.111.191.226/graphql
 generates:
   ./src/commons/types/generated/types.ts:
     plugins:

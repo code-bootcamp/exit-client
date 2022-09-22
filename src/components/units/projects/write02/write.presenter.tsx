@@ -1,8 +1,8 @@
-import UploadWrite from "../../../commons/uploads/01/Uploads.container";
+import UploadWrite from "../../../commons/uploads/01/UploadsWrite.container";
 import { v4 as uuidv4 } from "uuid";
 import { Col, DatePicker, Row, Slider } from "antd";
 import * as S from "./write.styles";
-import IntegerStepComponent from "./write.slider";
+
 const { RangePicker } = DatePicker;
 
 const FAVORITE_CATEGORIES = [

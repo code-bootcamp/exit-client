@@ -5,7 +5,6 @@ export const FETCH_BOARDS = gql`
     fetchBoards {
       id
       title
-      # leader
       address
       totalMember
       countMember

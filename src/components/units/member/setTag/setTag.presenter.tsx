@@ -18,10 +18,6 @@ export default function SetTagUI(props: ISetTagUIProps) {
           />
         ))}
       </S.TagsWrapper>
-      {/* <S.ButtonWrapper>
-        <Button02 backgroundColor="#000" />
-        <Button02 backgroundColor="#3EBD5D" />
-      </S.ButtonWrapper> */}
       <Button01
         text="가입완료"
         type="button"

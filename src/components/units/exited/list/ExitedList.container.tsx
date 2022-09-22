@@ -34,7 +34,6 @@ export default function ExitedList() {
       status: true,
     },
   });
-  // console.log(fetchBoardsByLikes);
 
   // 마운트될 때
   useEffect(() => {

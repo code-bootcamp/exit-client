@@ -161,7 +161,7 @@ export default function Join(props: IJoinProps) {
         // console.log("start");
         setIsStarted(true);
 
-        let time = 30;
+        let time = 180;
         let timer: any = null;
 
         timer = setInterval(function () {

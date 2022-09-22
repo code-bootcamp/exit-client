@@ -87,7 +87,7 @@ export const SetTitle = styled.div`
 export const RadioBox = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 2rem;
+  margin-top: 3rem;
 `;
 export const Key = styled.div`
   font-weight: 400;
@@ -128,14 +128,31 @@ export const SetTitleBox = styled.div`
   margin-bottom: 3rem;
 `;
 export const TextColor = styled.p`
-  color: #3ebd5d;
+  margin-top: 0.5rem;
+  margin-right: 0.9rem;
+  margin-bottom: 2rem;
 `;
 
 export const InputRadio = styled.input`
-  color: #4e4e4e;
-  width: 20px;
-  height: 20px;
-  margin-right: 1rem;
+  appearance: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 100%;
+  margin-right: 0.7rem;
+  border: 2px solid #d7d7d7;
+
+  vertical-align: middle;
+
+  :checked {
+    /* content: ""; */
+    appearance: none;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 100%;
+    margin-right: 0.7rem;
+    background-color: #3ebd5d;
+    vertical-align: middle;
+  }
 `;
 export const ButtonBox = styled.div`
   display: flex;
@@ -160,3 +177,5 @@ export const Createbutton = styled.button`
   background: #3ebd5d;
   border-radius: 14px;
 `;
+
+export const BailIcon = styled.img``;

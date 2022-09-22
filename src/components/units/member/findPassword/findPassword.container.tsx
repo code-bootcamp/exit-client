@@ -111,7 +111,7 @@ export const FindPassword = (props: IFindPasswordProps) => {
     if (isStarted === false) {
       // console.log("타이머 start");
       setIsStarted(true);
-      let time = 30;
+      let time = 180;
       let timer: any = null;
       timer = setInterval(function () {
         if (time > 0) {
@@ -140,13 +140,11 @@ export const FindPassword = (props: IFindPasswordProps) => {
       await sendNewPassword({
         variables: { email },
       });
-      Modal.success({
-        content:
-          "임시 비밀번호가 발급되었습니다. 새로운 이메일로 로그인해주세요.",
-      });
+
       // props.setIsModalVisible?.(false);
       // setFindPasswordStep(2);
-      setIsModalVisible(false);
+      // setIsModalVisible(false);
+      location.reload();
 
       // setFindPasswordStep(2); 비밀번호 재설정으로 넘어가기
     } catch (error) {
@@ -157,6 +155,10 @@ export const FindPassword = (props: IFindPasswordProps) => {
         }
       }
     }
+    Modal.success({
+      content:
+        "임시 비밀번호가 발급되었습니다. 새로운 이메일로 로그인해주세요.",
+    });
   };
 
   return (

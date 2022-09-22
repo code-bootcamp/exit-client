@@ -84,9 +84,9 @@ export default function MainUI(props: IMainUIProps) {
             {/* 최신순 게시물 10개 */}
             {props.data?.fetchBoards
               .slice(0, 10)
-              .filter(
-                (el: IBoard) => moment().diff(moment(el?.startAt), "days") < 0
-              )
+              // .filter(
+              //   (el: IBoard) => moment().diff(moment(el?.startAt), "days") < 0
+              // )
               .map((el: IBoard) => (
                 <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
               ))}
@@ -108,6 +108,26 @@ export default function MainUI(props: IMainUIProps) {
         </S.SectionInfo>
         <S.SliderWrapper>
           <S.ListSlider {...settings}>
+            {props.data?.fetchBoards
+              .filter(
+                (el: IBoard) => el.categories?.[0]?.name === "공유서비스"
+                // &&
+                // moment().diff(moment(el?.startAt), "days") > 0
+              )
+              .slice(0, 10)
+              .map((el: IBoard) => (
+                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
+              ))}
+            {props.data?.fetchBoards
+              .filter(
+                (el: IBoard) => el.categories?.[0]?.name === "공유서비스"
+                // &&
+                // moment().diff(moment(el?.startAt), "days") > 0
+              )
+              .slice(0, 10)
+              .map((el: IBoard) => (
+                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
+              ))}
             {props.data?.fetchBoards
               .filter(
                 (el: IBoard) => el.categories?.[0]?.name === "공유서비스"

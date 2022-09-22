@@ -40,9 +40,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
 
   useEffect(() => {
     getAccessToken().then(async (newAccessToken) => {
-      // console.log(newAccessToken);
       try {
-        // console.log(newAccessToken);
         setAccessToken(newAccessToken);
         const resultUserInfo = await client.query({
           query: FETCH_LOGINED_USER,
@@ -54,10 +52,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
         });
         const { __type, ...userInfo } = resultUserInfo.data.fetchLoginedUser;
         setUserInfo({ ...userInfo });
-        // console.log(userInfo);
-      } catch (error) {
-        // if (error instanceof Error) console.log(error.message);
-      }
+      } catch (error) {}
     });
   }, []);
 
@@ -82,7 +77,8 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink = createUploadLink({
-    uri: "https://teamserver05.shop/graphql",
+    // uri: "https://teamserver05.shop/graphql",
+    uri: "http://34.111.191.226/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });

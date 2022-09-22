@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Check from "../../../commons/categori";
-import Uploads01 from "../../../commons/uploads/01/Uploads.container";
+import Uploads01 from "../../../commons/uploads/02/Uploads.container";
+
 import * as S from "./myPageEdit.styles";
 
 const FAVORITE_CATEGORIES = [

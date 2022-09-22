@@ -8,7 +8,7 @@ import Text01 from "../../../commons/texts/01";
 import SetInterest from "../setInterest/setInterest.container";
 
 export default function JoinUI(props: IJoinUIProps) {
-  console.log(props.formState.isValid);
+  // console.log(props.formState.isValid);
   return (
     <>
       {props.joinStep < 3 && (

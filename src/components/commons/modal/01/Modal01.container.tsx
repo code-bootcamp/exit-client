@@ -32,6 +32,8 @@ export default function Modal01(props: any) {
     props.setIsModalVisible?.(false);
   };
 
+  console.log(props.modalData?.fetchCategories);
+  // console.log(tagsData);
   return (
     <Modal01UI
       modalFor={props.modalFor}

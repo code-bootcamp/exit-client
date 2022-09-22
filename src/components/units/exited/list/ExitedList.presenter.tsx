@@ -10,6 +10,7 @@ import { IExitedListUIProps } from "./ExitedList.types";
 
 export default function ExitedListUI(props: IExitedListUIProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  console.log(props.filteredBoards);
   return (
     <>
       {props.isModalVisible && (
@@ -22,6 +23,49 @@ export default function ExitedListUI(props: IExitedListUIProps) {
       )}
       <S.Wrapper>
         <S.InnerWrapper>
+          {props.fetchBoardsByLikes && (
+            <>
+              <S.Exiting>exting</S.Exiting>
+              <S.SectionTitle>
+                {/* {userInfo.nickname &&
+                  `${userInfo.nickname}님의 선호 카테고리와 일치하는 `} */}
+                완료된 프로젝트
+              </S.SectionTitle>
+              <S.RandomProjectWrapper>
+                <S.RandomProjectImageWrapper
+                  src={
+                    props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.boardImage
+                      .url !== "null"
+                      ? props.fetchBoardsByLikes?.fetchBoardsByLikes[0]
+                          ?.boardImage.url
+                      : categoriesImgSources[
+                          props.fetchBoardsByLikes?.fetchBoardsByLikes[0]
+                            ?.categories?.[0]?.name
+                        ] || "/map_temp.png"
+                  }
+                ></S.RandomProjectImageWrapper>
+                <S.RandomProjectTextWrapper>
+                  <S.RandomProjectTitle>
+                    {props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.title}
+                  </S.RandomProjectTitle>
+                  <S.RandomProjectDescription>
+                    {
+                      props.fetchBoardsByLikes?.fetchBoardsByLikes[0]
+                        ?.description
+                    }
+                  </S.RandomProjectDescription>
+                  <S.RandomProjectBailWrapper>
+                    <S.RandomProjectBailIcon>
+                      <img src="/icons/icon_bail.svg" />
+                    </S.RandomProjectBailIcon>
+                    <S.RandomProjectBail>
+                      {props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.bail}
+                    </S.RandomProjectBail>
+                  </S.RandomProjectBailWrapper>
+                </S.RandomProjectTextWrapper>
+              </S.RandomProjectWrapper>
+            </>
+          )}
           <S.ListFilterWrapper>
             <S.FilterButton onClick={props.onClickFilterButton}>
               <img
@@ -50,20 +94,38 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                           {props.likedData?.fetchLikes.filter(
                             (likedEl: any) => likedEl.board.id === el.id
                           ).length ? (
-                            <img src="/icons/icon_heart.png" />
+                            <img src="/icons/icon_heart_white.png" />
                           ) : (
                             <img src="/icons/icon_heart_off.png" />
                           )}
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        <img
+                        {/* <img
                           src={
                             !!el.boardImage.url
                               ? categoriesImgSources[el.categories?.[0]?.name]
                               : el.boardImage.url
                           }
-                        />
+                        /> */}
+                        {!!el.boardImage.url && (
+                          <img
+                            src={
+                              categoriesImgSources[el.categories?.[0]?.name] ||
+                              "/slider_default.png"
+                            }
+                          />
+                        )}
+                        {el.boardImage.url ? (
+                          <img src={el.boardImage.url} />
+                        ) : (
+                          <img
+                            src={
+                              categoriesImgSources[el.categories[0]?.name] ||
+                              "/slider_default.png"
+                            }
+                          />
+                        )}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
                         <S.InfoLeftWrapper>
@@ -137,11 +199,29 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                               : el.boardImage.url
                           }
                         /> */}
-                        {el.boardImage.url !== "null" ? (
+                        {/* {el.boardImage.url !== "null" ? (
                           <img src={el.boardImage.url} />
                         ) : (
                           <img
                             src={categoriesImgSources[el.categories?.[0]?.name]}
+                          />
+                        )} */}
+                        {!!el.boardImage.url && (
+                          <img
+                            src={
+                              categoriesImgSources[el.categories?.[0]?.name] ||
+                              "/slider_default.png"
+                            }
+                          />
+                        )}
+                        {el.boardImage.url ? (
+                          <img src={el.boardImage.url} />
+                        ) : (
+                          <img
+                            src={
+                              categoriesImgSources[el.categories[0]?.name] ||
+                              "/slider_default.png"
+                            }
                           />
                         )}
                       </S.ThumbImageWrapper>

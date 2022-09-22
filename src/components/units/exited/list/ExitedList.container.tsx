@@ -13,6 +13,7 @@ import ExitingListUI from "./ExitedList.presenter";
 import {
   FETCH_BOARD,
   FETCH_BOARDS,
+  FETCH_BOARDS_BY_LIKES,
   FETCH_CATEGORIES_TAGS,
   FETCH_LIKES,
 } from "./ExitedList.queries";
@@ -27,9 +28,20 @@ export default function ExitedList() {
   const router = useRouter();
   const client = useApolloClient();
 
+  const { data: fetchBoardsByLikes } = useQuery(FETCH_BOARDS_BY_LIKES, {
+    variables: {
+      isSuccess: true,
+      status: true,
+    },
+  });
+  // console.log(fetchBoardsByLikes);
+
   // 마운트될 때
   useEffect(() => {
     sessionStorage.removeItem("searchWords");
+    return () => {
+      sessionStorage.removeItem("searchWords");
+    };
   }, []);
 
   // 모달 여닫은 후
@@ -40,6 +52,7 @@ export default function ExitedList() {
     );
     // setSearchWords([...searchWords]);
     setSearchWords(searchWords);
+    console.log(searchWords);
     // 검색어가 없다면
     if (searchWords === []) {
       setFilteredBoards([]);
@@ -51,6 +64,7 @@ export default function ExitedList() {
     async function FetchBoardsWithSearchModal() {
       // 사용할 검색어가 있다면
       if (searchWords.length > 0) {
+        console.log(searchWords);
         const result = await Promise.all(
           searchWords.map((el: any) => {
             if (el.filterName === "categoryName") {
@@ -176,6 +190,7 @@ export default function ExitedList() {
       isModalVisible={isModalVisible}
       setIsModalVisible={setIsModalVisible}
       searchWords={searchWords}
+      fetchBoardsByLikes={fetchBoardsByLikes}
     />
   );
 }

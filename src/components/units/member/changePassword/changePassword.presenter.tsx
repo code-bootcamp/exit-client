@@ -1,16 +1,17 @@
-import * as S from "./resetPassword.styles";
-
+import * as S from "./changePassword.styles";
 import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";
 import Modal02 from "../../../commons/modal/02";
-import { IResetPasswordUIProps } from "./resetPassword.types";
+import { IChangePasswordUIProps } from "./changePassword.types";
 
-export default function ResetPasswordUI(props: IResetPasswordUIProps) {
-  // console.log(props.formState.errors?.password?.message);
-  // console.log(props.password);
+export default function ChangePasswordUI(props: IChangePasswordUIProps) {
   return (
-    <Modal02 modalFor="비밀번호 찾기" modalTitle="비밀번호 재설정">
-      <form onSubmit={props.handleSubmit(props.onClickResetPassword)}>
+    <Modal02
+      modalFor="비밀번호 찾기"
+      modalTitle="비밀번호 재설정"
+      eventHandler={props.onClickClose}
+    >
+      <form onSubmit={props.handleSubmit(props.onClickChangePassword)}>
         <Input01
           type="password"
           placeholder="비밀번호 입력"
@@ -36,7 +37,7 @@ export default function ResetPasswordUI(props: IResetPasswordUIProps) {
           )}
         </S.TokenInfoWrapper>
         <Button01
-          type="button"
+          type="submit"
           text="비밀번호 재설정"
           isValid={props.formState.isValid}
         />

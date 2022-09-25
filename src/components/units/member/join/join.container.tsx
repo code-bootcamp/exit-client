@@ -22,9 +22,10 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { IJoinProps } from "./join.types";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import { accessTokenState, userInfoState } from "../../../commons/store";
 import { useRecoilState } from "recoil";
+import useCleanUp from "../../../commons/hooks/useCleanUp";
 
 const schema = yup.object({
   email: yup
@@ -46,11 +47,10 @@ const schema = yup.object({
     .string()
     .min(2, "닉네임은 최소 2글자 이상으로 입력해주세요")
     .max(10, "닉네임은 최대 10글자로 입력해주세요"),
-  // term1: yup.boolean().required("약관에 동의해주세요."),
-  // term2: yup.boolean().required("약관에 동의해주세요."),
 });
 
 const defaultTime = { min: "3", sec: "00" };
+const defaultTermsStatus = [false, false];
 export default function Join(props: IJoinProps) {
   const [startDate, setStartDate] = useState(new Date());
   const [joinStep, setJoinStep] = useState(0);
@@ -59,6 +59,7 @@ export default function Join(props: IJoinProps) {
   const [userInfo, setUserInfo] = useState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [isEmailDuplicated, setIsEmailDuplicated] = useState(null);
+  const [isTermsChecked, setIsTermsChecked] = useState(defaultTermsStatus);
   const [serverEmailErrorMessage, setServerEmailErrorMessage] = useState("");
   const [serverTokenErrorMessage, setServerTokenErrorMessage] = useState("");
   const [checkEmailDuplicate] = useMutation<
@@ -74,13 +75,15 @@ export default function Join(props: IJoinProps) {
     Pick<IMutation, "createUser">,
     IMutationCreateUserArgs
   >(CREATE_USER);
+
+  useCleanUp();
+
   const router = useRouter();
+  const client = useApolloClient();
   const { register, handleSubmit, watch, setValue, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-  const client = useApolloClient();
-
   const [login] = useMutation<Pick<IMutation, "login">, IMutationLoginArgs>(
     LOGIN
   );
@@ -90,28 +93,24 @@ export default function Join(props: IJoinProps) {
   const nickname = watch("nickname");
   const password = watch("password");
   const password2 = watch("password2");
-  // const term1 = watch("term1");
-  // const term2 = watch("term2");
 
-  console.log(email, token, nickname, password, password2);
-
-  const getDebounce = _.debounce(async (email: string) => {
-    // console.log("디바운싱 확인");
-    // mutation 실행(토큰 검증)
-    // try {
-    //   const result = await checkEmailDuplicate({
-    //     variables: { email },
-    //   });
-    //   // console.log(result);
-    // } catch (error) {
-    //   if (error instanceof Error) {
-    //     if (error.message?.includes("이미")) {
-    //       setServerEmailErrorMessage(error.message);
-    //       setIsEmailDuplicated(true);
-    //     }
-    //   }
-    // }
-  }, 1000);
+  // const getDebounce = _.debounce(async (email: string) => {
+  //   // console.log("디바운싱 확인");
+  //   // mutation 실행(토큰 검증)
+  //   // try {
+  //   //   const result = await checkEmailDuplicate({
+  //   //     variables: { email },
+  //   //   });
+  //   //   // console.log(result);
+  //   // } catch (error) {
+  //   //   if (error instanceof Error) {
+  //   //     if (error.message?.includes("이미")) {
+  //   //       setServerEmailErrorMessage(error.message);
+  //   //       setIsEmailDuplicated(true);
+  //   //     }
+  //   //   }
+  //   // }
+  // }, 1000);
 
   useEffect(() => {
     if (email === "") {
@@ -190,7 +189,6 @@ export default function Join(props: IJoinProps) {
   };
 
   const onClickCheckToken = async () => {
-    // console.log("test");
     await checkEmailToken({
       variables: {
         email,
@@ -201,17 +199,26 @@ export default function Join(props: IJoinProps) {
     setJoinStep(2);
   };
 
+  const onClickTerm = (target: number) => () => {
+    const newTermsStatus = [...isTermsChecked];
+    newTermsStatus[target] = !newTermsStatus[target];
+
+    setIsTermsChecked(newTermsStatus);
+  };
+
   const onClickJoin = async (data: any) => {
-    // console.log("가입하기 체크");
     const { password2, token, ...createUserInput } = data;
-    console.log(createUserInput);
+    // console.log(createUserInput);
+    if (!isTermsChecked.every((el) => el)) {
+      message.warning("약관에 전부 동의해주세요.");
+      return;
+    }
     try {
       await createUser({
         variables: {
           createUserInput,
         },
       });
-      // Modal.success({ content: "가입이 완료되었습니다." });
 
       const result = await login({
         variables: {
@@ -251,6 +258,7 @@ export default function Join(props: IJoinProps) {
       password={password}
       joinStep={joinStep}
       isStarted={isStarted}
+      isTermsChecked={isTermsChecked}
       register={register}
       handleSubmit={handleSubmit}
       formState={formState}
@@ -259,6 +267,7 @@ export default function Join(props: IJoinProps) {
       onClickSendEmailToken={onClickSendEmailToken}
       onClickJoin={onClickJoin}
       onClickClose={props.onClickClose}
+      onClickTerm={onClickTerm}
       serverEmailErrorMessage={serverEmailErrorMessage}
       serverTokenErrorMessage={serverTokenErrorMessage}
     />

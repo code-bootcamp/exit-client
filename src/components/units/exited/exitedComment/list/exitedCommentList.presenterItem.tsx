@@ -1,6 +1,6 @@
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -46,7 +46,7 @@ export default function ExitedCommentListItemUI(
 
   const onClickUpdateComment = (el: IComment) => async () => {
     if (!comment) {
-      Modal.error({ content: "수정한 내용이 없습니다" });
+      message.error("수정한 내용이 없습니다.");
       return;
     }
     try {
@@ -72,11 +72,10 @@ export default function ExitedCommentListItemUI(
               },
             ],
           });
-          Modal.success({ content: "댓글이 수정되었습니다." });
+          message.success("댓글이 수정되었습니다.");
+          setIsEdit(false);
         },
       });
-
-      setIsEdit(false);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
@@ -86,7 +85,7 @@ export default function ExitedCommentListItemUI(
     try {
       Modal.confirm({
         icon: <ExclamationCircleOutlined />,
-        content: "게시물을 삭제하시겠습니까?",
+        content: "댓글을 삭제하시겠습니까?",
         onCancel() {
           return;
         },
@@ -104,7 +103,7 @@ export default function ExitedCommentListItemUI(
               },
             ],
           });
-          Modal.success({ content: "댓글이 삭제되었습니다." });
+          message.success("댓글이 삭제되었습니다.");
         },
       });
     } catch (error) {
@@ -121,8 +120,8 @@ export default function ExitedCommentListItemUI(
       </S.CommentUserImageWrapper>
       <S.CommentContents>
         <S.UserInfo>
-          <S.UserName>메로나</S.UserName>
-          <S.UserEmail>juju@naver.com</S.UserEmail>
+          <S.UserName>{userInfo.nickname}</S.UserName>
+          <S.UserEmail>{userInfo.email}</S.UserEmail>
         </S.UserInfo>
         {!isEdit ? (
           <S.Comment>{props.el?.comment}</S.Comment>

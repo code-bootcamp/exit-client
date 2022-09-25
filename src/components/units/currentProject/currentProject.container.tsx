@@ -19,10 +19,12 @@ import {
   FETCH_USER_BOARDS,
   FETCH_USER_WITH_USER_ID,
   GET_ATTENDANCE_PERCENT,
+  GET_ATTENDANCE_TIME,
   GET_LOCATION_LEADER,
 } from "./currentProject.queries";
 import moment from "moment";
 import { Modal } from "antd";
+import { NavigationRounded } from "@material-ui/icons";
 
 export default function CurrentProject() {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -73,6 +75,11 @@ export default function CurrentProject() {
   });
   console.log(attendanceData);
 
+  // 출석 유효시간
+  const { data: attendanceTime } = useQuery(GET_ATTENDANCE_TIME, {
+    variables: { boardId: String(router.query.projectId) },
+  });
+
   // useEffect(() => {
   //   console.log(getAddressData(attendanceData));
   // });
@@ -80,7 +87,7 @@ export default function CurrentProject() {
   // 선택한 날짜 출석데이터 받기
   // useEffect(() => {
   //   const selectedDayAttendanceData = attendanceData?.fetchAttendance?.filter(
-  //       moment(el.attendedAt).format("YYYY-MM-DD") === date.format("YYYY-MM-DD")
+  //     moment(el.attendedAt).format("YYYY-MM-DD") === date.format("YYYY-MM-DD")
   //   );
   //   setSelectedDayAttendance(selectedDayAttendanceData);
   //   // const addressData = getAddressData(selectedDayAttendanceData);
@@ -105,17 +112,56 @@ export default function CurrentProject() {
     setDate(date);
   };
 
+  const onClickAttendStart = () => {
+    try {
+      navigator.geolocation.getCurrentPosition(async function (pos) {
+        let latitude = pos.coords.latitude;
+        let longitude = pos.coords.longitude;
+        if (!accessToken) {
+          Modal.error({ content: "출석 접근 권한이 없습니다." });
+          return;
+        }
+        if (leaderData?.fetchUserWithUserId.nickname === userInfo.nickname) {
+          const result = await client.query({
+            query: CHECK_GPS,
+            variables: {
+              latitude,
+              longitude,
+              boardId: String(router.query.projectId),
+            },
+            context: {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          });
+          console.log(result);
+          Modal.success({ content: "출석이 활성화되었습니다!" });
+          location.reload();
+        } else {
+          console.log(
+            userInfo.nickname,
+            leaderData?.fetchUserWithUserId.nickname
+          );
+
+          Modal.error({ content: "팀장이 출석체크를 시작할 수 있습니다" });
+        }
+      });
+    } catch (error) {
+      Modal.error({ content: error?.message });
+    }
+  };
+
   const onClickAttend = () => {
     try {
       navigator.geolocation.getCurrentPosition(async function (pos) {
         let latitude = pos.coords.latitude;
         let longitude = pos.coords.longitude;
-        // console.log(lat, lng);
         if (!accessToken) {
           Modal.error({ content: "출석 접근 권한이 없습니다." });
           return;
         }
-        // if (leaderData?.fetchUserWithUserId.nickname === userInfo.nickname) {
+
         const result = await client.query({
           query: CHECK_GPS,
           variables: {
@@ -130,38 +176,19 @@ export default function CurrentProject() {
           },
         });
         console.log(result);
-        // } else {
-        //   console.log(
-        //     userInfo.nickname,
-        //     leaderData?.fetchUserWithUserId.nickname
-        //   );
-        //   Modal.error({ content: "팀장이 출석체크를 시작할 수 있습니다" });
-        // }
+        Modal.success({ content: "출석 완료!" });
       });
     } catch (error) {
       Modal.error({ content: error?.message });
     }
   };
 
-  // console.log(getAddress(37.566826, 126.9786567));
-
-  // const addressData = async () => await getAddress(37.566826, 126.9786567);
-  // selectedDayAttendence.map((el) => getAddress(el.latitude, el.longitude)
-
-  // console.log(addressData());
-
-  // console.log(attendanceData);
-
-  // const getAddressData = async (data) => {
-  //   data &&
-  //     (await Promise.all(
-  //       data?.map((el) => getAddress(el.latitude, el.longitude))
-  //     ));
-  // };
+  console.log(attendanceData);
 
   return (
     <CurrentProjectUI
       // addressData={addressData}
+      attendanceTime={attendanceTime}
       data={data} // 유저보드 데이터
       date={date} // 날짜 데이터
       leaderData={leaderData}
@@ -176,6 +203,8 @@ export default function CurrentProject() {
       onChangeDate={onChangeDate}
       attendancePercent={attendancePercent || 0}
       onClickAttend={onClickAttend}
+      isLeader={leaderData?.fetchUserWithUserId.nickname === userInfo.nickname}
+      onClickAttendStart={onClickAttendStart}
     />
   );
 }

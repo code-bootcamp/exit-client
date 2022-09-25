@@ -7,6 +7,7 @@ import { breakPoints } from "../../../commons/styles/media";
 export const Wrapper = styled.div`
   width: 100%;
   overflow: hidden;
+  margin-top: 80px;
   padding-bottom: 50px;
 `;
 
@@ -83,7 +84,6 @@ export const SectionTitle = styled.h2`
 
 export const ListLink = styled.div`
   width: 35%;
-  /* background-color: yellow; */
   margin-right: 25px;
   @media (max-width: ${breakPoints.md}) {
     width: 10%;
@@ -118,8 +118,10 @@ export const More = styled.span`
 
 export const SliderWrapper = styled.div`
   width: 100%;
+  height: 720px;
   overflow: hidden;
   margin-left: 9.375vw;
+  margin-bottom: 110px;
   position: relative;
 
   @media (max-width: 768px) {
@@ -131,7 +133,9 @@ export const SliderWrapper = styled.div`
 `;
 
 export const ListSlider = styled(Slider)`
-  /* pointer-events: none; */
+  height: 720px;
+  overflow: hidden;
+
   @media (min-width: 2112px) {
     width: 100% !important;
   }
@@ -165,10 +169,11 @@ export const ListSlider = styled(Slider)`
 
 // 슬라이드 아이템
 export const ListItem = styled.article`
-  margin-bottom: 110px;
+  border-radius: 20px;
   overflow: hidden;
-  border-radius: 0.7292vw;
+  margin-bottom: 100px;
   cursor: pointer;
+  word-break: keep-all;
 
   :hover .thumbImage {
     transform: scale(1.1);
@@ -360,6 +365,7 @@ export const ContentsWrapper = styled.div`
   padding: 24px;
   background-color: #f8f8f8;
   position: relative;
+  border-radius: 0 0 14px 14px;
 
   @media (max-width: 1600px) {
     padding: 15px;
@@ -474,74 +480,6 @@ export const Bail = styled.strong`
   }
 `;
 
-export const MainAdSection = styled(Section)`
-  width: 100%;
-  height: 224px;
-  background-color: #000;
-  margin-bottom: 80px;
-
-  @media (max-width: ${breakPoints.lg}) {
-    height: 180px;
-  }
-`;
-
-export const AdWrapper = styled.div`
-  width: 1030px;
-  height: 100%;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  overflow: hidden;
-
-  @media (max-width: ${breakPoints.xxl}) {
-    width: 100vw;
-    padding: 0 10vw;
-  }
-`;
-
-export const AdText = styled.strong`
-  width: 29%;
-  color: #fff;
-  font-size: 3.6rem;
-  font-weight: 700;
-  line-height: 1.3;
-  word-break: keep-all;
-  position: relative;
-
-  @media (min-width: ${breakPoints.sm}) and (max-width: ${breakPoints.xxl}) {
-    width: 35%;
-    font-size: 3.2rem;
-    line-height: 1.2;
-  }
-  @media (max-width: ${breakPoints.sm}) {
-    width: 35%;
-    /* font-size: 2.8rem; */
-    font-size: 6vw;
-    line-height: 1.1;
-  }
-`;
-
-export const AdImageWrapper = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-
-  img {
-    height: 100%;
-    transition: 0.3s;
-    @media (min-width: ${breakPoints.lg}) and (max-width: ${breakPoints.xl}) {
-      height: 95%;
-    }
-    @media (min-width: ${breakPoints.sm}) and (max-width: ${breakPoints.lg}) {
-      height: 80%;
-    }
-    @media (max-width: ${breakPoints.sm}) {
-      height: 70%;
-    }
-  }
-`;
-
 export const CategoriesWrapper = styled.ul`
   width: 100%;
   margin-left: 9.375vw;
@@ -605,7 +543,6 @@ export const CustomBanner = styled.div`
   width: 83.3333vw;
   height: 256px;
   margin-left: 9.375vw;
-  /* margin-top: 30px; */
   background-color: #3ebd5d;
   border-radius: 14px;
   padding: 45px 70px;

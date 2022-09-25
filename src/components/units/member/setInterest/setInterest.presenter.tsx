@@ -5,10 +5,12 @@ import { ISetInterestUIProps } from "./setInterest.types";
 import { v4 as uuidv4 } from "uuid";
 import Button01 from "../../../commons/buttons/01";
 import SetTag from "../setTag/setTag.container";
+import Spinner01 from "../../../commons/spinners/01";
 
 export default function SetInterestUI(props: ISetInterestUIProps) {
   return (
     <>
+      {props.loading && <Spinner01 />}
       {!props.isClickedSelectTags && (
         <Modal02 modalTitle="관심분야" eventHandler={props.onClickClose}>
           <S.InterestWrapper>

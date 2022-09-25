@@ -13,7 +13,6 @@ import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { getAccessToken } from "../../components/commons/libraries/getAccessToken";
 import {
   accessTokenState,
-  restoreAccessTokenLoadable,
   userInfoState,
 } from "../../components/commons/store";
 
@@ -36,7 +35,6 @@ interface IApolloSettingProps {
 export default function ApolloSetting(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [, setUserInfo] = useRecoilState(userInfoState);
-  // const Lodable = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   useEffect(() => {
     getAccessToken().then(async (newAccessToken) => {
@@ -77,15 +75,13 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink = createUploadLink({
-    // uri: "https://teamserver05.shop/graphql",
-    uri: "http://34.111.191.226/graphql",
+    uri: "https://teamserver05.shop/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });
 
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
-    // link: ApolloLink.from([errorLink, uploadLink]),
     cache: APOLLO_CACHE,
     connectToDevTools: true,
   });

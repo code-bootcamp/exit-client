@@ -1,5 +1,9 @@
 import styled from "@emotion/styled";
 
+interface ITermCheckedProps {
+  isChecked: boolean;
+}
+
 export const TokenInputWrapper = styled.div`
   position: relative;
 `;
@@ -46,47 +50,22 @@ export const TermWraper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 13px;
-
-  /* input:checked + label::before {
-    content: "";
-    width: 22px;
-    height: 22px;
-    border: none;
-    background-color: #3ebd5d;
-    color: #fff;
-    font-size: 20px;
-    cursor: pointer;
-    text-align: center;
-  } */
 `;
 
-// export const Radio = styled.input`
-//   position: absolute;
-//   left: -1000%;
-// `;
+export const TermChecked = styled.div`
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: ${(props: ITermCheckedProps) =>
+    props.isChecked ? "none" : "2px solid #d7d7d7"};
+  background-color: ${(props: ITermCheckedProps) =>
+    props.isChecked ? "#3EBD5D" : "transparent"};
+`;
 
 export const Term = styled.em`
   font-size: 2.2rem;
   color: #4e4e4e;
   padding-left: 5px;
-
-  //   &::before {
-  //     content: "";
-  //     display: inline-block;
-  //     width: 22px;
-  //     height: 22px;
-  //     border: 2px solid #d7d7d7;
-  //     border-radius: 50%;
-  //     vertical-align: middle;
-  //     /* transition: 0.4s; */
-  //   }
-
-  //   span {
-  //     margin-left: 10px;
-  //     position: relative;
-  //     top: 1px;
-  //     color: #4e4e4e;
-  //   }
 `;
 
 export const More = styled.span`

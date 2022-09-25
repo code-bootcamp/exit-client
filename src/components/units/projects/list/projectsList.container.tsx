@@ -101,7 +101,6 @@ export default function ExitingList() {
 
         if (filteredBoards) {
           setFilteredBoards(filteredBoards);
-          // console.log(filteredBoards);
         } else {
           setFilteredBoards([]);
         }
@@ -121,11 +120,16 @@ export default function ExitingList() {
 
   const { data: randomData } = useQuery(FETCH_BOARD_RANDOM, {
     variables: {
-      categoryId: userData?.fetchUserWithNickname?.categories?.[0]?.id,
+      categoryId:
+        userData?.fetchUserWithNickname?.categories?.[
+          Math.floor(
+            Math.random() * userData?.fetchUserWithNickname?.categories.length
+          )
+        ]?.id,
     },
   });
 
-  // console.log(randomData);
+  console.log(randomData);
 
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoards">,
@@ -133,8 +137,6 @@ export default function ExitingList() {
   >(FETCH_BOARDS, {
     variables: { isSuccess: false, status: false }, // 성공여부 false, 모집마감 false
   });
-
-  // console.log(data);
 
   const { data: likedData } = useQuery<
     Pick<IQuery, "fetchLikes">,
@@ -197,7 +199,7 @@ export default function ExitingList() {
       onClickFilterButton={onClickFilterButton}
       setIsModalVisible={setIsModalVisible}
       userData={userData}
-      randomData={randomData}
+      randomData={randomData?.fetchBoardRandom}
     />
   );
 }

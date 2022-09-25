@@ -5,7 +5,6 @@ export const FETCH_BOARD = gql`
     fetchBoard(boardId: $boardId) {
       id
       title
-      context
       totalMember
       countMember
       countLike

@@ -12,6 +12,10 @@ export const FETCH_LOGINED_USER = gql`
         id
         url
       }
+      tags {
+        id
+        name
+      }
     }
   }
 `;

@@ -31,7 +31,6 @@ export const Column = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 23.5%;
-  /* border: 1px solid #000; */
 
   &:nth-of-type(2) {
     width: 50%;
@@ -49,8 +48,9 @@ export const ProjectInfoWrapper = styled.div`
 export const ProjectInfoHeaderWrapper = styled.div``;
 
 export const Title = styled.h2`
-  font-size: 2.8rem;
+  font-size: 2.3rem;
   font-weight: 700;
+  letter-spacing: -1px;
   margin-bottom: 10px !important;
 `;
 
@@ -115,8 +115,9 @@ export const Leader = styled.p`
   align-items: center;
   background-color: #3ebd5d;
   position: absolute;
-  bottom: -6px;
+  bottom: -15px;
   left: 50%;
+  padding-top: 2px;
   transform: translateX(-50%);
 `;
 
@@ -218,11 +219,33 @@ export const MapWrapper = styled.div`
   overflow: hidden;
   height: 340px;
   border-radius: 14px;
+  position: relative;
 `;
+
+export const MiniInfo = styled.div`
+  display: flex;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+`;
+
+export const Address = styled.p`
+  color: #fff;
+  height: 40px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 1.8rem;
+  background: rgba(0, 0, 0, 0.5);
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+`;
+export const Frequency = styled(Address)``;
 
 export const MapTempImage = styled.img`
   width: 100%;
   height: 100%;
+  visibility: none;
 `;
 
 export const PresentMembers = styled.div`
@@ -286,6 +309,8 @@ export const PresentMemberLeftWrapper = styled.div``;
 export const PresentMemberName = styled.strong`
   font-size: 1.8rem;
   font-weight: 600;
+  padding-top: 10px;
+  display: block;
 `;
 
 export const PresentAddress = styled.p`
@@ -328,12 +353,17 @@ export const CheckGpsButton = styled.button`
   font-size: 2rem;
   font-weight: 700;
   border-radius: 14px;
-  background-color: #3ebd5d;
+  background-color: ${(props: any) =>
+    props.isAvailable ? "#3ebd5d" : "#B2B2B2"};
+  color: #fff;
+  :disabled {
+    cursor: default;
+  }
 `;
 
 export const ChatRoomWrapper = styled.div`
   width: 100%;
-  /* background-color: #666; */
   border-radius: 14px;
   height: calc(100% - 230px);
+  border-radius: 4px;
 `;

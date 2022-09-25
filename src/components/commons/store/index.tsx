@@ -37,3 +37,8 @@ export const isEditState = atom({
   key: "isEditState",
   default: false,
 });
+
+export const isEditingTagsState = atom({
+  key: "isEditingTagsState",
+  default: false,
+});

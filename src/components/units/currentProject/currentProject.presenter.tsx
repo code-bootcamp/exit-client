@@ -5,7 +5,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import { PieChart } from "react-minimal-pie-chart";
 import { ICurrentProjectUIProps } from "./currentProject.types";
-// import { ko } from "date-fns/esm/locale";
 import ko from "date-fns/locale/ko";
 import Map from "../../commons/map";
 import moment from "moment";
@@ -32,7 +31,7 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
     // autoplaySpeed: 2000,
     // slidesToScroll: 2,
   };
-  // console.log(props.attendanceData);
+  console.log(props.board);
   return (
     <S.Background>
       <S.Wrapper>
@@ -106,12 +105,12 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
               <PieChart
                 data={[
                   {
-                    value: Number(props.attendancePercent) / 10,
+                    value: -Number(props.attendancePercent) / 10,
                     color: "#3EBD5D",
                     name: "progress",
                   },
                 ]}
-                reveal={Number(props.attendancePercent) / 10}
+                reveal={-Number(props.attendancePercent) / 10}
                 lineWidth={24}
                 background="#F8F8F8"
                 startAngle={268}
@@ -131,13 +130,19 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
         </S.Column>
         <S.Column>
           <S.MapWrapper>
-            <S.MapTempImage src="/map_temp.png" />
-            {/* {props.leaderLocation && (
+            <S.MiniInfo>
+              <S.Address>{props.board?.fetchBoard?.address}</S.Address>
+              <S.Frequency>
+                주 {props.board?.fetchBoard?.frequency}회
+              </S.Frequency>
+            </S.MiniInfo>
+            {!props.leaderLocation && <S.MapTempImage src="/map_temp.png" />}
+            {props.leaderLocation && (
               <Map
                 lat={props.leaderLocation?.getLocationLeader?.split(",")[0]}
                 lng={props.leaderLocation?.getLocationLeader?.split(",")[1]}
               />
-            )} */}
+            )}
           </S.MapWrapper>
           <S.PresentMembers>
             <S.PresentMembersText>출석한 exiter</S.PresentMembersText>
@@ -162,7 +167,9 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                 <S.PresentMember>
                   <S.PresentMemberLeftWrapper>
                     <S.PresentMemberName>{el.nickname}</S.PresentMemberName>
-                    {/* <S.PresentAddress>{el.latitude, el.longitude}</S.PresentAddress> */}
+                    <S.PresentAddress>
+                      {/* {getAddress(el.latitude, el.longitude)} */}
+                    </S.PresentAddress>
                   </S.PresentMemberLeftWrapper>
                   <S.PresentMemberRightWrapper>
                     <S.AttendedAt>
@@ -183,12 +190,35 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
               )}
               {props.userInfo.nickname && "님"}
             </S.WelcomeMessage>
-            <S.CheckGpsButton onClick={props.onClickAttend}>
+            <S.CheckGpsButton
+              onClick={
+                props.isLeader ? props?.onClickAttendStart : props.onClickAttend
+              }
+              // 리더일 경우 또는 출석가능한 팀원일경우
+              isAvailable={
+                (props.isLeader &&
+                  props.attendanceData?.fetchAttendance.length === 0) ||
+                (!props.isLeader &&
+                  props.attendanceData?.fetchAttendance.length > 0)
+              }
+              disabled={
+                (props.isLeader &&
+                  props.attendanceData?.fetchAttendance.length === 0) ||
+                (props.isLeader &&
+                  props.attendanceData?.fetchAttendance.length > 0)
+                  ? false
+                  : true
+                //   props.attendanceTime === "0분 0초" ||
+                //   (props.isLeader &&
+                //     props.attendanceData?.fetchAttendance.length === 0) ||
+                //   (props.isLeader &&
+                //     props.attendanceData?.fetchAttendance.length > 0)
+              }
+            >
               출석체크 하기
             </S.CheckGpsButton>
           </S.WelcomeMessageWrapper>
           <S.ChatRoomWrapper>
-            {" "}
             <ChatContainer roomCode={props.board?.fetchBoard.id} />{" "}
           </S.ChatRoomWrapper>
         </S.Column>

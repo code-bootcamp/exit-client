@@ -1,4 +1,4 @@
-import ProjectWrite from "../../../../src/components/units/projects/write/projectWrite.container";
+import ProjectWrite from "../../../../src/components/units/exiting/write/projectWrite.container";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import WriteContainer from "../../../../src/components/units/projects/write02/write.container";

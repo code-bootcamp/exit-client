@@ -19,4 +19,5 @@ export interface ILoginUIProps {
   serverPasswordErrorMessage: string;
   isClickedFindPassword: boolean;
   isClickedJoin: boolean;
+  isEditingTags: boolean;
 }

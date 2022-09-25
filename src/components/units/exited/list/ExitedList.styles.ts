@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import InfiniteScroll from "react-infinite-scroller";
 
+interface IRandomProjectImageWrapperProps {
+  src?: string | undefined;
+}
+
 export const Wrapper = styled.div`
   width: 100%;
   margin-top: 100px;
@@ -30,8 +34,6 @@ export const FilterButton = styled.button`
   justify-content: center;
 
   img {
-    /* width: 100%; */
-    /* height: 100%; */
     width: 90%;
     padding-top: 3px;
   }
@@ -56,14 +58,12 @@ export const CustomInfiniteScroll = styled(InfiniteScroll)`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 `;
 
 export const FilteredBoardsWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
 `;
 
 export const Project = styled.div`
@@ -240,39 +240,71 @@ export const SectionTitle = styled.h2`
 export const RandomProjectWrapper = styled.div`
   width: 100%;
   height: 480px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background: linear-gradient(250deg, #000000 90.52%, rgba(0, 0, 0, 0) 100%);
-  background-color: gray;
+  position: relative;
+  background-color: #000;
   margin-bottom: 80px;
-  /* padding-top: 110px; */
+  color: #fff;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export const RandomProjectImageWrapper = styled.div`
-  width: 50%;
+  width: 40%;
   height: 480px;
   background-repeat: no-repeat;
-  background-size: 80% 100%;
-  background-image: url(${(props: any) => props.src});
+  background-size: 100% 110%;
+  background-position: 0 center;
+  background-image: url(${(props: IRandomProjectImageWrapperProps) =>
+    props.src});
+`;
+
+export const Gradient = styled.div`
+  height: 480px;
+  position: absolute;
+  top: 0;
+  left: 310px;
+
+  img {
+    height: 100%;
+  }
 `;
 
 export const RandomProjectTextWrapper = styled.div`
-  width: 50%;
+  width: 64%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 160px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
 `;
+
 export const RandomProjectTitle = styled.h3`
   font-size: 4.8rem;
   color: #fff;
   font-weight: 700;
+  word-break: keep-all;
 `;
 
 export const RandomProjectDescription = styled.p`
+  width: 90%;
   font-size: 2.4rem;
   font-weight: 500;
   color: #fff;
-  margin: 20px 0;
-  width: 730px;
+  margin: 20px 0 40px;
   word-break: keep-all;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export const RandomProjectBailWrapper = styled.div`
@@ -295,4 +327,18 @@ export const RandomProjectBailIcon = styled.div`
   img {
     width: 100%;
   }
+`;
+
+export const NoResultWrapper = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #777;
+  border-radius: 14px;
+  font-size: 4rem;
+  font-weight: 600;
+  margin-bottom: 70px;
 `;

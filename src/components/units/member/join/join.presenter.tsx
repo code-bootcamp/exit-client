@@ -116,15 +116,21 @@ export default function JoinUI(props: IJoinUIProps) {
               </S.PasswordWrapper>
               <S.TermsWrapper>
                 <S.TermWraper>
-                  {/* <input type="radio" {...props.register("term1")} /> */}
-                  <input type="radio" />
+                  {/* <input type="radio" /> */}
+                  <S.TermChecked
+                    onClick={props.onClickTerm(0)}
+                    isChecked={props.isTermsChecked[0]}
+                  />
                   <S.Term>
                     <span>약관동의</span>
                   </S.Term>
                 </S.TermWraper>
                 <S.TermWraper>
-                  {/* <input type="radio" {...props.register("term2")} /> */}
-                  <input type="radio" />
+                  {/* <input type="radio" /> */}
+                  <S.TermChecked
+                    onClick={props.onClickTerm(1)}
+                    isChecked={props.isTermsChecked[1]}
+                  />
                   <S.Term>
                     <span>만 14세 이상입니까?</span>
                   </S.Term>

@@ -10,6 +10,7 @@ export const FETCH_BOARDS = gql`
       countMember
       countLike
       description
+      frequency
       startAt
       endAt
       closedAt
@@ -20,6 +21,9 @@ export const FETCH_BOARDS = gql`
       }
       boardImage {
         url
+      }
+      tags {
+        name
       }
     }
   }

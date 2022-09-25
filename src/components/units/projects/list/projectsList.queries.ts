@@ -26,6 +26,7 @@ export const FETCH_BOARDS = gql`
       countLike
       description
       categories {
+        id
         name
       }
       bail
@@ -66,6 +67,7 @@ export const FETCH_CATEGORIES_TAGS = gql`
     }
     fetchCategories {
       name
+      id
     }
   }
 `;
@@ -82,6 +84,7 @@ export const FETCH_BOARD = gql`
       countLike
       description
       categories {
+        id
         name
       }
       bail
@@ -94,6 +97,7 @@ export const FETCH_BOARD = gql`
         name
       }
       categories {
+        id
         name
       }
       boardImage {
@@ -121,6 +125,10 @@ export const FETCH_BOARD_RANDOM = gql`
       title
       description
       bail
+      categories {
+        id
+        name
+      }
       boardImage {
         url
       }

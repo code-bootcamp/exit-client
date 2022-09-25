@@ -1,12 +1,11 @@
 import { useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
+import { getAddress } from "../../../commons/libraries/getAddress";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
-  IQueryFetchCategoryArgs,
 } from "../../../commons/types/generated/types";
 import MainUI from "./main.presenter";
-import { FETCH_BOARDS, FETCH_CATEGORIES } from "./main.queries";
+import { FETCH_BOARDS } from "./main.queries";
 
 export default function Main() {
   const { data } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(

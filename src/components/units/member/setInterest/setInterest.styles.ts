@@ -6,9 +6,8 @@ interface ISelectProps {
 
 export const InterestWrapper = styled.div`
   width: 100%;
-  height: 100%;
+  /* height: 660px; */
   margin-top: 50px;
-  margin-bottom: 170px;
   display: flex;
   flex-wrap: wrap;
   padding: 0 30px;

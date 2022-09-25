@@ -6,6 +6,7 @@ export interface ISetInterestProps {
 
 export interface ISetInterestUIProps {
   data: any;
+  loading: boolean;
   selectedCategories: any;
   isClickedSelectTags: boolean;
   onClickClose: () => void;

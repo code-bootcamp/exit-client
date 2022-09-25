@@ -2,7 +2,7 @@ import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";
 import Modal02 from "../../../commons/modal/02";
 import Login from "../login/login.container";
-import ResetPassword from "../resetPassword/resetPassword.container";
+import ResetPassword from "../changePassword/changePassword.container";
 import * as S from "./findPassword.styles";
 import { IFindPasswordUIProps } from "./findPassword.types";
 

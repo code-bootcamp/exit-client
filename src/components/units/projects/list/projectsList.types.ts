@@ -1,12 +1,19 @@
 import { Dispatch, MouseEvent, SetStateAction } from "react";
-import { IQuery } from "../../../../commons/types/generated/types";
+import {
+  IBoard,
+  IQuery,
+  IUser,
+} from "../../../../commons/types/generated/types";
 
 export interface IExitingListUIProps {
   data: Pick<IQuery, "fetchBoards"> | undefined;
+  userData: IUser;
+  randomData: IBoard;
+
+  filterData: any;
+  filteredBoards: any;
   likedData: Pick<IQuery, "fetchLikes"> | undefined;
   searchWords: any;
-  filteredBoards: any;
-  filterData: any;
   onFetchMore: () => void;
   onClickProject: (
     projectId: string

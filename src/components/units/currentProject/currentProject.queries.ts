@@ -83,6 +83,13 @@ export const GET_ATTENDANCE_PERCENT = gql`
   }
 `;
 
+// 출석 유효시간
+export const GET_ATTENDANCE_TIME = gql`
+  query getAttendanceTime($boardId: String!) {
+    getAttendanceTime(boardId: $boardId)
+  }
+`;
+
 // 출석한 유저 목록
 export const FETCH_ATTENDANCE = gql`
   query fetchAttendance($boardId: String!) {

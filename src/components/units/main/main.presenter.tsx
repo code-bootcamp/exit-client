@@ -16,6 +16,7 @@ import moment from "moment";
 
 import { useState } from "react";
 import { useRouter } from "next/router";
+import AdBanner from "../../commons/layout/adBanner";
 
 const FAVORITE_CATEGORIES = [
   "공유 서비스",
@@ -38,7 +39,7 @@ export default function MainUI(props: IMainUIProps) {
     dots: false,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2500,
     dragging: false,
 
     slidesToShow: 4,
@@ -84,9 +85,13 @@ export default function MainUI(props: IMainUIProps) {
             {/* 최신순 게시물 10개 */}
             {props.data?.fetchBoards
               .slice(0, 10)
-              // .filter(
-              //   (el: IBoard) => moment().diff(moment(el?.startAt), "days") < 0
-              // )
+              .filter(
+                (el: IBoard) =>
+                  moment().diff(moment(el?.closedAt), "days") < 0 &&
+                  moment().diff(moment(el?.closedAt), "days") >
+                    moment().diff(moment(el?.startAt), "days") &&
+                  moment().diff(moment(el?.startAt), "days") < 0
+              )
               .map((el: IBoard) => (
                 <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
               ))}
@@ -110,29 +115,9 @@ export default function MainUI(props: IMainUIProps) {
           <S.ListSlider {...settings}>
             {props.data?.fetchBoards
               .filter(
-                (el: IBoard) => el.categories?.[0]?.name === "공유서비스"
-                // &&
-                // moment().diff(moment(el?.startAt), "days") > 0
-              )
-              .slice(0, 10)
-              .map((el: IBoard) => (
-                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
-              ))}
-            {props.data?.fetchBoards
-              .filter(
-                (el: IBoard) => el.categories?.[0]?.name === "공유서비스"
-                // &&
-                // moment().diff(moment(el?.startAt), "days") > 0
-              )
-              .slice(0, 10)
-              .map((el: IBoard) => (
-                <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
-              ))}
-            {props.data?.fetchBoards
-              .filter(
-                (el: IBoard) => el.categories?.[0]?.name === "공유서비스"
-                // &&
-                // moment().diff(moment(el?.startAt), "days") > 0
+                (el: IBoard) =>
+                  el.categories?.[0]?.name === "공유서비스" &&
+                  moment().diff(moment(el?.startAt), "days") < 0
               )
               .slice(0, 10)
               .map((el: IBoard) => (
@@ -159,9 +144,9 @@ export default function MainUI(props: IMainUIProps) {
             {props.data?.fetchBoards
               .slice(0, 10)
               .filter(
-                (el: IBoard) => el.categories?.[0]?.name === "여행"
-                // &&
-                // moment().diff(moment(el?.startAt), "days") > 7
+                (el: IBoard) =>
+                  el.categories?.[0]?.name === "여행" &&
+                  moment().diff(moment(el?.startAt), "days") < 0
               )
               .map((el: IBoard) => (
                 <MainUISliderItem key={uuidv4()} el={el} likedBoards={data} />
@@ -169,17 +154,7 @@ export default function MainUI(props: IMainUIProps) {
           </S.ListSlider>
         </S.SliderWrapper>
       </S.Section>
-      <S.MainAdSection>
-        <S.AdWrapper>
-          <S.AdText>
-            엑시트하고
-            <br /> AirPods Pro4 받자!
-          </S.AdText>
-          <S.AdImageWrapper>
-            <img src="/ad.png" alt="엑시트하고 AirPods Pro2 받자!" />
-          </S.AdImageWrapper>
-        </S.AdWrapper>
-      </S.MainAdSection>
+      <AdBanner />
       <S.Section>
         <S.SectionInfo>
           <S.SectionTitle>인기 카테고리</S.SectionTitle>
@@ -203,7 +178,7 @@ export default function MainUI(props: IMainUIProps) {
         <S.CustomBanner>
           <img src="/white-logo.svg" />
           <S.CustomText>
-            {userInfo.nickname ? `${userInfo.nickname}님을 ` : "당신을"}
+            {userInfo.nickname ? `${userInfo.nickname}님을 ` : "당신을 "}
             기다리는 다양한 신규 프로젝트
           </S.CustomText>
         </S.CustomBanner>

@@ -149,7 +149,7 @@ export const MemberCount = styled.p`
 
 export const MemberIconWrapper = styled.p`
   width: 30px;
-
+  margin-top: -8px;
   img {
     width: 90%;
     margin-left: 10px;

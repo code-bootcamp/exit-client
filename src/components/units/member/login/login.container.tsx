@@ -10,6 +10,7 @@ import { FETCH_LOGINED_USER, LOGIN } from "./login.queries";
 import { useRecoilState } from "recoil";
 import {
   accessTokenState,
+  isEditingTagsState,
   isModalVisibleState,
   userInfoState,
 } from "../../../commons/store";
@@ -31,6 +32,8 @@ const schema = yup.object({
 export default function Login(props: any) {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
+  const [isEditingTags, setIsTagsEditingTags] =
+    useRecoilState(isEditingTagsState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [isScrollBlocked, setIsScrollBlocked] = useState(true);
@@ -145,6 +148,7 @@ export default function Login(props: any) {
       serverPasswordErrorMessage={serverPasswordErrorMessage}
       isClickedFindPassword={isClickedFindPassword}
       isClickedJoin={isClickedJoin}
+      isEditingTags={isEditingTags}
     />
   );
 }

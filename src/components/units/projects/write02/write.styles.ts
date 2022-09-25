@@ -179,3 +179,37 @@ export const Createbutton = styled.button`
 `;
 
 export const BailIcon = styled.img``;
+
+export const TagsHeaderWrapper = styled.div`
+  display: flex;
+`;
+
+export const TagButton = styled.button`
+  font-size: 2.4rem;
+  color: #fff;
+  border-radius: 4px;
+  background-color: #4e4e4e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 24px;
+`;
+
+export const Tags = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 24px;
+`;
+
+export const Tag = styled.span`
+  background: #ececec;
+  color: #4e4e4e;
+  font-size: 2.4rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 14px;
+  height: 37px;
+  margin-right: 12px;
+`;

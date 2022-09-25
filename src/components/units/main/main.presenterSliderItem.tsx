@@ -34,14 +34,16 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               )}
             </S.IsLikedWrapper>
           )}
-          {/* {moment().diff(moment(props.el.closedAt), "days") < 8 && (
-            <S.Countdown>
-              D-{Math.abs(moment().diff(moment(props.el.closedAt), "days"))}
-            </S.Countdown>
-          )} */}
+          {/* 모집 마감 일주일 표시 */}
+          {moment().diff(moment(props.el.closedAt), "days") > -8 &&
+            moment().diff(moment(props.el.closedAt), "days") <= 0 && (
+              <S.Countdown>
+                D-{Math.abs(moment().diff(moment(props.el.closedAt), "days"))}
+              </S.Countdown>
+            )}
           <S.ThumbImageWrapper>
             {props.el.boardImage.url === undefined && (
-              <img src="/slider_default.png" />
+              <img src="/noImage.png" />
             )}
             {props.el.boardImage.url !== "null" ? (
               <img src={props.el.boardImage.url} />
@@ -49,7 +51,7 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               <img
                 src={
                   categoriesImgSources[props.el.categories?.[0]?.name] ||
-                  "/slider_default.png"
+                  "/noImage.png"
                 }
               />
             )}
@@ -82,8 +84,8 @@ export default function MainUISliderItem(props: IMainUISliderItem) {
               [{props.el.address}] {props.el.title}
             </S.ProjectTitle>
             <S.TagsWrapper>
-              {props.el.tags?.map((el) => (
-                <S.Tag>{el.name}</S.Tag>
+              {props.el.tags?.map((el, i) => (
+                <S.Tag key={i}>{el.name}</S.Tag>
               ))}
             </S.TagsWrapper>
           </div>

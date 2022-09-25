@@ -1,22 +1,22 @@
 import {
-  FieldValue,
   FieldValues,
   FormState,
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
 
-export interface IResetPasswordProps {
-  email: string;
-  register: UseFormRegister<FieldValues>;
+export interface IChangePasswordProps {
+  onClickClose: () => void;
+  setIsChangingPassword: any;
 }
 
-export interface IResetPasswordUIProps {
+export interface IChangePasswordUIProps {
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   email?: string;
   password: string;
   checkedPassword: string;
   formState: FormState<FieldValues>;
   register: UseFormRegister<FieldValues>;
-  onClickResetPassword: (data: any) => void;
+  onClickChangePassword: (data: any) => void;
+  onClickClose: () => void;
 }

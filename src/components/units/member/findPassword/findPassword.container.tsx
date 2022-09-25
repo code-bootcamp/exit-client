@@ -21,6 +21,7 @@ import {
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { isModalVisibleState } from "../../../commons/store";
+import useCleanUp from "../../../commons/hooks/useCleanUp";
 
 const schema = yup.object({
   email: yup.string().required().email("이메일 형식이 적합하지 않습니다."),
@@ -51,6 +52,8 @@ export const FindPassword = (props: IFindPasswordProps) => {
   const [time, setTime] = useState(defaultTime);
   const [serverEmailTokenErrorMessage, setServerEmailTokenErrorMessage] =
     useState("");
+
+  useCleanUp();
 
   const [checkEmailDuplicate] = useMutation<
     Pick<IMutation, "checkEmailDuplicate">,

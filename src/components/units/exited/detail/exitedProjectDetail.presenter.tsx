@@ -10,7 +10,6 @@ export default function ExitedProjectDetailUI(
   return (
     <S.Wrapper>
       <S.Container>
-        <S.TopContainer></S.TopContainer>
         <S.ProjectImageBox>
           {props.data?.fetchBoard.boardImage.url !== "null" ? (
             <S.ProjectImage src={props.data?.fetchBoard.boardImage.url} />
@@ -19,7 +18,7 @@ export default function ExitedProjectDetailUI(
               src={
                 categoriesImgSources[
                   props.data.fetchBoard.categories[0]?.name
-                ] || "/map_temp.png"
+                ] || "/noImage.png"
               }
             />
           )}
@@ -35,7 +34,7 @@ export default function ExitedProjectDetailUI(
               <S.Period>
                 {moment(props.data?.fetchBoard.startAt).format("YYYY.MM.DD")} ~{" "}
                 {moment(props.data?.fetchBoard.endAt).format("YYYY.MM.DD")}
-                <span style={{ marginLeft: "10px" }}>[완료]</span>
+                <span> [완료]</span>
               </S.Period>
             </S.PeriodWrapper>
           </S.ProjectInfoBox>
@@ -71,10 +70,8 @@ export default function ExitedProjectDetailUI(
             </S.ProjectMembersWrapper>
             <S.MemberCountWrapper>
               <S.MemberCount>
-                {props.data?.fetchBoard.countMember
-                  ? props.data?.fetchBoard.countMember + 1
-                  : 1}{" "}
-                / {props.data?.fetchBoard.totalMember}
+                {props.data?.fetchBoard.countMember} /{" "}
+                {props.data?.fetchBoard.totalMember}
               </S.MemberCount>
               <S.MemberIconWrapper>
                 <img src="/icons/icon_member_black.png" alt="" />

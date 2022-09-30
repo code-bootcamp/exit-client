@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAddress } from "../../src/commons/libraries/getAddress";
 import Spinner01 from "../../src/components/commons/spinners/01";
 import SetInterest from "../../src/components/units/member/setInterest/setInterest.container";
 
@@ -21,8 +22,11 @@ import SetInterest from "../../src/components/units/member/setInterest/setIntere
 //   }
 // };
 
+console.log(getAddress(37.566826, 126.9786567));
+
 export default function BoardsPage() {
   // return <div onClick={MapApi}>안녕하세요</div>;
   // return <Spinner01 />;
-  return <SetInterest />;
+  // return <SetInterest />;
+  return <>dddd</>;
 }

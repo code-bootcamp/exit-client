@@ -18,7 +18,7 @@ import {
   IMutationCheckEmailTokenArgs,
   IMutationSendEmailTokenArgs,
 } from "../../../../commons/types/generated/types";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { isModalVisibleState } from "../../../commons/store";
 import useCleanUp from "../../../commons/hooks/useCleanUp";
@@ -26,27 +26,12 @@ import useCleanUp from "../../../commons/hooks/useCleanUp";
 const schema = yup.object({
   email: yup.string().required().email("이메일 형식이 적합하지 않습니다."),
   emailToken: yup.string().required().max(6, "6자리 인증번호를 입력해주세요."),
-  // password: yup
-  //   .string()
-  //   .required()
-  //   .min(8, "비밀번호는 최소 8자리 이상 입력해주세요.")
-  //   .max(16, "비밀번호는 최대 16자리로 입력해주세요."),
-  // // .matches(
-  // //   /^[a-zA-Z0-9]{8,16}$/,
-  // //   "8~16자 영문 소문자, 숫자, 특수문자를 사용해주세요."
-  // // )
-  // passwordCheck: yup
-  //   .string()
-  //   .required()
-  //   .min(8, "비밀번호는 최소 8자리 이상 입력해주세요.")
-  //   .max(16, "비밀번호는 최대 16자리로  입력해주세요.")
-  //   .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다."),
 });
 
 const defaultTime = { min: "3", sec: "00" };
 export const FindPassword = (props: IFindPasswordProps) => {
-  const [isModalVisible, setIsModalVisible] =
-    useRecoilState(isModalVisibleState);
+  // const [isModalVisible, setIsModalVisible] =
+  //   useRecoilState(isModalVisibleState);
   const [findPasswordStep, setFindPasswordStep] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [time, setTime] = useState(defaultTime);
@@ -81,38 +66,26 @@ export const FindPassword = (props: IFindPasswordProps) => {
   const emailToken = watch("emailToken");
 
   useEffect(() => {
-    if (emailToken === "") {
+    if (emailToken?.length < 6) {
       setServerEmailTokenErrorMessage("");
     }
   }, [emailToken]);
 
-  useEffect(() => {
-    let isComponentMounted = true;
-
-    return () => {
-      isComponentMounted = false;
-    };
-  }, []);
-
   // 인증번호 받기
   const onClickSendNumber = async () => {
-    // console.log("인증번호 받기");
-    // mutation 가입된 이메일인지 확인
     try {
       await checkEmailDuplicate({
         variables: { email },
       });
-      Modal.error({ content: "가입되지 않은 이메일 입니다." });
+      message.error("가입되지 않은 이메일 입니다.");
       return;
     } catch (error) {}
-    // mutation
     await sendEmailToken({
       variables: { email },
     });
     // 로컬 타이머
     setFindPasswordStep(1);
     if (isStarted === false) {
-      // console.log("타이머 start");
       setIsStarted(true);
       let time = 180;
       let timer: any = null;
@@ -132,10 +105,10 @@ export const FindPassword = (props: IFindPasswordProps) => {
     }
   };
 
+  // 이메일 인증하기
   const onClickCheckEmailToken = async () => {
-    // console.log("이메일 인증하기");
-
     try {
+      // 인증번호 확인
       await checkEmailToken({
         variables: { email, emailToken },
       });
@@ -143,25 +116,18 @@ export const FindPassword = (props: IFindPasswordProps) => {
       await sendNewPassword({
         variables: { email },
       });
-
-      // props.setIsModalVisible?.(false);
-      // setFindPasswordStep(2);
-      // setIsModalVisible(false);
+      Modal.success({
+        content:
+          "임시 비밀번호가 발급되었습니다. 새로운 이메일로 로그인해주세요.",
+      });
       location.reload();
-
-      // setFindPasswordStep(2); 비밀번호 재설정으로 넘어가기
     } catch (error) {
       if (error instanceof Error) {
         if (error.message.includes("인증")) {
           setServerEmailTokenErrorMessage(error.message);
-          setIsModalVisible(false);
         }
       }
     }
-    Modal.success({
-      content:
-        "임시 비밀번호가 발급되었습니다. 새로운 이메일로 로그인해주세요.",
-    });
   };
 
   return (

@@ -6,65 +6,57 @@ const Wrapper = styled.div`
   height: 224px;
   background-color: #000;
   margin-bottom: 80px;
-
-  @media (max-width: ${breakPoints.lg}) {
-    height: 180px;
-  }
 `;
 
 export const AdWrapper = styled.div`
-  width: 1030px;
+  width: 103rem;
   height: 100%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
 
-  @media (max-width: ${breakPoints.xxl}) {
-    width: 100vw;
-    padding: 0 10vw;
+  @media (min-width: 992px) and (max-width: 1200px) {
+    margin-left: 9.375vw;
+  }
+
+  @media ${breakPoints.tablet} {
+    width: 80vw;
+  }
+  @media ${breakPoints.mobile} {
+    width: 80vw;
   }
 `;
 
 export const AdText = styled.strong`
-  width: 29%;
   color: #fff;
   font-size: 3.6rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.2;
   word-break: keep-all;
-  position: relative;
 
-  @media (min-width: ${breakPoints.sm}) and (max-width: ${breakPoints.xxl}) {
-    width: 35%;
-    font-size: 3.2rem;
-    line-height: 1.2;
-  }
-  @media (max-width: ${breakPoints.sm}) {
-    width: 35%;
-    /* font-size: 2.8rem; */
-    font-size: 6vw;
-    line-height: 1.1;
+  @media ${breakPoints.mobile} {
+    font-size: 3rem;
   }
 `;
 
 export const AdImageWrapper = styled.div`
   height: 100%;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
 
   img {
-    height: 100%;
+    height: 90%;
     transition: 0.3s;
-    @media (min-width: ${breakPoints.lg}) and (max-width: ${breakPoints.xl}) {
-      height: 95%;
+    @media ${breakPoints.tablet} {
+      height: 20vw;
     }
-    @media (min-width: ${breakPoints.sm}) and (max-width: ${breakPoints.lg}) {
-      height: 80%;
-    }
-    @media (max-width: ${breakPoints.sm}) {
-      height: 70%;
+    @media ${breakPoints.mobile} {
+      height: 25vw;
     }
   }
 `;

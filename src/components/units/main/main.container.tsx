@@ -18,5 +18,33 @@ export default function Main() {
     }
   );
 
-  return <MainUI data={data} />;
+  const { data: categoryData1 } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardsArgs
+  >(FETCH_BOARDS, {
+    variables: {
+      categoryName: "공유서비스",
+      isSuccess: false,
+      status: false,
+    },
+  });
+
+  const { data: categoryData2 } = useQuery<
+    Pick<IQuery, "fetchBoards">,
+    IQueryFetchBoardsArgs
+  >(FETCH_BOARDS, {
+    variables: {
+      categoryName: "여행",
+      isSuccess: false,
+      status: false,
+    },
+  });
+
+  return (
+    <MainUI
+      data={data}
+      categoryData1={categoryData1}
+      categoryData2={categoryData2}
+    />
+  );
 }

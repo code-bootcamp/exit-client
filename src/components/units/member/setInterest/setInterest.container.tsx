@@ -35,7 +35,7 @@ export default function SetInterest(props: ISetInterestProps) {
   const onClickCategory = (el: any) => () => {
     const categories = [...selectedCategories];
     const temp = categories.filter((category: string) => category === el.name);
-    // 중복시
+    // 중복
     if (temp.length === 1) {
       const newCategories = categories.filter(
         (category: string) => category !== el.name

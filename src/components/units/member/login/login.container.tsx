@@ -29,14 +29,13 @@ const schema = yup.object({
   // ),
 });
 
-export default function Login(props: any) {
+export default function Login() {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
   const [isEditingTags, setIsTagsEditingTags] =
     useRecoilState(isEditingTagsState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const [isScrollBlocked, setIsScrollBlocked] = useState(true);
   const [serverEmailErrorMessage, setServerEmailErrorMessage] = useState("");
   const [serverPasswordErrorMessage, setServerPasswordErrorMessage] =
     useState("");
@@ -62,17 +61,6 @@ export default function Login(props: any) {
       isComponentMounted = false;
     };
   }, [email, password]);
-
-  useEffect(() => {
-    // let isComponentMounted = true;
-    isScrollBlocked
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "auto");
-    return () => {
-      document.body.style.overflow = "auto";
-      // isComponentMounted = false;
-    };
-  }, [isScrollBlocked]);
 
   const client = useApolloClient();
   const router = useRouter();
@@ -103,8 +91,6 @@ export default function Login(props: any) {
       const { __type, ...userInfo } = resultUserInfo?.data.fetchLoginedUser;
       setUserInfo(userInfo);
       router.push("/");
-      setIsScrollBlocked(false);
-      // props.setIsModalVisible?.(false);
       setIsModalVisible(false);
     } catch (error) {
       if (error instanceof Error) {
@@ -122,15 +108,11 @@ export default function Login(props: any) {
   };
 
   const onClickJoin = () => {
-    // console.log("check");
     setIsClickedJoin(true);
   };
 
   const onClickClose = () => {
-    console.log("모달 닫기: 여기는 login 컨테이너");
-    // props.setIsModalVisible?.(false);
     setIsModalVisible(false);
-    setIsScrollBlocked(false);
   };
 
   return (

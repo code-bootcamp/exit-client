@@ -10,17 +10,9 @@ export default function LoginUI(props: ILoginUIProps) {
   return (
     <>
       {props.isClickedFindPassword && (
-        <FindPassword
-          onClickClose={props.onClickClose}
-          // setIsModalVisible={props.setIsModalVisible}
-        />
+        <FindPassword onClickClose={props.onClickClose} />
       )}
-      {props.isClickedJoin && (
-        <Join
-          onClickClose={props.onClickClose}
-          // setIsModalVisible={props.setIsModalVisible}
-        />
-      )}
+      {props.isClickedJoin && <Join onClickClose={props.onClickClose} />}
       {!props.isClickedFindPassword &&
         !props.isClickedJoin &&
         !props.isEditingTags && (

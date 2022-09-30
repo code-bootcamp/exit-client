@@ -25,19 +25,18 @@ export default function SetInterestUI(props: ISetInterestUIProps) {
                 />
               ))}
           </S.InterestWrapper>
-          <Button01
-            text="나의 기술 스택 선택가기"
-            type="button"
-            isValid={props.selectedCategories.length}
-            disabled={!props.selectedCategories.length}
-            eventHandler={props.onClickUpdateCategories}
-          />
+          <S.ButtonWrapper>
+            <Button01
+              text="나의 기술 스택 선택가기"
+              type="button"
+              isValid={props.selectedCategories.length}
+              disabled={!props.selectedCategories.length}
+              eventHandler={props.onClickUpdateCategories}
+            />
+          </S.ButtonWrapper>
         </Modal02>
       )}
-      {props.isClickedSelectTags && (
-        // <SetTag setIsModalVisible={props.setIsModalVisible} />
-        <SetTag />
-      )}
+      {props.isClickedSelectTags && <SetTag />}
     </>
   );
 }

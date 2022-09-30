@@ -24,13 +24,13 @@ import {
 } from "./currentProject.queries";
 import moment from "moment";
 import { Modal } from "antd";
-import { NavigationRounded } from "@material-ui/icons";
 
 export default function CurrentProject() {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [date, setDate] = useState<any>(moment());
   const [selectedDayAttendence, setSelectedDayAttendance] = useState([]);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const client = useApolloClient();
 
@@ -39,8 +39,9 @@ export default function CurrentProject() {
     Pick<IQuery, "fetchUserBoards">,
     IQueryFetchUserBoardsArgs
   >(FETCH_USER_BOARDS, {
-    variables: { boardId: String(router.query.projectId) },
+    variables: { boardId: String(router.query.projectId), isAccepted: true },
   });
+  console.log("유저보드", data);
 
   // 보드
   const { data: board } = useQuery<
@@ -79,10 +80,6 @@ export default function CurrentProject() {
   const { data: attendanceTime } = useQuery(GET_ATTENDANCE_TIME, {
     variables: { boardId: String(router.query.projectId) },
   });
-
-  // useEffect(() => {
-  //   console.log(getAddressData(attendanceData));
-  // });
 
   // 선택한 날짜 출석데이터 받기
   // useEffect(() => {
@@ -148,11 +145,12 @@ export default function CurrentProject() {
         }
       });
     } catch (error) {
-      Modal.error({ content: error?.message });
+      if (error instanceof Error) Modal.error({ content: error?.message });
     }
   };
 
   const onClickAttend = () => {
+    setLoading(true);
     try {
       navigator.geolocation.getCurrentPosition(async function (pos) {
         let latitude = pos.coords.latitude;
@@ -176,14 +174,19 @@ export default function CurrentProject() {
           },
         });
         console.log(result);
+        location.reload();
+        setLoading(false);
         Modal.success({ content: "출석 완료!" });
       });
     } catch (error) {
-      Modal.error({ content: error?.message });
+      if (error instanceof Error) {
+        setLoading(false);
+        Modal.error({ content: error.message });
+      }
     }
   };
 
-  console.log(attendanceData);
+  console.log("출석데이터", attendanceData);
 
   return (
     <CurrentProjectUI
@@ -205,6 +208,8 @@ export default function CurrentProject() {
       onClickAttend={onClickAttend}
       isLeader={leaderData?.fetchUserWithUserId.nickname === userInfo.nickname}
       onClickAttendStart={onClickAttendStart}
+      loading={loading}
+      attendanceData={attendanceData}
     />
   );
 }

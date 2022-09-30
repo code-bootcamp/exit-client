@@ -206,7 +206,7 @@ export type IMutation = {
   removeKeyword: IKeyword;
   removePointHistory: Scalars['Boolean'];
   removeSubComment: Array<Scalars['String']>;
-  removeTag: ITag;
+  removeTag: Scalars['Boolean'];
   removeUser: Scalars['Boolean'];
   removeUserBoards: Array<Scalars['String']>;
   removeZipFile: Scalars['Boolean'];
@@ -337,7 +337,7 @@ export type IMutationRemoveBoardImageArgs = {
 
 
 export type IMutationRemoveCategoryArgs = {
-  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 
@@ -368,7 +368,7 @@ export type IMutationRemoveSubCommentArgs = {
 
 
 export type IMutationRemoveTagArgs = {
-  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 

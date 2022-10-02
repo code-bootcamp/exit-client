@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { SettingsInputAntennaTwoTone } from "@material-ui/icons";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -9,7 +8,6 @@ import {
   IMutationCreateCommentArgs,
   IMutationCreateOrDeleteLikeArgs,
   IQuery,
-  IQueryFetchCommentsArgs,
   IQueryFetchLikesArgs,
   IQueryFetchUserBoardsArgs,
   IQueryFetchUserWithUserIdArgs,
@@ -29,7 +27,6 @@ import { IExitedProjectDetailProps } from "./exitedProjectDetail.types";
 
 export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
   const [comment, setComment] = useState("");
   const router = useRouter();
 
@@ -92,8 +89,14 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
   };
 
   const onClickSubmit = async () => {
+    if (!userInfo.email) {
+      message.error("로그인 후 이용가능합니다.");
+      setComment("");
+      return;
+    }
+
     if (!comment) {
-      Modal.error({ content: "댓글 내용을 입력해주세요." });
+      message.error("댓글 내용을 입력해주세요.");
       return;
     }
 

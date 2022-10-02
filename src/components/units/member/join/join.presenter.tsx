@@ -8,7 +8,6 @@ import Text01 from "../../../commons/texts/01";
 import SetInterest from "../setInterest/setInterest.container";
 
 export default function JoinUI(props: IJoinUIProps) {
-  console.log(props.formState.isValid);
   return (
     <>
       {props.joinStep < 3 && (
@@ -89,6 +88,8 @@ export default function JoinUI(props: IJoinUIProps) {
                 <Input01
                   placeholder="닉네임을 지어주세요."
                   register={props.register("nickname")}
+                  errorMessage={props.formState?.errors?.nickname?.message}
+                  maxLength={10}
                 />
               </S.NicknameWrapper>
               <S.PasswordWrapper>
@@ -116,15 +117,19 @@ export default function JoinUI(props: IJoinUIProps) {
               </S.PasswordWrapper>
               <S.TermsWrapper>
                 <S.TermWraper>
-                  {/* <input type="radio" {...props.register("term1")} /> */}
-                  <input type="radio" />
+                  <S.TermChecked
+                    onClick={props.onClickTerm(0)}
+                    isChecked={props.isTermsChecked[0]}
+                  />
                   <S.Term>
                     <span>약관동의</span>
                   </S.Term>
                 </S.TermWraper>
                 <S.TermWraper>
-                  {/* <input type="radio" {...props.register("term2")} /> */}
-                  <input type="radio" />
+                  <S.TermChecked
+                    onClick={props.onClickTerm(1)}
+                    isChecked={props.isTermsChecked[1]}
+                  />
                   <S.Term>
                     <span>만 14세 이상입니까?</span>
                   </S.Term>
@@ -134,7 +139,6 @@ export default function JoinUI(props: IJoinUIProps) {
                 text="관심분야 선택하기"
                 type="submit"
                 isValid={props.formState.isValid}
-                // eventHandler={() => console.log("test")}
               />
             </Modal02>
           )}

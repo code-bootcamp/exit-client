@@ -19,6 +19,7 @@ const FETCH_BOARD = gql`
       }
       bail
       countLike
+      countMember
       totalMember
       categories {
         id

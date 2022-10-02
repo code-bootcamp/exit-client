@@ -689,6 +689,9 @@ export default function ProjectWriteUI(props: any) {
         <S.TagsWrapper>
           <S.Label>기술 스택(소분류)</S.Label>
           <S.ItemTitle>모집 기술</S.ItemTitle>
+          <S.SelectImg>
+            <img src="/set_tags.png" />
+          </S.SelectImg>
         </S.TagsWrapper>
         <S.FrequencyWrapper>
           <S.Label>최소: 주1회</S.Label>

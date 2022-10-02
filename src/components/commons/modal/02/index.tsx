@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import Text01 from "../../texts/01";
 
 interface IModal02Props {
@@ -9,14 +9,19 @@ interface IModal02Props {
   eventHandler?: any;
 }
 
-const Background = styled.div`
+const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.74);
   position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
+`;
+
+const Background = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.74);
   color: #fff;
 `;
 
@@ -57,8 +62,17 @@ export const Close = styled.div`
 `;
 
 export default function Modal02(props: IModal02Props) {
+  useEffect(() => {
+    // 스크롤 비활성화
+    document.body.style.overflow = "hidden";
+    // 스크롤 활성화
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
-    <Background>
+    <Wrapper>
+      <Background onClick={props.eventHandler} />
       <ModalWrapper>
         <ModalFor>{props.modalFor}</ModalFor>
         <Text01 contents={props.modalTitle} />
@@ -67,6 +81,6 @@ export default function Modal02(props: IModal02Props) {
           <img src="/icons/icon_close.png" />
         </Close>
       </ModalWrapper>
-    </Background>
+    </Wrapper>
   );
 }

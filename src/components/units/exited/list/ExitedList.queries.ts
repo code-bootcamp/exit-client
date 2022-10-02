@@ -80,6 +80,7 @@ export const FETCH_BOARD = gql`
       totalMember
       countMember
       countLike
+      frequency
       description
       categories {
         name
@@ -102,31 +103,6 @@ export const FETCH_BOARD = gql`
     }
   }
 `;
-
-// export const FETCH_USER_WITH_NICKNAME = gql`
-//   query fetchUserWithNickname($nickname: String!) {
-//     fetchUserWithNickname(nickname: $nickname) {
-//       categories {
-//         id
-//         name
-//       }
-//     }
-//   }
-// `;
-
-// export const FETCH_BOARD_RANDOM = gql`
-//   query fetchBoardRandom($categoryId: String!) {
-//     fetchBoardRandom(categoryId: $categoryId) {
-//       id
-//       title
-//       description
-//       bail
-//       boardImage {
-//         url
-//       }
-//     }
-//   }
-// `;
 
 export const FETCH_BOARDS_BY_LIKES = gql`
   query fetchBoardsByLikes(

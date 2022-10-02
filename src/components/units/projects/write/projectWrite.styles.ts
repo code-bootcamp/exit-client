@@ -274,3 +274,7 @@ export const ProjectPeriodBox = styled.div`
   display: flex;
   justify-content: end;
 `;
+
+export const SelectImg = styled.div`
+  width: 165px;
+`;

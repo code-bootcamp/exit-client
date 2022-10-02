@@ -32,7 +32,6 @@ export type IBoard = {
   boardImage: IBoardImage;
   categories: Array<ICategory>;
   closedAt?: Maybe<Scalars['DateTime']>;
-  context: Scalars['String'];
   countLike: Scalars['Int'];
   countMember: Scalars['Int'];
   createdAt: Scalars['DateTime'];
@@ -150,7 +149,6 @@ export type ICreateTagInput = {
 export type ICreateUserBoardInput = {
   boardId: Scalars['String'];
   isAccepted?: InputMaybe<Scalars['Boolean']>;
-  userId: Scalars['String'];
 };
 
 export type ICreateUserImageInput = {
@@ -203,12 +201,12 @@ export type IMutation = {
   removeBoard: Scalars['Boolean'];
   removeBoardImage: Scalars['Boolean'];
   removeCategory: Scalars['Boolean'];
-  removeComment: Array<Scalars['String']>;
+  removeComment: Scalars['String'];
   removeImage: Scalars['Boolean'];
   removeKeyword: IKeyword;
   removePointHistory: Scalars['Boolean'];
   removeSubComment: Array<Scalars['String']>;
-  removeTag: ITag;
+  removeTag: Scalars['Boolean'];
   removeUser: Scalars['Boolean'];
   removeUserBoards: Array<Scalars['String']>;
   removeZipFile: Scalars['Boolean'];
@@ -339,7 +337,7 @@ export type IMutationRemoveBoardImageArgs = {
 
 
 export type IMutationRemoveCategoryArgs = {
-  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 
@@ -370,7 +368,7 @@ export type IMutationRemoveSubCommentArgs = {
 
 
 export type IMutationRemoveTagArgs = {
-  id: Scalars['String'];
+  name: Scalars['String'];
 };
 
 
@@ -801,7 +799,6 @@ export type IUpdateTagInput = {
 export type IUpdateUserBoardInput = {
   boardId?: InputMaybe<Scalars['String']>;
   isAccepted?: InputMaybe<Scalars['Boolean']>;
-  userId?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateUserInput = {

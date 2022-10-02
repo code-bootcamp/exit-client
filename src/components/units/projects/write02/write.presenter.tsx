@@ -2,6 +2,7 @@ import UploadWrite from "../../../commons/uploads/01/UploadsWrite.container";
 import { v4 as uuidv4 } from "uuid";
 import { Col, DatePicker, Row, Slider } from "antd";
 import * as S from "./write.styles";
+import WriteTagsModal from "../../../commons/modal/writeTagsModal/writeTagsModal.container";
 
 const { RangePicker } = DatePicker;
 
@@ -27,7 +28,7 @@ const FAVORITE_CATEGORIES = [
   "이커머스",
   "날씨",
   "자연",
-  "동물/ 식물",
+  "동물/식물",
   "음식/요리",
 ];
 
@@ -49,6 +50,12 @@ export default function WriteUI(props: any) {
   console.log(props.data?.fetchBoard.closeDate);
   return (
     <>
+      {props.isModalVisible && props?.isEditingTags && (
+        <WriteTagsModal
+          onClickClose={props.onClickClose}
+          setIsEditingTags={props?.setIsEditingTags}
+        />
+      )}
       <S.Wrapper>
         <S.Container>
           <S.WriteTitle>
@@ -196,10 +203,23 @@ export default function WriteUI(props: any) {
             </S.SetBox>
             <S.SetBox>
               <S.SetMiniTitle>기술 스택(소분류)</S.SetMiniTitle>
+<<<<<<< HEAD
               <S.SetTitle>모집 기술</S.SetTitle>
               <S.ItemImage src="/icons/set_tags.png" />
+=======
+              <S.TagsHeaderWrapper>
+                <S.SetTitle>모집 기술</S.SetTitle>
+                <S.TagButton onClick={props.onClickTags}>
+                  모집 기술 편집
+                </S.TagButton>
+              </S.TagsHeaderWrapper>
+              <S.Tags>
+                {props?.tags?.map((el: string, index: number) => (
+                  <S.Tag key={index}>{el}</S.Tag>
+                ))}
+              </S.Tags>
+>>>>>>> f079f82377e61e604a2430151717d8a191dc4dfb
             </S.SetBox>
-
             <S.SetBox>
               <S.SetMiniTitle>최소: 주 1회</S.SetMiniTitle>
               <S.SetTitle>모임 빈도</S.SetTitle>

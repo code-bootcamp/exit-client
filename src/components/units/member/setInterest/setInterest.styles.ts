@@ -6,9 +6,7 @@ interface ISelectProps {
 
 export const InterestWrapper = styled.div`
   width: 100%;
-  height: 100%;
   margin-top: 50px;
-  margin-bottom: 170px;
   display: flex;
   flex-wrap: wrap;
   padding: 0 30px;
@@ -19,7 +17,6 @@ export const CategoryWrapper = styled.div`
   width: 30%;
   margin-bottom: 24px;
   margin-right: 20px;
-  /* background-color: yellow; */
   &:nth-of-type(3n) {
     margin-right: 0;
   }
@@ -39,4 +36,11 @@ export const Select = styled.div`
 export const Category = styled.em`
   color: #4e4e4e;
   font-size: 2.1rem;
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 540px;
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
 `;

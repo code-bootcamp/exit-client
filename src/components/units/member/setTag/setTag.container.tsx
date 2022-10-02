@@ -1,11 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   IMutation,
   IMutationUpdateUserArgs,
 } from "../../../../commons/types/generated/types";
+import useCleanUp from "../../../commons/hooks/useCleanUp";
 import { isModalVisibleState } from "../../../commons/store";
 import SetTagUI from "./setTag.presenter";
 import { FETCH_TAGS, UPDATE_USER } from "./setTag.queries";
@@ -14,7 +15,20 @@ export default function SetTag() {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const { data } = useQuery(FETCH_TAGS);
+
+  useCleanUp();
+
+  // spinner
+  useEffect(() => {
+    if (!data) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [data]);
 
   const [updateUser] = useMutation<
     Pick<IMutation, "updateUser">,
@@ -56,6 +70,7 @@ export default function SetTag() {
   return (
     <SetTagUI
       data={data}
+      loading={loading}
       onClickUpdateTags={onClickUpdateTags}
       onClickTag={onClickTag}
       selectedTags={selectedTags}

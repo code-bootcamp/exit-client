@@ -1,38 +1,54 @@
+import { PossibleTypeExtensionsRule } from "graphql";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+
 // import Check from "../../../commons/categori";
+import WriteTagsModal from "../../../commons/modal/writeTagsModal/writeTagsModal.container";
 import Uploads01 from "../../../commons/uploads/02/Uploads.container";
+import ChangePassword from "../../member/changePassword/changePassword.container";
 import * as S from "./myPageEdit.styles";
 
 const FAVORITE_CATEGORIES = [
   "여행",
   "SNS",
-  "뷰티 / 패션",
+  "뷰티/패션",
   "엔터테인먼트",
   "게임",
-  "건강 / 스포츠",
-  "뉴스 / 정보",
+  "건강/스포츠",
+  "뉴스/정보",
   "인테리어",
   "부동산",
   "유틸",
   "금융",
   "종교",
   "교육",
-  "의료 / 병원",
+  "의료/병원",
   "교통",
-  "육아 / 출산",
-  "우주 / 외계인",
-  "공유 서비스",
+  "육아/출산",
+  "우주/외계인",
+  "공유서비스",
   "이커머스",
   "날씨",
   "자연",
-  "동물 / 식물",
-  "음식 / 요리",
+  "동물/식물",
+  "음식/요리",
 ];
 
 export default function MyPageEditPresenter(props: any) {
   return (
     <>
+      {props?.isModalVisible && props?.isEditingTags && (
+        <WriteTagsModal
+          onClickClose={props.onClickClose}
+          setIsEditingTags={props?.setIsEditingTags}
+        />
+      )}
+      {props?.isModalVisible && props?.isChangingPassword && (
+        <ChangePassword
+          onClickClose={props.onClickClose}
+          setIsChangingPassword={props.setIsChangingPassword}
+        />
+      )}
       <S.Wrapper>
         <S.Container>
           <S.TopContainer>
@@ -112,17 +128,23 @@ export default function MyPageEditPresenter(props: any) {
             <S.UserInfo>
               <S.SkillBox>
                 <S.Title>모집 기술</S.Title>
-                <S.SkillButton>모집 기술 편집</S.SkillButton>
+                <S.SkillButton onClick={props.onClickTagsEditing}>
+                  모집 기술 편집
+                </S.SkillButton>
               </S.SkillBox>
               <S.TagBox>
-                <S.Tag>Vue</S.Tag>
+                {props.tags?.map((el: string) => (
+                  <S.Tag>{el}</S.Tag>
+                ))}
               </S.TagBox>
             </S.UserInfo>
             <S.UdpateButton onClick={props.onUpdateButton}>
               수정하기
             </S.UdpateButton>
             <S.Line />
-            <S.ChangePassword>비밀번호 변경하기</S.ChangePassword>
+            <S.ChangePassword onClick={props.onClickChangePassword}>
+              비밀번호 변경하기
+            </S.ChangePassword>
             <S.ResignButton onClick={props.onClickRemoveUser}>
               회원 탈퇴
             </S.ResignButton>

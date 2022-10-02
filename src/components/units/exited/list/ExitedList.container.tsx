@@ -34,7 +34,6 @@ export default function ExitedList() {
       status: true,
     },
   });
-  // console.log(fetchBoardsByLikes);
 
   // 마운트될 때
   useEffect(() => {
@@ -50,9 +49,7 @@ export default function ExitedList() {
     const searchWords: any = JSON.parse(
       sessionStorage.getItem("searchWords") || "[]"
     );
-    // setSearchWords([...searchWords]);
     setSearchWords(searchWords);
-    console.log(searchWords);
     // 검색어가 없다면
     if (searchWords === []) {
       setFilteredBoards([]);
@@ -86,6 +83,7 @@ export default function ExitedList() {
             }
           })
         );
+
         const filteredBoardIDs = result
           .map((el: any) => el.data.fetchBoards.map((el: any) => el.id))
           .filter((el) => el.length > 0)
@@ -181,16 +179,16 @@ export default function ExitedList() {
   return (
     <ExitedListUI
       data={data}
-      filteredBoards={filteredBoards}
       likedData={likedData}
       filterData={filterData}
+      filteredBoards={filteredBoards}
+      fetchBoardsByLikes={fetchBoardsByLikes}
       onFetchMore={onFetchMore}
       onClickProject={onClickProject}
       onClickFilterButton={onClickFilterButton}
       isModalVisible={isModalVisible}
       setIsModalVisible={setIsModalVisible}
       searchWords={searchWords}
-      fetchBoardsByLikes={fetchBoardsByLikes}
     />
   );
 }

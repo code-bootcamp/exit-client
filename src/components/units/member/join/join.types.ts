@@ -25,6 +25,7 @@ export interface IJoinUIProps {
   password2: string;
   joinStep: number;
   isStarted: boolean;
+  isTermsChecked: boolean[];
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   formState: FormState<FieldValues>;
@@ -32,6 +33,7 @@ export interface IJoinUIProps {
   onClickSendEmailToken: () => void;
   onClickJoin: (data: any) => Promise<void>;
   onClickClose: () => void;
+  onClickTerm: (target: number) => () => void;
   onClickCheckToken: () => void;
   serverEmailErrorMessage: string;
   serverTokenErrorMessage: string;

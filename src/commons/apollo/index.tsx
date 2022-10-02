@@ -13,7 +13,6 @@ import { useRecoilState, useRecoilValueLoadable } from "recoil";
 import { getAccessToken } from "../../components/commons/libraries/getAccessToken";
 import {
   accessTokenState,
-  restoreAccessTokenLoadable,
   userInfoState,
 } from "../../components/commons/store";
 
@@ -36,13 +35,10 @@ interface IApolloSettingProps {
 export default function ApolloSetting(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [, setUserInfo] = useRecoilState(userInfoState);
-  // const Lodable = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   useEffect(() => {
     getAccessToken().then(async (newAccessToken) => {
-      // console.log(newAccessToken);
       try {
-        // console.log(newAccessToken);
         setAccessToken(newAccessToken);
         const resultUserInfo = await client.query({
           query: FETCH_LOGINED_USER,
@@ -54,10 +50,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
         });
         const { __type, ...userInfo } = resultUserInfo.data.fetchLoginedUser;
         setUserInfo({ ...userInfo });
-        // console.log(userInfo);
-      } catch (error) {
-        // if (error instanceof Error) console.log(error.message);
-      }
+      } catch (error) {}
     });
   }, []);
 
@@ -89,7 +82,6 @@ export default function ApolloSetting(props: IApolloSettingProps) {
 
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, uploadLink as unknown as ApolloLink]),
-    // link: ApolloLink.from([errorLink, uploadLink]),
     cache: APOLLO_CACHE,
     connectToDevTools: true,
   });

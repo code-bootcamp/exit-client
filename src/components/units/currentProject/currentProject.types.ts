@@ -6,7 +6,7 @@ import {
 
 export interface ICurrentProjectUIProps {
   leaderLocation: Pick<IQuery, "getLocationLeader"> | undefined;
-  userInfo: any;
+  userInfo: { nickname: string; id: string; email: string };
   date: any;
   data: any;
   leaderData: any;
@@ -18,4 +18,5 @@ export interface ICurrentProjectUIProps {
   attendancePercent: number;
   selectedDayAttendence: IAttendance[];
   onClickAttend: () => void;
+  loading: boolean;
 }

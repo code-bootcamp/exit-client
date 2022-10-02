@@ -31,8 +31,14 @@ export const UserImageWrapper = styled.div`
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
   cursor: pointer;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const UserImage = styled.img`

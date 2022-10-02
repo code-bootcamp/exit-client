@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_BOARDS = gql`
-  query fetchBoards {
-    fetchBoards {
+  query fetchBoards($categoryName: String) {
+    fetchBoards(categoryName: $categoryName) {
       id
       title
       address
@@ -10,6 +10,7 @@ export const FETCH_BOARDS = gql`
       countMember
       countLike
       description
+      frequency
       startAt
       endAt
       closedAt
@@ -20,6 +21,9 @@ export const FETCH_BOARDS = gql`
       }
       boardImage {
         url
+      }
+      tags {
+        name
       }
     }
   }

@@ -141,10 +141,12 @@ export const SkillBox = styled.div`
   align-items: center;
   /* border: 1px solid; */
 `;
-export const TagBox = styled.div``;
+export const TagBox = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`;
 export const Tag = styled.div`
   padding: 4px 14px;
-  width: 71px;
   height: 37px;
   background: #ececec;
   border-radius: 4px;
@@ -152,6 +154,7 @@ export const Tag = styled.div`
   font-size: 24px;
   line-height: 29px;
   color: #4e4e4e;
+  margin-right: 12px;
 `;
 
 export const UdpateButton = styled.button`

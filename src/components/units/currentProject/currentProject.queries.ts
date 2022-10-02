@@ -3,11 +3,13 @@ import { gql } from "@apollo/client";
 export const FETCH_USER_BOARDS = gql`
   query fetchUserBoards(
     # $userId: String
-    $boardId: String # $isAccepted: Boolean
+    $boardId: String
+    $isAccepted: Boolean
   ) {
     fetchUserBoards(
       # userId: $userId
-      boardId: $boardId # isAccepted: $isAccepted
+      boardId: $boardId
+      isAccepted: $isAccepted
     ) {
       id
       isAccepted
@@ -80,6 +82,13 @@ export const GET_LOCATION_CREW = gql`
 export const GET_ATTENDANCE_PERCENT = gql`
   query getAttendancePercent($boardId: String!) {
     getAttendancePercent(boardId: $boardId)
+  }
+`;
+
+// 출석 유효시간
+export const GET_ATTENDANCE_TIME = gql`
+  query getAttendanceTime($boardId: String!) {
+    getAttendanceTime(boardId: $boardId)
   }
 `;
 

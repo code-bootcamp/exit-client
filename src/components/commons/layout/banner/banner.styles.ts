@@ -2,18 +2,21 @@ import styled from "@emotion/styled";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { breakPoints } from "../../../../commons/styles/media";
+
+interface IBannerItemProps {
+  src: string | undefined;
+}
 
 export const Visual = styled.section`
   width: 100%;
   height: 520px;
   overflow: hidden;
   display: flex;
-  margin-bottom: 90px;
 `;
 
 export const BannerSlider = styled(Slider)`
   width: 100%;
+  height: 520px;
   overflow: hidden;
 `;
 
@@ -22,9 +25,9 @@ export const BannerItem = styled.div`
   height: 520px;
 
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: 0 center;
   background-size: cover;
-  background-image: url(${(props: any) => props.src});
+  background-image: url(${(props: IBannerItemProps) => props.src});
 `;
 
 export const LargeBannerImageWrapper = styled.div`

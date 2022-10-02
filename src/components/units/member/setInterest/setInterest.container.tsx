@@ -1,12 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Modal } from "antd";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 import {
   IMutation,
   IMutationUpdateUserArgs,
 } from "../../../../commons/types/generated/types";
-import { isModalVisibleState } from "../../../commons/store";
+import useCleanUp from "../../../commons/hooks/useCleanUp";
 import SetInterestUI from "./setInterest.presenter";
 import { FETCH_CATEGORIES, UPDATE_USER } from "./setInterest.queries";
 import { ISetInterestProps } from "./setInterest.types";
@@ -14,7 +12,21 @@ import { ISetInterestProps } from "./setInterest.types";
 export default function SetInterest(props: ISetInterestProps) {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isClickedSelectTags, setIsClickedSelectTags] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const { data } = useQuery(FETCH_CATEGORIES);
+
+  useCleanUp();
+
+  // spinner
+  useEffect(() => {
+    if (!data) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [data]);
+
   const [updateUser] = useMutation<
     Pick<IMutation, "updateUser">,
     IMutationUpdateUserArgs
@@ -23,7 +35,7 @@ export default function SetInterest(props: ISetInterestProps) {
   const onClickCategory = (el: any) => () => {
     const categories = [...selectedCategories];
     const temp = categories.filter((category: string) => category === el.name);
-    // 중복시
+    // 중복
     if (temp.length === 1) {
       const newCategories = categories.filter(
         (category: string) => category !== el.name
@@ -54,6 +66,7 @@ export default function SetInterest(props: ISetInterestProps) {
   return (
     <SetInterestUI
       data={data}
+      loading={loading}
       onClickClose={props.onClickClose}
       onClickCategory={onClickCategory}
       selectedCategories={selectedCategories}

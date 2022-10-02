@@ -197,7 +197,7 @@ export default function WriteUI(props: any) {
             <S.SetBox>
               <S.SetMiniTitle>기술 스택(소분류)</S.SetMiniTitle>
               <S.SetTitle>모집 기술</S.SetTitle>
-              <S.InputRadio />
+              <S.ItemImage src="/icons/set_tags.png" />
             </S.SetBox>
 
             <S.SetBox>

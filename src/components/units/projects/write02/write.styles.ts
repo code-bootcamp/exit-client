@@ -113,6 +113,7 @@ export const MoneyIcon = styled.img`
   position: relative;
   top: -8.7rem;
   left: 98.5rem;
+  margin-top: 0rem;
 `;
 export const SetRight = styled.div`
   display: flex;
@@ -179,3 +180,8 @@ export const Createbutton = styled.button`
 `;
 
 export const BailIcon = styled.img``;
+
+export const ItemImage = styled.img`
+  width: 200px;
+  margin-top: 15px;
+`;

@@ -121,7 +121,7 @@ export default function ExitingList() {
 
   const { data: randomData } = useQuery(FETCH_BOARD_RANDOM, {
     variables: {
-      categoryId: userData?.fetchUserWithNickname?.categories?.[0].id,
+      categoryId: userData?.fetchUserWithNickname?.categories?.[0]?.id,
     },
   });
 

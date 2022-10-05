@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import Modal01UI from "./Modal01.presenter";
-import { IModal01Props } from "./Modal01.types";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { isModalVisibleState, modalState, searchWordsState } from "../../store";
+import { ISearchWordsModalProps } from "./searchWordsModal.types";
+import SearchWordsModalUI from "./searchWordsModal.presenter";
 
-export default function Modal01(props: any) {
+export default function SearchWordsModal(props: ISearchWordsModalProps) {
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(isModalVisibleState);
   const [isScrollBlocked, setIsScrollBlocked] = useState(true);
+  const [searchWords, setSearchWords] = useRecoilState(searchWordsState);
   const [isErased, setIsErased] = useState(false);
+  const resetSearchWordsState = useResetRecoilState(searchWordsState);
+  const resetModalState = useResetRecoilState(modalState);
 
   useEffect(() => {
     isScrollBlocked
@@ -17,7 +24,9 @@ export default function Modal01(props: any) {
   }, [isScrollBlocked]);
 
   const onClickResetSearchWords = () => {
-    setIsErased(true);
+    // setIsErased(true);
+    // resetModalState();
+    resetSearchWordsState();
   };
 
   const onClickCompleteSearchWords = () => {
@@ -25,19 +34,19 @@ export default function Modal01(props: any) {
     //   sessionStorage.getItem("searchWords") || "[]"
     // );
     // console.log(searchWords);
-    props.setIsModalVisible?.(false);
+    // props.setIsModalVisible?.(false);
+    setIsModalVisible(false);
+    resetModalState();
   };
 
   const onClickClose = () => {
-    props.setIsModalVisible?.(false);
+    // props.setIsModalVisible?.(false);
+    setIsModalVisible(false);
+    resetModalState();
   };
 
-  console.log(props.modalData?.fetchCategories);
-  // console.log(tagsData);
   return (
-    <Modal01UI
-      modalFor={props.modalFor}
-      modalTitle={props.modalTitle}
+    <SearchWordsModalUI
       categoriesData={props.modalData?.fetchCategories.map(
         (el: any) => el.name
       )}
@@ -47,6 +56,7 @@ export default function Modal01(props: any) {
       onClickResetSearchWords={onClickResetSearchWords}
       onClickCompleteSearchWords={onClickCompleteSearchWords}
       onClickClose={onClickClose}
+      // recoilSearchWords={recoilSearchWords}
     />
   );
 }

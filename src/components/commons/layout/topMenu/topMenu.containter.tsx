@@ -1,8 +1,7 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
-  IMutation,
   IQuery,
   IQueryFetchUserWithUserIdArgs,
 } from "../../../../commons/types/generated/types";
@@ -14,7 +13,7 @@ export default function TopMenu() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
-  const [isMinimodalVisible, setIsMiniModalVisible] = useState(false);
+  const [isMiniModalVisible, setIsMiniModalVisible] = useState(false);
 
   const { data } = useQuery<
     Pick<IQuery, "fetchUserWithUserId">,
@@ -33,11 +32,11 @@ export default function TopMenu() {
 
   return (
     <TopMenuUI
-      onClickLogin={onClickLogin}
       data={data}
       userInfo={userInfo}
       onClickProfile={onClickProfile}
-      isMinimodalVisible={isMinimodalVisible}
+      onClickLogin={onClickLogin}
+      isMiniModalVisible={isMiniModalVisible}
     />
   );
 }

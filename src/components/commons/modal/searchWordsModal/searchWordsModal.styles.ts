@@ -1,50 +1,9 @@
 import styled from "@emotion/styled";
-import { IFilterItemProps } from "./Modal01.types";
-
-export const Background = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.74);
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  color: #fff;
-`;
-
-export const SearchModalWrapper = styled.div`
-  width: 620px;
-  height: 850px;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 14px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-export const ModalFor = styled.em`
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 50px;
-  color: #777777;
-  font-size: 2.2rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-`;
-
-export const ModalTitle = styled.h2`
-  font-size: 3.6rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 20px;
-`;
+import { breakPoints } from "../../../../commons/styles/media";
 
 export const FilterItems = styled.ul`
   width: 100%;
-  height: 500px;
+  height: 540px;
   padding: 27px;
   border-radius: 14px;
   background-color: #f8f8f8;
@@ -56,6 +15,14 @@ export const FilterItems = styled.ul`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @media ${breakPoints.tablet} {
+    height: 330px;
+  }
+  @media ${breakPoints.mobile} {
+    padding: 20px;
+    height: 210px;
+  }
 `;
 
 export const FilterItem = styled.li`
@@ -63,7 +30,6 @@ export const FilterItem = styled.li`
   padding: 3px 14px 0;
   margin-right: 20px;
   margin-bottom: 20px;
-  color: red;
   color: ${(props: IFilterItemProps) =>
     props.isSelected ? "#fff" : "#4e4e4e"};
   background-color: ${(props: IFilterItemProps) =>
@@ -74,11 +40,35 @@ export const FilterItem = styled.li`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media ${breakPoints.tablet} {
+    height: auto;
+    padding: 6px 10px;
+    font-size: 1.9rem;
+  }
+  @media ${breakPoints.mobile} {
+    height: auto;
+    padding: 6px 8px;
+    font-size: 1.7rem;
+    margin-bottom: 16px;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 540px;
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+
+  @media ${breakPoints.tablet} {
+    width: 48.6vw;
+  }
+
+  @media ${breakPoints.mobile} {
+    width: 300px;
+  }
 `;
 
 export const ResetButton = styled.button`
@@ -89,21 +79,15 @@ export const ResetButton = styled.button`
   color: #fff;
   border-radius: 14px;
   background-color: #000;
+
+  @media ${breakPoints.tablet} {
+    width: 48.5%;
+  }
+  @media ${breakPoints.mobile} {
+    width: 48.5%;
+  }
 `;
 
 export const CompleteButton = styled(ResetButton)`
   background-color: #3ebd5d;
-`;
-
-export const Close = styled.div`
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  top: 25px;
-  right: 25px;
-  cursor: pointer;
-
-  img {
-    width: 100%;
-  }
 `;

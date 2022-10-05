@@ -8,7 +8,12 @@ export default function ExitedCommentListUI(props: IExitedCommentListUIProps) {
   return (
     <>
       {props.data?.fetchComments.map((el: IComment) => (
-        <ExitedCommentListItemUI key={uuidv4()} el={el} />
+        <ExitedCommentListItemUI
+          key={uuidv4()}
+          el={el}
+          leaderData={props.leaderData}
+          userBoardData={props.userBoardData}
+        />
       ))}
     </>
   );

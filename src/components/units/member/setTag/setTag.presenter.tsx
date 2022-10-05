@@ -1,5 +1,5 @@
 import * as S from "./setTag.styles";
-import Modal02 from "../../../commons/modal/02";
+import Modal01 from "../../../commons/modal/01";
 import { ISetTagUIProps } from "./setTag.types";
 import { v4 as uuidv4 } from "uuid";
 import SetTagUIItem from "./setTag.presenterItem";
@@ -10,7 +10,7 @@ export default function SetTagUI(props: ISetTagUIProps) {
   return (
     <>
       {props.loading && <Spinner01 />}
-      <Modal02 modalTitle="기술 스택">
+      <Modal01 modalTitle="기술 스택">
         <S.TagsWrapper>
           {props.data?.fetchTags?.map((el: any) => (
             <SetTagUIItem
@@ -21,14 +21,16 @@ export default function SetTagUI(props: ISetTagUIProps) {
             />
           ))}
         </S.TagsWrapper>
-        <Button01
-          text="가입완료"
-          type="button"
-          isValid={props.selectedTags.length}
-          disabled={!props.selectedTags.length}
-          eventHandler={props.onClickUpdateTags}
-        />
-      </Modal02>
+        <S.ButtonWrapper>
+          <Button01
+            text="가입완료"
+            type="button"
+            isValid={props.selectedTags.length}
+            disabled={!props.selectedTags.length}
+            eventHandler={props.onClickUpdateTags}
+          />
+        </S.ButtonWrapper>
+      </Modal01>
     </>
   );
 }

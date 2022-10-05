@@ -1,5 +1,4 @@
-import { atom, selector } from "recoil";
-import { getAccessToken } from "../libraries/getAccessToken";
+import { atom } from "recoil";
 
 export const accessTokenState = atom({
   key: "accessTokenState",
@@ -15,27 +14,29 @@ export const userInfoState = atom({
   },
 });
 
-export const searchWordsState = atom({
-  key: "searchWordsState",
-  default: [],
-});
-
 export const isModalVisibleState = atom({
   key: "isModalVisibleState",
   default: false,
 });
 
-export const restoreAccessTokenLoadable = selector({
-  key: "restoreAccessTokenLoadable",
-  get: async () => {
-    const newAccessToken = await getAccessToken();
-    return newAccessToken;
-  },
+export const modalState = atom({
+  key: "modalState",
+  default: "",
 });
 
 export const isEditState = atom({
   key: "isEditState",
   default: false,
+});
+
+export const searchWordsState = atom({
+  key: "searchWordsState",
+  default: [],
+});
+
+export const tagsState = atom({
+  key: "tagsState",
+  default: [],
 });
 
 export const isEditingTagsState = atom({

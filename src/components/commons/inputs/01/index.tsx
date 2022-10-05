@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 interface IInput01Props {
   register: any;
@@ -15,7 +16,7 @@ const Input01Wrapper = styled.div`
 
 const Input01UI = styled.input`
   width: 100%;
-  height: 60x;
+  height: 60px;
   padding: 20px;
   border: 2px solid #d7d7d7;
   border-radius: 14px;
@@ -32,6 +33,27 @@ const Input01UI = styled.input`
   &::placeholder {
     color: #c1c1c1;
     font-size: 2.1rem;
+    @media ${breakPoints.tablet} {
+      font-size: 1.8rem;
+    }
+    @media ${breakPoints.mobile} {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media ${breakPoints.tablet} {
+    height: 55px;
+    padding: 17px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    font-size: 1.8rem;
+  }
+  @media ${breakPoints.mobile} {
+    height: 55px;
+    font-size: 1.6rem;
+    border-radius: 9px;
+    padding: 13px;
+    margin-bottom: 15px;
   }
 `;
 
@@ -42,6 +64,15 @@ export const ErrorMessage = styled.p`
   position: absolute;
   bottom: 7px;
   left: 6px;
+
+  @media ${breakPoints.tablet} {
+    font-size: 1.4rem;
+    bottom: 2px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 1.2rem;
+    bottom: 0;
+  }
 `;
 
 export default function Input01(props: IInput01Props) {

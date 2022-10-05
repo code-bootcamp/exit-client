@@ -1,6 +1,6 @@
-import * as S from "./writeTagsModal.styles";
+import * as S from "./tagsModal.styles";
 
-export default function WriteTagsModalItem(props: any) {
+export default function TagsModalItem(props: any) {
   return (
     <>
       <S.Tag

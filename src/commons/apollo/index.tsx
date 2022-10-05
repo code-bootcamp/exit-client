@@ -50,7 +50,9 @@ export default function ApolloSetting(props: IApolloSettingProps) {
         });
         const { __type, ...userInfo } = resultUserInfo.data.fetchLoginedUser;
         setUserInfo({ ...userInfo });
-      } catch (error) {}
+      } catch (error) {
+        // console.log(error.message);
+      }
     });
   }, []);
 
@@ -75,7 +77,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink = createUploadLink({
-    uri: "https://teamserver05.shop/graphql",
+    uri: "https://mainproject04.shop/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });

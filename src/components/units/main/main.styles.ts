@@ -5,24 +5,25 @@ import { breakPoints } from "../../../commons/styles/media";
 
 export const Wrapper = styled.div`
   width: 100%;
-  overflow: hidden;
   margin-top: 80px;
-  padding-bottom: 50px;
 `;
 
 export const Inner = styled.div`
-  margin-left: 9.375vw;
+  width: 160rem;
+  margin: auto;
+
+  @media ${breakPoints.tablet} {
+    width: 100%;
+    padding: 4vw;
+  }
+  @media ${breakPoints.mobile} {
+    width: 100%;
+    padding: 4vw;
+  }
 `;
 
 export const Section = styled.section`
   margin-bottom: 110px;
-
-  @media ${breakPoints.tablet} {
-    width: 100vw;
-  }
-  @media ${breakPoints.mobile} {
-    width: 100vw;
-  }
 `;
 
 export const SectionHead = styled.div`
@@ -61,10 +62,7 @@ export const More = styled.span`
   letter-spacing: -0.02em;
   cursor: pointer;
 
-  @media ${breakPoints.tablet} {
-    display: none;
-  }
-  @media ${breakPoints.mobile} {
+  @media (max-width: 991px) {
     display: none;
   }
 `;
@@ -73,7 +71,8 @@ export const SectionBody = styled.div``;
 
 export const CarouselWrapper = styled.div`
   @media ${breakPoints.mobile} {
-    width: 81vw;
+    width: 85vw;
+    padding-left: 4.7vw;
     overflow: hidden;
   }
 `;
@@ -89,8 +88,8 @@ export const CarouselItem = styled.article`
   cursor: pointer;
 
   @media ${breakPoints.tablet} {
-    width: 39.1vw;
-    height: 55vw;
+    width: 43.1vw;
+    height: 60vw;
   }
   @media ${breakPoints.mobile} {
     width: 80vw;
@@ -102,6 +101,7 @@ export const TopWrapper = styled.div`
   width: 100%;
   height: 384px;
   position: relative;
+  overflow: hidden;
 
   @media ${breakPoints.tablet} {
     height: 60%;
@@ -249,6 +249,7 @@ export const ProjectTitle = styled.h3`
   letter-spacing: -1.4px;
   word-break: keep-all;
   margin-bottom: 10px;
+
   @media ${breakPoints.tablet} {
     font-size: 2.5rem;
   }
@@ -336,10 +337,10 @@ export const CategoriesWrapper = styled.ul`
   justify-content: space-between;
 
   @media ${breakPoints.tablet} {
-    width: 81.5vw;
+    width: 100%;
   }
   @media ${breakPoints.mobile} {
-    width: 81.5vw;
+    width: 100%;
   }
 `;
 
@@ -398,12 +399,14 @@ export const ProjectBanner = styled.div`
   }
 
   @media ${breakPoints.tablet} {
-    width: 81.5vw;
-    height: 18rem;
+    width: 100%;
+    padding: 4vw;
+    height: 200px;
   }
   @media ${breakPoints.mobile} {
-    width: 81.5vw;
-    height: 16rem;
+    width: 100%;
+    height: 160px;
+    padding: 4vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -415,6 +418,7 @@ export const ProjectBannerText = styled.p`
   color: #fff;
   font-weight: 700;
   font-size: 2.4rem;
+  line-height: 1.2;
   word-break: keep-all;
   float: right;
   text-align: center;
@@ -423,6 +427,7 @@ export const ProjectBannerText = styled.p`
     font-size: 1.7rem;
   }
   @media ${breakPoints.mobile} {
+    width: 80%;
     font-size: 1.7rem;
     float: none;
     margin-top: 10px;

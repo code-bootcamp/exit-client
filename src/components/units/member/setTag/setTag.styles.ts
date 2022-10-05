@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 interface ITagProps {
   isSelected: boolean;
@@ -18,6 +19,13 @@ export const TagsWrapper = styled.ul`
   ::-webkit-scrollbar {
     display: none;
   }
+
+  @media ${breakPoints.tablet} {
+    height: 390px;
+  }
+  @media ${breakPoints.mobile} {
+    height: 280px;
+  }
 `;
 
 export const Tag = styled.li`
@@ -34,10 +42,27 @@ export const Tag = styled.li`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media ${breakPoints.mobile} {
+    height: auto;
+    padding: 5px 8px;
+    font-size: 1.7rem;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  width: 540px;
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+
+  @media ${breakPoints.tablet} {
+    width: 48.6vw;
+  }
+
+  @media ${breakPoints.mobile} {
+    width: 300px;
+  }
 `;

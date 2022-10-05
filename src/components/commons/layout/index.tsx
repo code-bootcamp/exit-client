@@ -26,6 +26,8 @@ const HIDDEN_BANNER = [
   "/currentProject/[projectId]",
   "/exited",
   "/exiting",
+  "/exiting/write",
+  "/exiting/[projectId]/edit",
 ];
 
 const HIDDEN_MINI_BANNER = [
@@ -41,6 +43,8 @@ const HIDDEN_TOGGLE_BUTTON = [
   "/myPage",
   "/projects/[projectId]",
   "/currentProject/[projectId]",
+  "/exiting/write",
+  "/exiting/[projectId]/edit",
 ];
 const HIDDEN_FOOTER = ["/currentProject/[projectId]"];
 

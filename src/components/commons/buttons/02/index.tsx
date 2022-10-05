@@ -5,8 +5,8 @@ interface IButton02Props {
   isValid?: boolean;
   disabled?: boolean;
   type: "button" | "submit" | "reset";
-  eventHandler?: () => void;
   backgroundColor: string;
+  eventHandler?: () => void;
 }
 
 interface IButton02UIProps {

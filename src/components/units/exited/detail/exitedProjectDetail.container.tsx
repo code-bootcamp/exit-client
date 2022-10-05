@@ -79,6 +79,7 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
             query: FETCH_BOARD,
             variables: { boardId: String(router.query.projectId) },
           },
+          { query: FETCH_LIKES, variables: { userId: userInfo.id } },
         ],
       });
     } catch (error) {}
@@ -101,7 +102,7 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
     }
 
     try {
-      const result = await createComment({
+      await createComment({
         variables: {
           createCommentInput: {
             boardId: String(router.query.projectId),

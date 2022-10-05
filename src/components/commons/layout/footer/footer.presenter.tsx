@@ -3,13 +3,13 @@ import * as S from "./footer.styles";
 export default function FooterUI() {
   return (
     <S.Wrapper>
-      <S.InnerWrapper>
-        <S.LeftWrapper>
+      <S.Inner>
+        <S.LogoWrapper>
           <h1>
             <img src="/logo.svg" />
           </h1>
-        </S.LeftWrapper>
-        <S.RightWrapper>
+        </S.LogoWrapper>
+        <S.TextWrapper>
           <S.LinkWrapper>
             <S.Link>이용약관</S.Link>
             <S.Link>고객문의</S.Link>
@@ -23,8 +23,8 @@ export default function FooterUI() {
             <strong>E-Mail</strong> i6.project.exit@gmail.com
           </S.Info>
           <S.CopyRight>COPYRIGHT © I6. ALL RIGHT RESERVED.</S.CopyRight>
-        </S.RightWrapper>
-      </S.InnerWrapper>
+        </S.TextWrapper>
+      </S.Inner>
     </S.Wrapper>
   );
 }

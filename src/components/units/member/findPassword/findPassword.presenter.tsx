@@ -1,6 +1,6 @@
 import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";
-import Modal02 from "../../../commons/modal/02";
+import Modal01 from "../../../commons/modal/01";
 import Login from "../login/login.container";
 import ResetPassword from "../changePassword/changePassword.container";
 import * as S from "./findPassword.styles";
@@ -9,7 +9,7 @@ import { IFindPasswordUIProps } from "./findPassword.types";
 export const FindPasswordUI = (props: IFindPasswordUIProps) => {
   return (
     <>
-      <Modal02
+      <Modal01
         modalFor={
           props.findPasswordStep < 2 ? "비밀번호 찾기" : "비밀번호 재설정"
         }
@@ -81,7 +81,7 @@ export const FindPasswordUI = (props: IFindPasswordUIProps) => {
             />
           )}
         </S.Form>
-      </Modal02>
+      </Modal01>
     </>
   );
 };

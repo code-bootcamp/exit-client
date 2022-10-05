@@ -1,18 +1,9 @@
+import Link from "next/link";
 import * as S from "./main.styles";
+import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import { IMainUIProps } from "./main.types";
-import {
-  IBoard,
-  IQuery,
-  IQueryFetchLikesArgs,
-} from "../../../commons/types/generated/types";
-import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { userInfoState } from "../../commons/store";
-import { useQuery } from "@apollo/client";
-import { FETCH_LIKES } from "./main.queries";
-import moment from "moment";
-import { useState } from "react";
+import { IBoard } from "../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import AdBanner from "../../commons/layout/adBanner";
 import Carousel from "../../commons/slider";
@@ -30,39 +21,7 @@ const FAVORITE_CATEGORIES = [
 ];
 
 export default function MainUI(props: IMainUIProps) {
-  const [dragging, setDragging] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
   const router = useRouter();
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    // infinite: false,
-    autoplay: false,
-    autoplaySpeed: 2500,
-    dragging: false,
-    variableWidth: true,
-    // slidesToShow: 4,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    // responsive: [
-    //   {
-    //     breakpoint: 576,
-    //     settings: {
-    //       slidesToShow: 2,
-    //     },
-    //   },
-    // ],
-  };
-
-  const { data } = useQuery<Pick<IQuery, "fetchLikes">, IQueryFetchLikesArgs>(
-    FETCH_LIKES,
-    {
-      variables: { userId: userInfo.id },
-    }
-  );
-
   return (
     <S.Wrapper>
       <S.Inner>
@@ -71,7 +30,8 @@ export default function MainUI(props: IMainUIProps) {
             <div>
               <S.Exiting>exting</S.Exiting>
               <S.SectionTitle>
-                {userInfo.nickname && `${userInfo.nickname}님을 기다리는 `}
+                {props.userInfo.nickname &&
+                  `${props.userInfo.nickname}님을 기다리는 `}
                 다양한 신규 프로젝트
               </S.SectionTitle>
             </div>
@@ -83,19 +43,19 @@ export default function MainUI(props: IMainUIProps) {
             <S.CarouselWrapper>
               <Carousel>
                 {props.data?.fetchBoards
-                  // .slice(0, 10)
-                  // .filter(
-                  //   (el: IBoard) =>
-                  //     moment().diff(moment(el?.closedAt), "days") < 0 &&
-                  //     moment().diff(moment(el?.closedAt), "days") >
-                  //       moment().diff(moment(el?.startAt), "days") &&
-                  //     moment().diff(moment(el?.startAt), "days") < 0
-                  // )
+                  .slice(0, 10)
+                  .filter(
+                    (el: IBoard) =>
+                      moment().diff(moment(el?.closedAt), "days") < 0 &&
+                      moment().diff(moment(el?.closedAt), "days") >
+                        moment().diff(moment(el?.startAt), "days") &&
+                      moment().diff(moment(el?.startAt), "days") < 0
+                  )
                   .map((el: IBoard) => (
                     <MainUIPresenterItem
                       key={uuidv4()}
                       el={el}
-                      likedBoards={data}
+                      likesData={props.likesData}
                     />
                   ))}
               </Carousel>
@@ -129,7 +89,7 @@ export default function MainUI(props: IMainUIProps) {
                     <MainUIPresenterItem
                       key={uuidv4()}
                       el={el}
-                      likedBoards={data}
+                      likesData={props.likesData}
                     />
                   ))}
               </Carousel>
@@ -163,7 +123,7 @@ export default function MainUI(props: IMainUIProps) {
                     <MainUIPresenterItem
                       key={uuidv4()}
                       el={el}
-                      likedBoards={data}
+                      likesData={props.likesData}
                     />
                   ))}
               </Carousel>
@@ -193,7 +153,9 @@ export default function MainUI(props: IMainUIProps) {
             <S.ProjectBanner>
               <img src="/white-logo.svg" />
               <S.ProjectBannerText>
-                {userInfo.nickname ? `${userInfo.nickname}님을 ` : "당신을 "}
+                {props.userInfo.nickname
+                  ? `${props.userInfo.nickname}님을 `
+                  : "당신을 "}
                 기다리는 다양한 신규 프로젝트
               </S.ProjectBannerText>
             </S.ProjectBanner>

@@ -52,6 +52,7 @@ export default function SetInterest(props: ISetInterestProps) {
 
   const onClickUpdateCategories = async () => {
     try {
+      setLoading(true);
       await updateUser({
         variables: {
           updateUserInput: {
@@ -60,7 +61,10 @@ export default function SetInterest(props: ISetInterestProps) {
         },
       });
       setIsClickedSelectTags(true);
-    } catch (error) {}
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (

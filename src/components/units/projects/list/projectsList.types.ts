@@ -9,7 +9,6 @@ export interface IExitingListUIProps {
   data: Pick<IQuery, "fetchBoards"> | undefined;
   userData: IUser;
   randomData: IBoard;
-
   filterData: any;
   filteredBoards: any;
   likedData: Pick<IQuery, "fetchLikes"> | undefined;

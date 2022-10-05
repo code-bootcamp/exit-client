@@ -5,5 +5,5 @@ export interface ITopMenuUIProps {
   userInfo: { id: string; nickname: string; email: string };
   onClickLogin: () => void;
   onClickProfile: () => void;
-  isMinimodalVisible: boolean;
+  isMiniModalVisible: boolean;
 }

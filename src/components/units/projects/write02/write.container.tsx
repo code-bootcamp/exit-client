@@ -3,8 +3,12 @@ import { message, Modal } from "antd";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { isModalVisibleState } from "../../../commons/store";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import {
+  isModalVisibleState,
+  modalState,
+  tagsState,
+} from "../../../commons/store";
 import { FETCH_BOARDS } from "../../main/main.queries";
 import { FETCH_BOARD } from "../list/projectsList.queries";
 import WriteUI from "./write.presenter";
@@ -18,7 +22,9 @@ const initialInputs = {
 export default function WriteContainer(props: any) {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
-  const [isEditingTags, setIsEditingTags] = useState(false);
+  const [modal, setModal] = useRecoilState(modalState);
+  const resetModalState = useResetRecoilState(modalState);
+  const resetSavedTagsState = useResetRecoilState(tagsState);
   const router = useRouter();
   let calDate = "";
   const [createBoard] = useMutation(CREATE_BOARD);
@@ -34,30 +40,23 @@ export default function WriteContainer(props: any) {
   const [endDate, setEndDate] = useState("");
   const [fileUrl, setFileUrl] = useState("");
   const [keywords, setKeywords] = useState([]);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useRecoilState(tagsState);
 
   // 수정 상태일 때, 모집기술 데이터 받아서 저장하기
   useEffect(() => {
     if (props.isEdit) {
       const tags = props?.data?.fetchBoard?.tags?.map((el: any) => el.name);
       setTags(tags);
-      sessionStorage.setItem("selectedTags", JSON.stringify(tags || []));
     }
   }, [props.isEdit, props.data]);
 
-  // 모집기술 편집
-  useEffect(() => {
-    const selectedTags = JSON.parse(
-      sessionStorage.getItem("selectedTags") || "[]"
-    );
+  // 모집기술 편집(모달에서 글로벌스테이트 편집)
 
-    setTags(selectedTags);
-  }, [isModalVisible]);
-
-  // 언마운트될때 모집기술 지우기
+  // 언마운트될때,  글로벌스테이트 초기화
   useEffect(() => {
     return () => {
-      sessionStorage.removeItem("selectedTags");
+      resetSavedTagsState();
+      resetModalState();
     };
   }, []);
 
@@ -155,14 +154,14 @@ export default function WriteContainer(props: any) {
     }
   };
 
-  const onClickTags = () => {
+  const onClickTagsEditing = () => {
     setIsModalVisible(true);
-    setIsEditingTags(true);
+    setModal("isEditingTags");
   };
 
   const onClickClose = () => {
     setIsModalVisible(false);
-    setIsEditingTags(false);
+    resetModalState();
   };
 
   const onClickUpdate = async () => {
@@ -249,12 +248,11 @@ export default function WriteContainer(props: any) {
         isEdit={props.isEdit}
         data={props.data}
         onClickUpdate={onClickUpdate}
-        onClickTags={onClickTags}
+        onClickTagsEditing={onClickTagsEditing}
         onClickClose={onClickClose}
         isModalVisible={isModalVisible}
         tags={tags}
-        isEditingTags={isEditingTags}
-        setIsEditingTags={setIsEditingTags}
+        modal={modal}
       />
     </>
   );

@@ -4,20 +4,27 @@ import * as S from "./projectsList.styles";
 import { IBoard } from "../../../../commons/types/generated/types";
 import { categoriesImgSources } from "../../../../commons/libraries/utils";
 import { useRecoilState } from "recoil";
-import { userInfoState } from "../../../commons/store";
-import Modal01 from "../../../commons/modal/01/Modal01.container";
+import { modalState, userInfoState } from "../../../commons/store";
 import { IExitingListUIProps } from "./projectsList.types";
+import SearchWordsModal from "../../../commons/modal/searchWordsModal/searchWordsModal.container";
 
 export default function ExitingListUI(props: IExitingListUIProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
   return (
     <>
-      {props.isModalVisible && (
+      {/* {props.isModalVisible && (
         <Modal01
           modalFor="프로젝트 리스트"
           modalTitle="기술 / 분야 검색 필터"
           modalData={props.filterData}
           setIsModalVisible={props.setIsModalVisible}
+        />
+      )} */}
+      {props.isModalVisible && props.modal === "searchWords" && (
+        <SearchWordsModal
+          modalData={props.filterData}
+          // onClickClose={props.onClickClose}
         />
       )}
       <S.Wrapper>
@@ -79,7 +86,7 @@ export default function ExitingListUI(props: IExitingListUIProps) {
             loadMore={props.onFetchMore}
             hasMore={props.filteredBoards.length > 0 ? false : true}
           >
-            {/* 검색내역이 없을 때 */}
+            {/* 검색하지 않았을 때 */}
             {props.filteredBoards.length === 0 &&
               props.searchWords.length === 0 &&
               props.data?.fetchBoards
@@ -108,18 +115,16 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        {el.boardImage.url === undefined && (
-                          <img src="/noImage.png" />
-                        )}
-                        {el.boardImage.url !== "null" ? (
+                        {el.boardImage.url.includes(
+                          "https://storage.googleapis.com/backend-server"
+                        ) || el.boardImage.url.includes("https") ? (
                           <img src={el.boardImage.url} />
-                        ) : (
+                        ) : el.categories?.[0]?.name ? (
                           <img
-                            src={
-                              categoriesImgSources[el.categories?.[0]?.name] ||
-                              "/noImage.png"
-                            }
+                            src={categoriesImgSources[el.categories?.[0]?.name]}
                           />
+                        ) : (
+                          <img src="/noImage.png" />
                         )}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
@@ -199,25 +204,20 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        {el.boardImage.url === undefined && (
+                        {el.boardImage.url.includes(
+                          "https://storage.googleapis.com/backend-server"
+                        ) || el.boardImage.url.includes("https") ? (
+                          <img src={el.boardImage.url} />
+                        ) : el.categories?.[0]?.name ? (
+                          <img
+                            src={categoriesImgSources[el.categories?.[0]?.name]}
+                          />
+                        ) : (
                           <img src="/noImage.png" />
                         )}
-                        {el.boardImage.url !== "null" ? (
-                          <img src={el.boardImage.url} />
-                        ) : (
-                          <img
-                            src={
-                              categoriesImgSources[
-                                Math.floor(
-                                  Math.random() * el.categories?.length
-                                )?.name
-                              ] || "/noImage.png"
-                            }
-                          />
-                        )}
-                        {console.log(
+                        {/* {console.log(
                           Math.floor(Math.random() * el.categories?.length)
-                        )}
+                        )} */}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
                         <S.InfoLeftWrapper>
@@ -267,19 +267,22 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                   </S.Project>
                 ))}
             {/* 검색내역은 있지만 검색결과가 없을 때 */}
-            {props.filteredBoards // 날짜 필터링
-              .filter(
-                (el: IBoard) =>
-                  moment().diff(moment(el?.closedAt), "days") < 0 &&
-                  moment().diff(moment(el?.closedAt), "days") >
-                    moment().diff(moment(el?.startAt), "days") &&
-                  moment().diff(moment(el?.startAt), "days") < 0
-              ).length === 0 &&
-              props.searchWords.length > 0 && (
-                <S.NoResultWrapper>
-                  해당 카테고리의 진행중인 프로젝트가 없습니다.
-                </S.NoResultWrapper>
-              )}
+            {
+              props.filteredBoards // 날짜 필터링
+                .filter(
+                  (el: IBoard) =>
+                    moment().diff(moment(el?.closedAt), "days") < 0 &&
+                    moment().diff(moment(el?.closedAt), "days") >
+                      moment().diff(moment(el?.startAt), "days") &&
+                    moment().diff(moment(el?.startAt), "days") < 0
+                ).length === 0 &&
+                props.searchWords.length > 0 && <div></div>
+              // && (
+              //   <S.NoResultWrapper>
+              //     해당 카테고리의 진행중인 프로젝트가 없습니다.
+              //   </S.NoResultWrapper>
+              // )
+            }
           </S.CustomInfiniteScroll>
         </S.InnerWrapper>
       </S.Wrapper>

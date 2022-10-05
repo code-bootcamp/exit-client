@@ -1,13 +1,18 @@
 import { useApolloClient, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { MouseEvent, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
   IQueryFetchLikesArgs,
 } from "../../../../commons/types/generated/types";
-import { userInfoState } from "../../../commons/store";
+import {
+  isModalVisibleState,
+  modalState,
+  searchWordsState,
+  userInfoState,
+} from "../../../commons/store";
 import ExitingListUI from "./projectsList.presenter";
 import {
   FETCH_BOARD,
@@ -20,30 +25,63 @@ import {
 
 export default function ExitingList() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(isModalVisibleState);
+  const [modal, setModal] = useRecoilState(modalState);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
+  const [savedSearchWords, setSavedSearchWords] =
+    useRecoilState(searchWordsState);
   const [searchWords, setSearchWords] = useState([]);
   const [filteredBoards, setFilteredBoards] = useState([]);
+  const resetSavedSearchWords = useResetRecoilState(searchWordsState);
+  // const resetModal = useResetRecoilState(modalState);
 
   const router = useRouter();
   const client = useApolloClient();
 
   // 마운트될 때
-  useEffect(() => {
-    sessionStorage.removeItem("searchWords");
-  }, []);
+  // useEffect(() => {
+  //   sessionStorage.removeItem("searchWords");
+  // }, []);
+
+  // useEffect(() => {
+  //   // setSavedSearchWords([]);
+  //   resetSavedSearchWords();
+
+  //   return () => {
+  //     // setSavedSearchWords([]);
+  //     resetSavedSearchWords();
+  //   };
+  // }, []);
+
+  // 모달 여닫은 후
+  // useEffect(() => {
+  //   // 세션스토리지에서 검색어 찾아오기
+  //   const searchWords: any = JSON.parse(
+  //     sessionStorage.getItem("searchWords") || "[]"
+  //   );
+  //   setSearchWords(searchWords);
+  //   // 검색어가 없다면
+  //   if (searchWords === []) {
+  //     setFilteredBoards([]);
+  //   }
+  // }, [isModalVisible]);
 
   // 모달 여닫은 후
   useEffect(() => {
-    // 세션스토리지에서 검색어 찾아오기
-    const searchWords: any = JSON.parse(
-      sessionStorage.getItem("searchWords") || "[]"
-    );
-    setSearchWords(searchWords);
-    // 검색어가 없다면
-    if (searchWords === []) {
-      setFilteredBoards([]);
+    if (!hasBeenOpened) {
+      resetSavedSearchWords();
+      setHasBeenOpened((prev) => !prev);
+      return;
     }
+    // recoil state에서 검색어 찾아오기
+    setSearchWords(savedSearchWords);
+    // 검색어가 없다면
+    // if (searchWords === []) {
+    // if (savedSearchWords === []) {
+    //   setFilteredBoards([]);
+    // }
   }, [isModalVisible]);
 
   // 검색어에 변화가 있다면
@@ -74,6 +112,7 @@ export default function ExitingList() {
             }
           })
         );
+
         const filteredBoardIDs = result
           .map((el: any) => el.data.fetchBoards.map((el: any) => el.id))
           .filter((el) => el.length > 0)
@@ -129,13 +168,12 @@ export default function ExitingList() {
     },
   });
 
-  console.log(randomData);
-
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchBoards">,
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS, {
     variables: { isSuccess: false, status: false }, // 성공여부 false, 모집마감 false
+    fetchPolicy: "network-only",
   });
 
   const { data: likedData } = useQuery<
@@ -178,13 +216,19 @@ export default function ExitingList() {
     };
 
   const onClickFilterButton = () => {
-    console.log("test");
+    // console.log("test");
     // 모달이 열린 적 있다면
-    if (!hasBeenOpened) {
-      setHasBeenOpened(false);
-    }
+    // if (!hasBeenOpened) {
+    //   setHasBeenOpened(false);
+    // }
+    setModal("searchWords");
     setIsModalVisible(true);
   };
+
+  // const onClickClose = () => {
+  //   resetModal();
+  //   setIsModalVisible(false);
+  // };
 
   return (
     <ExitingListUI
@@ -197,9 +241,11 @@ export default function ExitingList() {
       isModalVisible={isModalVisible}
       onClickProject={onClickProject}
       onClickFilterButton={onClickFilterButton}
+      // onClickClose={onClickClose}
       setIsModalVisible={setIsModalVisible}
       userData={userData}
       randomData={randomData?.fetchBoardRandom}
+      modal={modal}
     />
   );
 }

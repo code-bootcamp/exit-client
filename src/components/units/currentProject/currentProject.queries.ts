@@ -1,16 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_USER_BOARDS = gql`
-  query fetchUserBoards(
-    # $userId: String
-    $boardId: String
-    $isAccepted: Boolean
-  ) {
-    fetchUserBoards(
-      # userId: $userId
-      boardId: $boardId
-      isAccepted: $isAccepted
-    ) {
+  query fetchUserBoards($boardId: String, $isAccepted: Boolean) {
+    fetchUserBoards(boardId: $boardId, isAccepted: $isAccepted) {
       id
       isAccepted
       board {

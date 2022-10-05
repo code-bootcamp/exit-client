@@ -2,7 +2,7 @@ import UploadWrite from "../../../commons/uploads/01/UploadsWrite.container";
 import { v4 as uuidv4 } from "uuid";
 import { Col, DatePicker, Row, Slider } from "antd";
 import * as S from "./write.styles";
-import WriteTagsModal from "../../../commons/modal/writeTagsModal/writeTagsModal.container";
+import TagsModal from "../../../commons/modal/tagsModal/tagsModal.container";
 
 const { RangePicker } = DatePicker;
 
@@ -50,12 +50,10 @@ export default function WriteUI(props: any) {
   console.log(props.data?.fetchBoard.closeDate);
   return (
     <>
-      {props.isModalVisible && props?.isEditingTags && (
-        <WriteTagsModal
-          onClickClose={props.onClickClose}
-          setIsEditingTags={props?.setIsEditingTags}
-        />
+      {props.isModalVisible && props?.modal === "isEditingTags" && (
+        <TagsModal onClickClose={props.onClickClose} />
       )}
+
       <S.Wrapper>
         <S.Container>
           <S.WriteTitle>
@@ -205,7 +203,7 @@ export default function WriteUI(props: any) {
               <S.SetMiniTitle>기술 스택(소분류)</S.SetMiniTitle>
               <S.TagsHeaderWrapper>
                 <S.SetTitle>모집 기술</S.SetTitle>
-                <S.TagButton onClick={props.onClickTags}>
+                <S.TagButton onClick={props.onClickTagsEditing}>
                   모집 기술 편집
                 </S.TagButton>
               </S.TagsHeaderWrapper>

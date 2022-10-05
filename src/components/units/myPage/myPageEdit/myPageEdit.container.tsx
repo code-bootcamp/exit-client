@@ -1,10 +1,12 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   isEditingTagsState,
   isModalVisibleState,
+  modalState,
+  tagsState,
 } from "../../../commons/store";
 import { FETCH_LOGINED_USER } from "../myPage.queries";
 import MyPageEditPresenter from "./myPageEdit.presenter";
@@ -14,7 +16,10 @@ export default function MyPageEditContainer() {
   const router = useRouter();
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
-  const [isEditingTags, setIsEditingTags] = useRecoilState(isEditingTagsState);
+  const [modal, setModal] = useRecoilState(modalState);
+  const [tags, setTags] = useRecoilState(tagsState);
+  const resetModalState = useResetRecoilState(modalState);
+  const resetSavedTagsState = useResetRecoilState(tagsState);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const { data } = useQuery(FETCH_LOGINED_USER);
   const [updateUser] = useMutation(UPDATE_USER);
@@ -25,28 +30,20 @@ export default function MyPageEditContainer() {
   const [keyword, setKeyword] = useState("");
   const [keywordBox, setKeywordBox] = useState([]);
   const [removeUser] = useMutation(REMOVE_USER);
-  const [tags, setTags] = useState([]);
 
-  // 유저 태그 받아와서 저장하기
+  // 저장된 유저 태그 받아오기
   useEffect(() => {
     const tags = data?.fetchLoginedUser.tags?.map((el: any) => el.name);
     setTags(tags);
-    sessionStorage.setItem("selectedTags", JSON.stringify(tags || []));
   }, [data]);
 
-  // 모집기술 편집
-  useEffect(() => {
-    const selectedTags = JSON.parse(
-      sessionStorage.getItem("selectedTags") || "[]"
-    );
+  // 모집기술 편집(모달에서 글로벌 스테이트 편집)
 
-    setTags(selectedTags);
-  }, [isModalVisible]);
-
-  // 언마운트될때 모집기술 지우기
+  // 언마운트될 때, 글로벌스테이트 초기화
   useEffect(() => {
     return () => {
-      sessionStorage.removeItem("selectedTags");
+      resetSavedTagsState();
+      resetModalState();
     };
   }, []);
 
@@ -155,22 +152,17 @@ export default function MyPageEditContainer() {
 
   const onClickTagsEditing = () => {
     setIsModalVisible(true);
-    setIsEditingTags(true);
-  };
-
-  const onClickClose = () => {
-    console.log("클릭됨");
-    setIsModalVisible(false);
-    // setIsEditingTags(false);
-
-    if (isEditingTags) setIsEditingTags(false);
-    if (isChangingPassword) setIsChangingPassword(false);
+    setModal("isEditingTags");
   };
 
   const onClickChangePassword = () => {
-    console.log("비밀번호 변경!!");
     setIsModalVisible(true);
-    setIsChangingPassword(true);
+    setModal("isChangingPassword");
+  };
+
+  const onClickClose = () => {
+    setIsModalVisible(false);
+    resetModalState();
   };
 
   const onClickRemoveUser = () => {
@@ -185,9 +177,8 @@ export default function MyPageEditContainer() {
         items={items}
         keywordBox={keywordBox}
         tags={tags}
+        modal={modal}
         isModalVisible={isModalVisible}
-        isEditingTags={isEditingTags}
-        setIsEditingTags={setIsEditingTags}
         isChangingPassword={isChangingPassword}
         setIsChangingPassword={setIsChangingPassword}
         onClickClose={onClickClose}

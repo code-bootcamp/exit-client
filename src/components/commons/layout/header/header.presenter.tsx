@@ -7,15 +7,17 @@ export default function HeaderUI() {
   return (
     <>
       <S.Wrapper>
-        <S.InnerWrapper>
+        <S.Inner>
           <S.Logo>
-            <a href="/">
-              <img src="/logo.svg" alt="exit" />
-            </a>
+            <Link href="/">
+              <a style={{ display: "block" }}>
+                <img src="/logo.svg" alt="exit" />
+              </a>
+            </Link>
           </S.Logo>
           <Navigation />
           <TopMenu />
-        </S.InnerWrapper>
+        </S.Inner>
       </S.Wrapper>
     </>
   );

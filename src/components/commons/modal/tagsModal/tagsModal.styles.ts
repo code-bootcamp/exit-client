@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 interface ITagProps {
   isSelected: boolean;
@@ -6,7 +7,7 @@ interface ITagProps {
 
 export const TagsWrapper = styled.ul`
   width: 100%;
-  height: 500px;
+  height: 540px;
   padding: 27px;
   border-radius: 14px;
   background-color: #f8f8f8;
@@ -17,6 +18,18 @@ export const TagsWrapper = styled.ul`
   -ms-overflow-style: none;
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  @media ${breakPoints.tablet} {
+    padding-top: 30px;
+    height: 350px;
+    overflow-y: scroll;
+  }
+  @media ${breakPoints.mobile} {
+    margin-top: 20px;
+    padding: 20px;
+    height: 240px;
+    overflow-y: scroll;
   }
 `;
 
@@ -34,12 +47,37 @@ export const Tag = styled.li`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media ${breakPoints.tablet} {
+    height: auto;
+    padding: 6px 10px;
+    font-size: 1.9rem;
+  }
+  @media ${breakPoints.mobile} {
+    height: auto;
+    padding: 6px 8px;
+    font-size: 1.7rem;
+    margin-bottom: 16px;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  width: 540px;
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+
+  @media ${breakPoints.tablet} {
+    width: 48.6vw;
+  }
+
+  @media ${breakPoints.mobile} {
+    width: 300px;
+  }
 `;
 
 export const ResetButton = styled.button`
@@ -53,6 +91,13 @@ export const ResetButton = styled.button`
   justify-content: center;
   border-radius: 14px;
   background-color: #000;
+
+  @media ${breakPoints.tablet} {
+    width: 48.5%;
+  }
+  @media ${breakPoints.mobile} {
+    width: 48.5%;
+  }
 `;
 
 export const CompleteButton = styled(ResetButton)`

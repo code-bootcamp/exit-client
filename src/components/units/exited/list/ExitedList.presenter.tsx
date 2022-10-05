@@ -7,23 +7,25 @@ import { useRecoilState } from "recoil";
 import { userInfoState } from "../../../commons/store";
 import Modal01 from "../../../commons/modal/01/Modal01.container";
 import { IExitedListUIProps } from "./ExitedList.types";
+import SearchWordsModal from "../../../commons/modal/searchWordsModal/searchWordsModal.container";
 
 export default function ExitedListUI(props: IExitedListUIProps) {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  // console.log("지난 날짜", moment().diff(moment("2022-06-07"), "days"));
-  // console.log("오늘 날짜", moment().diff(moment(), "days"));
-  // console.log("미래 날짜", moment().diff(moment("2022-10-07"), "days"));
-  // console.log("필터된보드", props.filteredBoards);
-  // console.log("일반패치보드", props.data?.fetchBoards);
-  // console.log("searchWords", props?.searchWords);
+
   return (
     <>
-      {props.isModalVisible && (
+      {/* {props.isModalVisible && (
         <Modal01
           modalFor="프로젝트 리스트"
           modalTitle="기술 / 분야 검색 필터"
           modalData={props.filterData}
           setIsModalVisible={props.setIsModalVisible}
+        />
+      )} */}
+      {props.isModalVisible && props.modal === "searchWords" && (
+        <SearchWordsModal
+          modalData={props.filterData}
+          // onClickClose={props.onClickClose}
         />
       )}
       <S.Wrapper>
@@ -73,7 +75,7 @@ export default function ExitedListUI(props: IExitedListUIProps) {
             </>
           )} */}
           {/* 최근 완료된 게시물 추천 */}
-          {props.data?.fetchBoards && (
+          {props.data?.fetchBoards?.length > 0 && (
             <>
               <S.Exiting>exited</S.Exiting>
               <S.SectionTitle>최근 완료된 성공 프로젝트</S.SectionTitle>
@@ -155,23 +157,16 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        {!!el.boardImage.url && (
-                          <img
-                            src={
-                              categoriesImgSources[el.categories?.[0]?.name] ||
-                              "/noImage.png"
-                            }
-                          />
-                        )}
-                        {el.boardImage.url ? (
+                        {el.boardImage.url.includes(
+                          "https://storage.googleapis.com/backend-server"
+                        ) || el.boardImage.url.includes("https") ? (
                           <img src={el.boardImage.url} />
-                        ) : (
+                        ) : el.categories?.[0]?.name ? (
                           <img
-                            src={
-                              categoriesImgSources[el.categories[0]?.name] ||
-                              "/noImage.png"
-                            }
+                            src={categoriesImgSources[el.categories?.[0]?.name]}
                           />
+                        ) : (
+                          <img src="/noImage.png" />
                         )}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
@@ -248,30 +243,16 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                         </S.IsLikedWrapper>
                       )}
                       <S.ThumbImageWrapper>
-                        {/* <img
-                        src={
-                          !!el.boardImage.url
-                            ? categoriesImgSources[el.categories?.[0]?.name]
-                            : el.boardImage.url
-                        }
-                      /> */}
-                        {!!el.boardImage.url && (
-                          <img
-                            src={
-                              categoriesImgSources[el.categories?.[0]?.name] ||
-                              "/slider_default.png"
-                            }
-                          />
-                        )}
-                        {el.boardImage.url ? (
+                        {el.boardImage.url.includes(
+                          "https://storage.googleapis.com/backend-server"
+                        ) || el.boardImage.url.includes("https") ? (
                           <img src={el.boardImage.url} />
-                        ) : (
+                        ) : el.categories?.[0]?.name ? (
                           <img
-                            src={
-                              categoriesImgSources[el.categories[0]?.name] ||
-                              "/slider_default.png"
-                            }
+                            src={categoriesImgSources[el.categories?.[0]?.name]}
                           />
+                        ) : (
+                          <img src="/noImage.png" />
                         )}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
@@ -328,9 +309,10 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                 moment().diff(moment(el?.startAt), "days") > 0
             ).length === 0 &&
               props.searchWords.length > 0 && (
-                <S.NoResultWrapper>
-                  해당 카테고리의 완료된 프로젝트가 없습니다.
-                </S.NoResultWrapper>
+                // <S.NoResultWrapper>
+                //   해당 카테고리의 완료된 프로젝트가 없습니다.
+                // </S.NoResultWrapper>
+                <div></div>
               )}
           </S.CustomInfiniteScroll>
         </S.InnerWrapper>

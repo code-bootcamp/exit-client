@@ -16,13 +16,11 @@ import ChangePasswordUI from "./changePassword.presenter";
 import { Modal } from "antd";
 
 const schema = yup.object({
-  password: yup
-    .string()
-    .required("비밀번호를 입력해주세요.")
-    .matches(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/,
-      "비밀번호 형식에 맞지 않습니다."
-    ),
+  password: yup.string().required("비밀번호를 입력해주세요."),
+  // .matches(
+  //   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/,
+  //   "비밀번호 형식에 맞지 않습니다."
+  // ),
   checkedPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다.")

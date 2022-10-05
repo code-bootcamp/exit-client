@@ -28,11 +28,9 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
   const settings = {
     dots: false,
     infinite: false,
-    // autoplay: true,
-    // autoplaySpeed: 2000,
-    // slidesToScroll: 2,
   };
   console.log(props.board);
+  console.log(props.attendanceData);
   return (
     <>
       {props.loading && <Spinner01 />}
@@ -111,13 +109,11 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                 <PieChart
                   data={[
                     {
-                      // value: -Number(props.attendancePercent) / 10,
                       value: Number(props.attendancePercent),
                       color: "#3EBD5D",
                       name: "progress",
                     },
                   ]}
-                  // reveal={-Number(props.attendancePercent) / 10}
                   reveal={Number(props.attendancePercent)}
                   lineWidth={24}
                   background="#F8F8F8"
@@ -144,19 +140,20 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                   주 {props.board?.fetchBoard?.frequency}회
                 </S.Frequency>
               </S.MiniInfo>
-              {!props.leaderLocation && (
-                // props.attendanceData.fetchAttendance.filter((el) =>
-                //   el.attendedAt.includes(moment().format("YYYY-MM-DD"))
-                // ) &&
-
-                <S.MapTempImage src="/map_temp.png" />
-              )}
-              {props.leaderLocation && (
-                <Map
-                  lat={props.leaderLocation?.getLocationLeader?.split(",")[0]}
-                  lng={props.leaderLocation?.getLocationLeader?.split(",")[1]}
-                />
-              )}
+              {!props.leaderLocation &&
+                props?.attendanceData?.fetchAttendance.filter((el: any) => {
+                  console.log(el.attendedAt, moment().format("YYYY-MM-DD"));
+                  // el.attendedAt.includes(moment().format("YYYY-MM-DD"));
+                })?.length === 0 && <S.MapTempImage src="/map_temp.png" />}
+              {props.leaderLocation &&
+                props?.attendanceData?.fetchAttendance.filter((el: any) =>
+                  el.attendedAt.includes(moment().format("YYYY-MM-DD"))
+                ).length > 0 && (
+                  <Map
+                    lat={props.leaderLocation?.getLocationLeader?.split(",")[0]}
+                    lng={props.leaderLocation?.getLocationLeader?.split(",")[1]}
+                  />
+                )}
             </S.MapWrapper>
             <S.PresentMembers>
               <S.PresentMembersText>출석한 exiter</S.PresentMembersText>
@@ -209,7 +206,7 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                 onClick={
                   props.isLeader
                     ? props?.onClickAttendStart
-                    : props.onClickAttend
+                    : props?.onClickAttend
                 }
                 // 리더일 경우 또는 출석가능한 팀원일경우
                 isAvailable={
@@ -235,9 +232,9 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                 출석체크 하기
               </S.CheckGpsButton>
             </S.WelcomeMessageWrapper>
-            <S.ChatRoomWrapper>
+            {/* <S.ChatRoomWrapper>
               <ChatContainer roomCode={props.board?.fetchBoard.id} />{" "}
-            </S.ChatRoomWrapper>
+            </S.ChatRoomWrapper> */}
           </S.Column>
         </S.Wrapper>
       </S.Background>

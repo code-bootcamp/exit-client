@@ -1,7 +1,7 @@
 import UploadWrite from "../../../commons/uploads/01/UploadsWrite.container";
 import { v4 as uuidv4 } from "uuid";
 import { Col, DatePicker, Row, Slider } from "antd";
-import * as S from "./write.styles";
+import * as S from "./projectWrite.styles";
 import WriteTagsModal from "../../../commons/modal/writeTagsModal/writeTagsModal.container";
 
 const { RangePicker } = DatePicker;
@@ -46,7 +46,7 @@ const ADDRESS = [
   "제주",
 ];
 
-export default function WriteUI(props: any) {
+export default function ProjectWriteUI(props: any) {
   console.log(props.data?.fetchBoard.closeDate);
   return (
     <>
@@ -68,7 +68,7 @@ export default function WriteUI(props: any) {
             />
           </S.ImageBox>
           <S.ProjectInputContainer>
-            <S.ProjectTilte
+            <S.ProjectTitle
               id="title"
               onChange={props.onChangeInputs}
               placeholder="제목을 입력해주세요"
@@ -98,22 +98,22 @@ export default function WriteUI(props: any) {
                 <S.SetMiniTitle>최대 100만원</S.SetMiniTitle>
                 <S.SetTitle>1인당 보석금</S.SetTitle>
               </S.SetTitleBox>
-              <S.SetRight>
+              <S.MoneyWrapper>
                 <S.MoneyInput onChange={props.onChangeBail} name="SelectMoney">
-                  <option value="50000">50000</option>
-                  <option value="100000">100000</option>
-                  <option value="200000">200000</option>
-                  <option value="300000">300000</option>
-                  <option value="500000">500000</option>
+                  <S.MoneyOption value="100000">100,000</S.MoneyOption>
+                  <S.MoneyOption value="300000">300,000</S.MoneyOption>
+                  <S.MoneyOption value="500000">500,000</S.MoneyOption>
+                  <S.MoneyOption value="700000">700,000</S.MoneyOption>
+                  <S.MoneyOption value="900000">900,000</S.MoneyOption>
+                  <S.MoneyOption value="1000000">1,000,000</S.MoneyOption>
                 </S.MoneyInput>
-              </S.SetRight>
-              <S.MoneyIcon src={"/icons/money_icon.png"} />
+              </S.MoneyWrapper>
             </S.SetBox>
             <S.SetBox>
-              <S.SetMiniTitle>팀장포함 6명 최대</S.SetMiniTitle>
+              <S.SetMiniTitle>팀장포함 최대 6명</S.SetMiniTitle>
               <S.SetTitle>모집 인원</S.SetTitle>
               <S.SetRight>
-                모집인원{" "}
+                모집인원
                 <S.TextColor>
                   <span style={{ color: "#3EBD5D" }}>
                     {props.totalMember
@@ -123,35 +123,31 @@ export default function WriteUI(props: any) {
                   명
                 </S.TextColor>
               </S.SetRight>
-              <Row style={{ width: "100%" }}>
-                <Col span={12} style={{ width: "100%" }}>
-                  <Slider
-                    min={1}
-                    max={6}
-                    onChange={props.onChangeTotalMember}
-                    value={
-                      props.totalMember
-                        ? props.totalMember
-                        : props.data?.fetchBoard.totalMember
-                    }
-                    handleStyle={{
-                      width: "6rem",
-                      height: "6rem",
-                      borderColor: "#D7D7D7",
-                    }}
-                    trackStyle={{
-                      backgroundColor: "#3EBD5D",
-                    }}
-                    style={{
-                      width: "100rem",
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "10rem",
-                      marginTop: "3rem",
-                    }}
-                  />
-                </Col>
-              </Row>
+              <Slider
+                min={1}
+                max={6}
+                onChange={props.onChangeTotalMember}
+                value={
+                  props.totalMember
+                    ? props.totalMember
+                    : props.data?.fetchBoard.totalMember
+                }
+                handleStyle={{
+                  width: "2.8vw",
+                  height: "2.8vw",
+                  borderColor: "#D7D7D7",
+                }}
+                trackStyle={{
+                  backgroundColor: "#3EBD5D",
+                }}
+                style={{
+                  width: "57.4vw",
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "2vw",
+                  marginTop: "3.8vw",
+                }}
+              />
             </S.SetBox>
             <S.SetBox>
               <S.SetMiniTitle>분야(대분류)</S.SetMiniTitle>
@@ -163,12 +159,11 @@ export default function WriteUI(props: any) {
                       type="radio"
                       value={el}
                       name="categories"
-                      onChange={props.onChangeCategoires}
+                      onChange={props.onChangeCategories}
                       checked={
                         props.categories === el
                           ? true
-                          : false ||
-                            props.data?.fetchBoard.categories[0]?.name === el
+                          : false || props.data?.fetchBoard.categories === el
                           ? true
                           : false
                       }
@@ -203,7 +198,6 @@ export default function WriteUI(props: any) {
             </S.SetBox>
             <S.SetBox>
               <S.SetMiniTitle>기술 스택(소분류)</S.SetMiniTitle>
-
               <S.TagsHeaderWrapper>
                 <S.SetTitle>모집 기술</S.SetTitle>
                 <S.TagButton onClick={props.onClickTags}>
@@ -231,34 +225,31 @@ export default function WriteUI(props: any) {
                   회
                 </S.TextColor>
               </S.SetRight>
-              <Row style={{ width: "100%" }}>
-                <Col span={12} style={{ width: "100%" }}>
-                  <Slider
-                    min={1}
-                    max={5}
-                    onChange={props.onChangeFrequency}
-                    value={
-                      props.frequency
-                        ? props.frequency
-                        : props.data?.fetchBoard.frequency
-                    }
-                    handleStyle={{
-                      width: "6rem",
-                      height: "6rem",
-                      borderColor: "#D7D7D7",
-                    }}
-                    trackStyle={{
-                      backgroundColor: "#3EBD5D",
-                    }}
-                    style={{
-                      width: "100rem",
-                      display: "flex",
-                      alignItems: "center",
-                      marginBottom: "10rem",
-                    }}
-                  />
-                </Col>
-              </Row>
+              <Slider
+                min={1}
+                max={7}
+                onChange={props.onChangeFrequency}
+                value={
+                  props.frequency
+                    ? props.frequency
+                    : props.data?.fetchBoard.frequency
+                }
+                handleStyle={{
+                  width: "2.8vw",
+                  height: "2.8vw",
+                  borderColor: "#D7D7D7",
+                }}
+                trackStyle={{
+                  backgroundColor: "#3EBD5D",
+                }}
+                style={{
+                  width: "57.4vw",
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "2vw",
+                  marginTop: "3.8vw",
+                }}
+              />
             </S.SetBox>
 
             <S.SetBox>
@@ -275,14 +266,11 @@ export default function WriteUI(props: any) {
                 </S.TextColor>
                 <DatePicker
                   style={{
-                    marginTop: "0.5rem",
-                    // width: "36.1rem"
-                    height: "43px",
-                    // fontSize: "3.6rem",
+                    marginTop: "0.18vw",
                     border: "none",
-                    color: "white",
-                    fontSize: "40px",
+                    fontSize: "2.2vw",
                   }}
+                  size="large"
                   onChange={props.onChangeClosedAt}
                 />
               </S.SetRight>
@@ -294,11 +282,11 @@ export default function WriteUI(props: any) {
                 <S.TextColor> 총 프로젝트기간</S.TextColor>
                 <RangePicker
                   style={{
-                    marginTop: "0.5rem",
-                    height: "43px",
+                    marginTop: "0.18vw",
                     border: "none",
-                    fontSize: "40px",
+                    fontSize: "2.2vw",
                   }}
+                  size="large"
                   onChange={props.onChangeRangeDate}
                 />
               </S.SetRight>
@@ -306,11 +294,9 @@ export default function WriteUI(props: any) {
           </S.ProjectSetting>
           <S.ButtonBox>
             {props.isEdit ? (
-              <S.Createbutton onClick={props.onClickUpdate}>
-                수정
-              </S.Createbutton>
+              <S.WriteButton onClick={props.onClickUpdate}>수정</S.WriteButton>
             ) : (
-              <S.Createbutton onClick={props.onClickWrite}>생성</S.Createbutton>
+              <S.WriteButton onClick={props.onClickWrite}>생성</S.WriteButton>
             )}
           </S.ButtonBox>
         </S.Container>

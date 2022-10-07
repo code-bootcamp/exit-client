@@ -165,14 +165,16 @@ export const ProjectTitle = styled.div`
   margin-bottom: 3rem;
 `;
 export const Key = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
+  /* display: flex; */
+
+  /* flex-direction: column; */
 `;
 export const ProjectRow = styled.div`
   margin-bottom: 10rem;
   border-radius: 14px;
   display: flex;
+  flex-wrap: wrap;
+  /* border: 1px red solid; */
 `;
 export const ProjectNoRow = styled.div`
   height: 376px;

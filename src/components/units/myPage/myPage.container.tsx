@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { userInfoState } from "../../commons/store";
 
 import MyPagePresenter from "./myPage.presenter";
 import {
@@ -16,6 +18,7 @@ export default function MyPageContainer() {
   const router = useRouter();
   const [visible, setVisible] = useState(false);
   const { data } = useQuery(FETCH_LOGINED_USER);
+  const [userInfo] = useRecoilState(userInfoState);
   const { data: likeProjectData } = useQuery(FETCH_LIKES, {
     variables: { userId: String(data?.fetchLoginedUser.id) },
   });
@@ -27,7 +30,7 @@ export default function MyPageContainer() {
   });
   const { data: myProjectData } = useQuery(FETCH_PROJECT_OF_USER, {
     variables: {
-      userId: String(data?.fetchLoginedUser.id),
+      userId: String(userInfo.id),
     },
   });
   const { data: paymentData } = useQuery(FETCH_PAYMENTS);
@@ -46,9 +49,9 @@ export default function MyPageContainer() {
   const onClickMoveToLikeProject = (event: any) => {
     router.push(`/exiting/${event.target.id}`);
   };
+
   const onClickVisible = () => {
     setVisible(!visible);
-    console.log(visible);
   };
 
   return (

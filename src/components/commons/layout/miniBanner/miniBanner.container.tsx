@@ -5,7 +5,7 @@ export default function MiniBanner() {
   const router = useRouter();
 
   const onClickMoveToProjects = () => {
-    router.push("/projects");
+    router.push("/exiting");
   };
 
   return (

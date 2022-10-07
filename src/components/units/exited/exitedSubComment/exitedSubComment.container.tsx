@@ -7,7 +7,6 @@ import {
   IMutation,
   IMutationRemoveSubCommentArgs,
   IMutationUpdateSubCommentArgs,
-  ISubComment,
 } from "../../../../commons/types/generated/types";
 import { userInfoState } from "../../../commons/store";
 import ExitedSubCommentUI from "./exitedSubComment.presenter";

@@ -3,6 +3,9 @@ import { breakPoints } from "../../../../commons/styles/media";
 
 export const GNB = styled.ul`
   display: flex;
+  @media (max-width: 480px) {
+    padding-left: 3vw;
+  }
 `;
 
 export const NavigationItem = styled.li`

@@ -2,7 +2,6 @@ import UploadWrite from "../../../commons/uploads/01/UploadsWrite.container";
 import { v4 as uuidv4 } from "uuid";
 import { Col, DatePicker, Row, Slider } from "antd";
 import * as S from "./projectWrite.styles";
-// import WriteTagsModal from "../../../commons/modal/writeTagsModal/writeTagsModal.container";
 import TagsModal from "../../../commons/modal/tagsModal/tagsModal.container";
 import moment from "moment";
 const { RangePicker } = DatePicker;

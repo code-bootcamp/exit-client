@@ -73,7 +73,7 @@ export default function MyPageEditContainer() {
       keyBox.push(...keywordBox, keyword);
       setKeywordBox(keyBox);
       event.target.value = "";
-      console.log(keywordBox.map((el) => el));
+      // console.log(keywordBox.map((el) => el));
     }
   };
   const onChangeKeyword = (event: any) => {
@@ -145,7 +145,7 @@ export default function MyPageEditContainer() {
       const filter = items;
       filter.shift();
       setItems(filter);
-      console.log(items);
+      // console.log(items);
       return;
     }
   }, [items]);

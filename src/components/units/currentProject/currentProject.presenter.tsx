@@ -1,11 +1,9 @@
 import * as S from "./currentProject.styles";
-import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { CalendarPicker } from "@mui/x-date-pickers/CalendarPicker";
 import { PieChart } from "react-minimal-pie-chart";
 import { ICurrentProjectUIProps } from "./currentProject.types";
-import ko from "date-fns/locale/ko";
 import Map from "../../commons/map";
 import moment from "moment";
 import "moment/locale/ko";
@@ -13,24 +11,7 @@ import { getAddress } from "../../../commons/libraries/getAddress";
 import ChatContainer from "../../commons/chat/01/chat.container";
 import Spinner01 from "../../commons/spinners/01";
 
-interface DatePickerProps {
-  label?: string;
-  value: any;
-  minDate: any;
-  maxDate: any;
-  inputFormat: any;
-  mask: any;
-  onChange: () => void;
-  renderInput: any;
-}
-
 export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
-  const settings = {
-    dots: false,
-    infinite: false,
-  };
-  console.log(props.board);
-  console.log(props.attendanceData);
   return (
     <>
       {props.loading && <Spinner01 />}
@@ -49,47 +30,45 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                 </S.Date>
               </S.ProjectInfoHeaderWrapper>
               <S.ProjectMembers>
-                <S.CustomSlider {...settings}>
-                  <S.Member>
+                <S.Member>
+                  <S.ThumbWrapper>
+                    <S.MemberImageWrapper>
+                      {props.leaderData?.fetchUserWithUserId?.userImage?.url !==
+                      "null" ? (
+                        <S.MemberImage
+                          src={
+                            props.leaderData?.fetchUserWithUserId?.userImage
+                              ?.url
+                          }
+                        />
+                      ) : (
+                        <S.MemberImage src="/profile_img.png" />
+                      )}
+                    </S.MemberImageWrapper>
+                    {props.leaderData?.fetchUserWithUserId?.nickname && (
+                      <S.Leader>팀장</S.Leader>
+                    )}
+                  </S.ThumbWrapper>
+                  <S.MemberName>
+                    {props.leaderData?.fetchUserWithUserId?.nickname}
+                  </S.MemberName>
+                </S.Member>
+                {props.data?.fetchUserBoards.map((el: any, index: number) => (
+                  <S.Member key={index}>
                     <S.ThumbWrapper>
                       <S.MemberImageWrapper>
-                        {props.leaderData?.fetchUserWithUserId?.userImage
-                          ?.url !== "null" ? (
-                          <S.MemberImage
-                            src={
-                              props.leaderData?.fetchUserWithUserId?.userImage
-                                ?.url
-                            }
-                          />
+                        {el.user.userImage.url.includes(
+                          "https://storage.googleapis.com/backend-server"
+                        ) || el.user.userImage.url.includes("https") ? (
+                          <S.MemberImage src={el.user.userImage.url} />
                         ) : (
                           <S.MemberImage src="/profile_img.png" />
                         )}
                       </S.MemberImageWrapper>
-                      {props.leaderData?.fetchUserWithUserId?.nickname && (
-                        <S.Leader>팀장</S.Leader>
-                      )}
                     </S.ThumbWrapper>
-                    <S.MemberName>
-                      {props.leaderData?.fetchUserWithUserId?.nickname}
-                    </S.MemberName>
+                    <S.MemberName>{el.user.nickname}</S.MemberName>
                   </S.Member>
-                  {props.data?.fetchUserBoards.map((el: any, index: number) => (
-                    <S.Member key={index}>
-                      <S.ThumbWrapper>
-                        <S.MemberImageWrapper>
-                          {el.user.userImage.url !== "null" ? (
-                            <S.MemberImage src={el.user.userImage.url} />
-                          ) : (
-                            <S.MemberImage src="/profile_img.png" />
-                          )}
-                        </S.MemberImageWrapper>
-                        {props.board?.fetchBoard?.leaderNickname ===
-                          el.user.nickname && <S.Leader>팀장</S.Leader>}
-                      </S.ThumbWrapper>
-                      <S.MemberName>{el.user.nickname}</S.MemberName>
-                    </S.Member>
-                  ))}
-                </S.CustomSlider>
+                ))}
               </S.ProjectMembers>
             </S.ProjectInfoWrapper>
             <S.ProjectBailWrapper>
@@ -130,6 +109,7 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                   labelPosition={0}
                 />
               </S.ProgressChart>
+              <S.ProgressPercent>{props.attendancePercent}%</S.ProgressPercent>
             </S.ProgressChartWrapper>
           </S.Column>
           <S.Column>
@@ -140,20 +120,21 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                   주 {props.board?.fetchBoard?.frequency}회
                 </S.Frequency>
               </S.MiniInfo>
-              {!props.leaderLocation &&
-                props?.attendanceData?.fetchAttendance.filter((el: any) => {
-                  console.log(el.attendedAt, moment().format("YYYY-MM-DD"));
-                  // el.attendedAt.includes(moment().format("YYYY-MM-DD"));
-                })?.length === 0 && <S.MapTempImage src="/map_temp.png" />}
-              {props.leaderLocation &&
-                props?.attendanceData?.fetchAttendance.filter((el: any) =>
-                  el.attendedAt.includes(moment().format("YYYY-MM-DD"))
-                ).length > 0 && (
-                  <Map
-                    lat={props.leaderLocation?.getLocationLeader?.split(",")[0]}
-                    lng={props.leaderLocation?.getLocationLeader?.split(",")[1]}
-                  />
-                )}
+              {props?.attendanceData?.fetchAttendance.filter(
+                (el: any) =>
+                  moment(el.attendedAt).format("YYYY-MM-DD") ===
+                  moment().format("YYYY-MM-DD")
+              )?.length === 0 && <S.MapTempImage src="/map_temp.png" />}
+              {props?.attendanceData?.fetchAttendance.filter(
+                (el: any) =>
+                  moment(el.attendedAt).format("YYYY-MM-DD") ===
+                  moment().format("YYYY-MM-DD")
+              )?.length > 0 && (
+                <Map
+                  lat={props.leaderLocation?.getLocationLeader?.split(",")[0]}
+                  lng={props.leaderLocation?.getLocationLeader?.split(",")[1]}
+                />
+              )}
             </S.MapWrapper>
             <S.PresentMembers>
               <S.PresentMembersText>출석한 exiter</S.PresentMembersText>
@@ -162,34 +143,33 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
               <S.CalendarWrapper>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <CalendarPicker
-                    locale={ko}
-                    value={props.attendancePercent}
-                    // minDate={props.minDay}
-                    // maxDate={props.maxDay}
-                    inputFormat={"yyyy-MM-dd"}
-                    mask={"____-__-__"}
+                    disabled={true}
                     onChange={props.onChangeDate}
-                    renderInput={(params: any) => <TextField {...params} />}
                   />
                 </LocalizationProvider>
               </S.CalendarWrapper>
               <S.PresentMemberList>
-                {props.attendanceData?.fetchAttendance?.map((el) => (
-                  <S.PresentMember>
-                    <S.PresentMemberLeftWrapper>
-                      <S.PresentMemberName>{el.nickname}</S.PresentMemberName>
-                      <S.PresentAddress>
-                        {/* {console.log(getAddress(el.latitude, el.longitude))} */}
-                        {/* {getAddress(el.latitude, el.longitude)} */}
-                      </S.PresentAddress>
-                    </S.PresentMemberLeftWrapper>
-                    <S.PresentMemberRightWrapper>
-                      <S.AttendedAt>
-                        {moment(el.attendedAt).format("HH:mm")}
-                      </S.AttendedAt>
-                    </S.PresentMemberRightWrapper>
-                  </S.PresentMember>
-                ))}
+                {props.attendanceData?.fetchAttendance
+                  ?.filter(
+                    (el: any) =>
+                      moment(el.attendedAt).format("YYYY-MM-DD") ===
+                      moment().format("YYYY-MM-DD")
+                  )
+                  .map((el, i) => (
+                    <S.PresentMember key={i}>
+                      <S.PresentMemberLeftWrapper>
+                        <S.PresentMemberName>{el.nickname}</S.PresentMemberName>
+                        <S.PresentAddress>
+                          {/* {getAddress(el.latitude, el.longitude)} */}
+                        </S.PresentAddress>
+                      </S.PresentMemberLeftWrapper>
+                      <S.PresentMemberRightWrapper>
+                        <S.AttendedAt>
+                          {moment(el.attendedAt).format("HH:mm")}
+                        </S.AttendedAt>
+                      </S.PresentMemberRightWrapper>
+                    </S.PresentMember>
+                  ))}
               </S.PresentMemberList>
             </S.AttendanceDataWrapper>
           </S.Column>
@@ -208,33 +188,41 @@ export default function CurrentProjectUI(props: ICurrentProjectUIProps) {
                     ? props?.onClickAttendStart
                     : props?.onClickAttend
                 }
-                // 리더일 경우 또는 출석가능한 팀원일경우
-                isAvailable={
-                  (props.isLeader &&
-                    props.attendanceData?.fetchAttendance.length === 0) ||
-                  (!props.isLeader &&
-                    props.attendanceData?.fetchAttendance.length > 0)
+                isValid={
+                  props.isLeader
+                    ? props.attendanceData?.fetchAttendance.filter(
+                        (el) =>
+                          moment(el.attendedAt).format("YYYY-MM-DD") ===
+                          moment().format("YYYY-MM-DD")
+                      ).length === 0
+                    : props.attendanceData?.fetchAttendance?.filter(
+                        (el) =>
+                          moment(el.attendedAt).format("YYYY-MM-DD") ===
+                            moment().format("YYYY-MM-DD") &&
+                          el.userId === props.userInfo.id
+                      ).length === 0
                 }
                 disabled={
-                  (props.isLeader &&
-                    props.attendanceData?.fetchAttendance.length === 0) ||
-                  (!props.isLeader &&
-                    props.attendanceData?.fetchAttendance.length > 0)
-                    ? false
-                    : true
-                  //   props.attendanceTime === "0분 0초" ||
-                  //   (props.isLeader &&
-                  //     props.attendanceData?.fetchAttendance.length === 0) ||
-                  //   (props.isLeader &&
-                  //     props.attendanceData?.fetchAttendance.length > 0)
+                  props.isLeader
+                    ? props.attendanceData?.fetchAttendance.filter(
+                        (el) =>
+                          moment(el.attendedAt).format("YYYY-MM-DD") ===
+                          moment().format("YYYY-MM-DD")
+                      ).length > 0
+                    : props.attendanceData?.fetchAttendance?.filter(
+                        (el) =>
+                          moment(el.attendedAt).format("YYYY-MM-DD") ===
+                            moment().format("YYYY-MM-DD") &&
+                          el.userId === props.userInfo.id
+                      ).length > 0
                 }
               >
                 출석체크 하기
               </S.CheckGpsButton>
             </S.WelcomeMessageWrapper>
-            {/* <S.ChatRoomWrapper>
-              <ChatContainer roomCode={props.board?.fetchBoard.id} />{" "}
-            </S.ChatRoomWrapper> */}
+            <S.ChatRoomWrapper>
+              <ChatContainer roomCode={props.board?.fetchBoard.id} />
+            </S.ChatRoomWrapper>
           </S.Column>
         </S.Wrapper>
       </S.Background>

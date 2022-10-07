@@ -266,7 +266,7 @@ export const TagsWrapper = styled.div`
   @media ${breakPoints.tablet} {
     display: none;
   }
-  @media (max-width: 576px) {
+  @media (max-width: 480px) {
     display: none;
   }
 `;
@@ -282,6 +282,12 @@ export const Tag = styled.em`
   border-radius: 4px;
   display: flex;
   align-items: center;
+
+  @media (min-width: 481px) and (max-width: 576px) {
+    font-size: 1.6rem;
+    height: auto;
+    padding: 3px 7px;
+  }
 `;
 
 export const BailWrapper = styled.div`
@@ -377,7 +383,7 @@ export const Category = styled.li`
   @media ${breakPoints.mobile} {
     width: 48%;
     height: 80px;
-    font-size: 2.3rem;
+    font-size: 2rem;
     margin-bottom: 17px;
   }
 `;

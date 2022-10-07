@@ -202,8 +202,13 @@ export const ProjectTitle = styled.h3`
   letter-spacing: -0.9px;
   margin-bottom: 15px;
   word-break: keep-all;
+  line-height: 1.2;
 
+  @media (min-width: 481px) and (max-width: 576px) {
+    margin-bottom: 10px;
+  }
   @media (max-width: 480px) {
+    margin-bottom: 10px;
     font-size: 2.3rem;
   }
 `;
@@ -248,6 +253,12 @@ export const Tag = styled.li`
   align-items: center;
   margin-right: 4px;
   margin-bottom: 5px;
+
+  @media (min-width: 481px) and (max-width: 576px) {
+    font-size: 1.6rem;
+    height: auto;
+    padding: 3px 7px;
+  }
 `;
 
 export const BailWrapper = styled.div`
@@ -370,7 +381,7 @@ export const RandomProjectTextWrapper = styled.div`
   @media ${breakPoints.mobile} {
     width: 45%;
     height: 100%;
-    padding-left: 0;
+    padding-left: 15px;
   }
 `;
 
@@ -380,6 +391,7 @@ export const RandomProjectTitle = styled.h3`
   color: #fff;
   font-weight: 700;
   word-break: keep-all;
+  line-height: 1.2;
 
   @media ${breakPoints.tablet} {
     width: 85%;
@@ -392,7 +404,7 @@ export const RandomProjectTitle = styled.h3`
 `;
 
 export const RandomProjectDescription = styled.p`
-  width: 70%;
+  width: 90%;
   font-size: 2.4rem;
   font-weight: 500;
   line-height: 1.2;
@@ -487,6 +499,7 @@ export const SectionTitle = styled.h2`
   font-weight: 700;
   word-break: keep-all;
   margin-bottom: 30px;
+  line-height: 1.1;
 
   @media ${breakPoints.tablet} {
     width: 80%;

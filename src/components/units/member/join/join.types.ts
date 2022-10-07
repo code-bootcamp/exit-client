@@ -26,10 +26,10 @@ export interface IJoinUIProps {
   joinStep: number;
   isStarted: boolean;
   isTermsChecked: boolean[];
+  isEmailDuplicated: boolean | null;
+  formState: FormState<FieldValues>;
   register: UseFormRegister<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  formState: FormState<FieldValues>;
-  isEmailDuplicated: boolean | null;
   onClickSendEmailToken: () => void;
   onClickJoin: (data: any) => Promise<void>;
   onClickClose: () => void;

@@ -19,7 +19,6 @@ import {
   IMutationLoginArgs,
 } from "../../../../commons/types/generated/types";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { IJoinProps } from "./join.types";
 import { message, Modal } from "antd";
 import { accessTokenState, userInfoState } from "../../../commons/store";
@@ -31,11 +30,13 @@ const schema = yup.object({
     .string()
     .email("이메일 형식을 확인해주세요")
     .required("이메일을 입력해주세요"),
-  password: yup.string().required("비밀번호를 입력해주세요."),
-  // .matches(
-  //   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,8}$/,
-  //   "비밀번호 형식에 맞지 않습니다."
-  // ),
+  password: yup
+    .string()
+    .required("비밀번호를 입력해주세요.")
+    .matches(
+      /^[A-Za-z0-9]{6,13}$/,
+      "비밀번호 형식에 맞지 않습니다.(영문 또는 숫자 6~13자)"
+    ),
   password2: yup
     .string()
     .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다."),
@@ -48,7 +49,6 @@ const schema = yup.object({
 const defaultTime = { min: "3", sec: "00" };
 const defaultTermsStatus = [false, false];
 export default function Join(props: IJoinProps) {
-  const [startDate, setStartDate] = useState(new Date());
   const [joinStep, setJoinStep] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [time, setTime] = useState(defaultTime);
@@ -74,7 +74,6 @@ export default function Join(props: IJoinProps) {
 
   useCleanUp();
 
-  const router = useRouter();
   const client = useApolloClient();
   const { register, handleSubmit, watch, setValue, formState } = useForm({
     resolver: yupResolver(schema),
@@ -102,7 +101,6 @@ export default function Join(props: IJoinProps) {
     }
   }, [token]);
 
-  // 이메일인증 버튼 클릭시
   const onClickSendEmailToken = async () => {
     if (joinStep === 0) {
       // 이메일 중복 확인
@@ -164,7 +162,7 @@ export default function Join(props: IJoinProps) {
           emailToken: token,
         },
       });
-      Modal.success({ content: "인증 성공" });
+      message.success("인증되었습니다.");
       setJoinStep(2);
     } catch (error) {
       if (error instanceof Error) {
@@ -188,6 +186,7 @@ export default function Join(props: IJoinProps) {
       message.warning("약관에 전부 동의해주세요.");
       return;
     }
+
     try {
       await createUser({
         variables: {
@@ -218,8 +217,7 @@ export default function Join(props: IJoinProps) {
       setJoinStep(3);
     } catch (error) {
       if (error instanceof Error) {
-        // Modal.error({ content: error.message });
-        // console.log(error.message);
+        Modal.error({ content: error.message });
       }
     }
   };
@@ -233,10 +231,10 @@ export default function Join(props: IJoinProps) {
       joinStep={joinStep}
       isStarted={isStarted}
       isTermsChecked={isTermsChecked}
+      isEmailDuplicated={isEmailDuplicated}
+      formState={formState}
       register={register}
       handleSubmit={handleSubmit}
-      formState={formState}
-      isEmailDuplicated={isEmailDuplicated}
       onClickCheckToken={onClickCheckToken}
       onClickSendEmailToken={onClickSendEmailToken}
       onClickJoin={onClickJoin}

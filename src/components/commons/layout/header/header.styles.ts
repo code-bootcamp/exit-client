@@ -15,12 +15,25 @@ export const Inner = styled.div`
   align-items: center;
   position: relative;
 
-  @media (max-width: 991px) {
+  @media (min-width: 480px) and (max-width: 991px) {
     width: 100%;
     padding: 4vw;
+  }
+  @media (max-width: 480px) {
+    width: 100%;
+    height: auto;
+    padding: 3vw 4vw;
   }
 `;
 
 export const Logo = styled.h1`
   cursor: pointer;
+
+  @media (max-width: 480px) {
+    width: 60px;
+
+    img {
+      width: 100%;
+    }
+  }
 `;

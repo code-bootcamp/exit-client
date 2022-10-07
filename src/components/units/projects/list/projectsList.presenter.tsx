@@ -3,39 +3,24 @@ import moment from "moment";
 import * as S from "./projectsList.styles";
 import { IBoard } from "../../../../commons/types/generated/types";
 import { categoriesImgSources } from "../../../../commons/libraries/utils";
-import { useRecoilState } from "recoil";
-import { modalState, userInfoState } from "../../../commons/store";
 import { IExitingListUIProps } from "./projectsList.types";
 import SearchWordsModal from "../../../commons/modal/searchWordsModal/searchWordsModal.container";
 
 export default function ExitingListUI(props: IExitingListUIProps) {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
   return (
     <>
-      {/* {props.isModalVisible && (
-        <Modal01
-          modalFor="프로젝트 리스트"
-          modalTitle="기술 / 분야 검색 필터"
-          modalData={props.filterData}
-          setIsModalVisible={props.setIsModalVisible}
-        />
-      )} */}
       {props.isModalVisible && props.modal === "searchWords" && (
-        <SearchWordsModal
-          modalData={props.filterData}
-          // onClickClose={props.onClickClose}
-        />
+        <SearchWordsModal modalData={props.filterData} />
       )}
       <S.Wrapper>
         <S.InnerWrapper>
           {/* 유저 선호카테고리 맞춤 게시물 추천 */}
           {props.userData && props.randomData && (
             <>
-              <S.Exiting>exting</S.Exiting>
+              <S.Exiting>exiting</S.Exiting>
               <S.SectionTitle>
-                {userInfo.nickname &&
-                  `${userInfo.nickname}님의 선호 카테고리와 일치하는 `}
+                {props.userInfo.nickname &&
+                  `${props.userInfo.nickname}님의 선호 카테고리와 일치하는 `}
                 오늘의 프로젝트
               </S.SectionTitle>
               <S.RandomProjectWrapper
@@ -103,7 +88,9 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                     onClick={props.onClickProject(el.id)}
                   >
                     <S.ThumbWrapper>
-                      {Object.values(userInfo).every((el) => el !== "") && (
+                      {Object.values(props.userInfo).every(
+                        (el) => el !== ""
+                      ) && (
                         <S.IsLikedWrapper>
                           {props.likedData?.fetchLikes.filter(
                             (likedEl: any) => likedEl.board.id === el.id
@@ -192,7 +179,9 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                     onClick={props.onClickProject(el.id)}
                   >
                     <S.ThumbWrapper>
-                      {Object.values(userInfo).every((el) => el !== "") && (
+                      {Object.values(props.userInfo).every(
+                        (el) => el !== ""
+                      ) && (
                         <S.IsLikedWrapper>
                           {props.likedData?.fetchLikes.filter(
                             (likedEl: any) => likedEl.board.id === el.id
@@ -215,9 +204,6 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                         ) : (
                           <img src="/noImage.png" />
                         )}
-                        {/* {console.log(
-                          Math.floor(Math.random() * el.categories?.length)
-                        )} */}
                       </S.ThumbImageWrapper>
                       <S.InfoWrapper>
                         <S.InfoLeftWrapper>
@@ -267,22 +253,15 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                   </S.Project>
                 ))}
             {/* 검색내역은 있지만 검색결과가 없을 때 */}
-            {
-              props.filteredBoards // 날짜 필터링
-                .filter(
-                  (el: IBoard) =>
-                    moment().diff(moment(el?.closedAt), "days") < 0 &&
-                    moment().diff(moment(el?.closedAt), "days") >
-                      moment().diff(moment(el?.startAt), "days") &&
-                    moment().diff(moment(el?.startAt), "days") < 0
-                ).length === 0 &&
-                props.searchWords.length > 0 && <div></div>
-              // && (
-              //   <S.NoResultWrapper>
-              //     해당 카테고리의 진행중인 프로젝트가 없습니다.
-              //   </S.NoResultWrapper>
-              // )
-            }
+            {props.filteredBoards // 날짜 필터링
+              .filter(
+                (el: IBoard) =>
+                  moment().diff(moment(el?.closedAt), "days") < 0 &&
+                  moment().diff(moment(el?.closedAt), "days") >
+                    moment().diff(moment(el?.startAt), "days") &&
+                  moment().diff(moment(el?.startAt), "days") < 0
+              ).length === 0 &&
+              props.searchWords.length > 0 && <div></div>}
           </S.CustomInfiniteScroll>
         </S.InnerWrapper>
       </S.Wrapper>

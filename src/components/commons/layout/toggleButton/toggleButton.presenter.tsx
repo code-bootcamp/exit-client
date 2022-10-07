@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
+import { breakPoints } from "../../../../commons/styles/media";
 import ChatContainer from "../../chat/01/chat.container";
 import ChatContainerOne from "../../chat/02/chat02.container";
 
@@ -14,6 +15,15 @@ const ImgContainer = styled.div`
   bottom: 5rem;
   right: 10rem;
   z-index: 100;
+
+  @media ${breakPoints.tablet} {
+    right: 4vw;
+    bottom: 4vw;
+  }
+  @media ${breakPoints.mobile} {
+    right: 2vw;
+    bottom: 2vw;
+  }
 `;
 const WriteButton = styled.img`
   cursor: pointer;

@@ -5,7 +5,7 @@ import {
   IQuery,
   IQueryFetchUserWithUserIdArgs,
 } from "../../../../commons/types/generated/types";
-import { isModalVisibleState, userInfoState } from "../../store";
+import { isModalVisibleState, modalState, userInfoState } from "../../store";
 import TopMenuUI from "./topMenu.presenter";
 import { FETCH_USER_WITH_USER_ID } from "./topMenu.queries";
 
@@ -13,6 +13,7 @@ export default function TopMenu() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
+  const [modal, setModal] = useRecoilState(modalState);
   const [isMiniModalVisible, setIsMiniModalVisible] = useState(false);
 
   const { data } = useQuery<
@@ -24,6 +25,7 @@ export default function TopMenu() {
 
   const onClickLogin = () => {
     setIsModalVisible(true);
+    setModal("login");
   };
 
   const onClickProfile = () => {
@@ -36,6 +38,7 @@ export default function TopMenu() {
       userInfo={userInfo}
       onClickProfile={onClickProfile}
       onClickLogin={onClickLogin}
+      modal={modal}
       isMiniModalVisible={isMiniModalVisible}
     />
   );

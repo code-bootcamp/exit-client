@@ -24,8 +24,6 @@ export const SEND_NEW_PASSWORD = gql`
   }
 `;
 
-// export const FETCH_USER = gql
-
 export const CHECK_EMAIL_DUPLICATE = gql`
   mutation checkEmailDuplicate($email: String!) {
     checkEmailDuplicate(email: $email)

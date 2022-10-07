@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { breakPoints } from "../../../../commons/styles/media";
 
 interface IText01Props {
-  contents: string | undefined;
+  contents: string;
 }
 
 const Text01UI = styled.h2`

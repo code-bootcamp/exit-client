@@ -212,7 +212,7 @@ export const SubCommentsBodyWrapper = styled.div`
 export const SubCommentInputWrapper = styled.div`
   display: ${(props: ISubCommentInputWrapperProps) =>
     props.isSubCommentWriting ? "flex" : "none"};
-  align-self: center;
+  align-content: center;
   margin-left: 60px;
 
   @media ${breakPoints.mobile} {

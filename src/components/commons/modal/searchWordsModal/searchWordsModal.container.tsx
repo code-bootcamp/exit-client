@@ -9,9 +9,14 @@ export default function SearchWordsModal(props: ISearchWordsModalProps) {
     useRecoilState(isModalVisibleState);
   const [isScrollBlocked, setIsScrollBlocked] = useState(true);
   const [searchWords, setSearchWords] = useRecoilState(searchWordsState);
+  const [prevSearchWords, setPrevSearchWords] = useState([]);
   const [isErased, setIsErased] = useState(false);
   const resetSearchWordsState = useResetRecoilState(searchWordsState);
   const resetModalState = useResetRecoilState(modalState);
+
+  useEffect(() => {
+    setPrevSearchWords(searchWords);
+  }, []);
 
   useEffect(() => {
     isScrollBlocked
@@ -24,25 +29,18 @@ export default function SearchWordsModal(props: ISearchWordsModalProps) {
   }, [isScrollBlocked]);
 
   const onClickResetSearchWords = () => {
-    // setIsErased(true);
-    // resetModalState();
     resetSearchWordsState();
   };
 
   const onClickCompleteSearchWords = () => {
-    // const searchWords = JSON.parse(
-    //   sessionStorage.getItem("searchWords") || "[]"
-    // );
-    // console.log(searchWords);
-    // props.setIsModalVisible?.(false);
     setIsModalVisible(false);
     resetModalState();
   };
 
   const onClickClose = () => {
-    // props.setIsModalVisible?.(false);
     setIsModalVisible(false);
     resetModalState();
+    setSearchWords(prevSearchWords);
   };
 
   return (
@@ -51,12 +49,9 @@ export default function SearchWordsModal(props: ISearchWordsModalProps) {
         (el: any) => el.name
       )}
       tagsData={props.modalData?.fetchTags.map((el: any) => el.name)}
-      isErased={isErased}
-      setIsErased={setIsErased}
       onClickResetSearchWords={onClickResetSearchWords}
       onClickCompleteSearchWords={onClickCompleteSearchWords}
       onClickClose={onClickClose}
-      // recoilSearchWords={recoilSearchWords}
     />
   );
 }

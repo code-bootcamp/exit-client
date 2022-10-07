@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
 import { breakPoints } from "../../../../commons/styles/media";
 
+interface IFilterItemProps {
+  isSelected: boolean;
+}
+
 export const FilterItems = styled.ul`
   width: 100%;
   height: 540px;

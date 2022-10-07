@@ -30,7 +30,6 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
   const [comment, setComment] = useState("");
   const router = useRouter();
 
-  // 리더
   const { data: leaderData } = useQuery<
     Pick<IQuery, "fetchUserWithUserId">,
     IQueryFetchUserWithUserIdArgs
@@ -38,7 +37,6 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
     variables: { userId: String(props.data?.fetchBoard.leader) },
   });
 
-  // 유저보드
   const { data: userBoardData } = useQuery<
     Pick<IQuery, "fetchUserBoards">,
     IQueryFetchUserBoardsArgs
@@ -46,7 +44,6 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
     variables: { boardId: String(router.query.projectId) },
   });
 
-  // 유저가 좋아요한 게시물
   const { data: likedData } = useQuery<
     Pick<IQuery, "fetchLikes">,
     IQueryFetchLikesArgs
@@ -56,13 +53,11 @@ export default function ExitedProjectDetail(props: IExitedProjectDetailProps) {
     },
   });
 
-  // 좋아요 토글
   const [createOrDeleteLike] = useMutation<
     Pick<IMutation, "createOrDeleteLike">,
     IMutationCreateOrDeleteLikeArgs
   >(CREATE_OR_DELETE_LIKE);
 
-  // 댓글 작성
   const [createComment] = useMutation<
     Pick<IMutation, "createComment">,
     IMutationCreateCommentArgs

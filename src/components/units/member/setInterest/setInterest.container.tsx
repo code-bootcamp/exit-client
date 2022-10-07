@@ -74,7 +74,6 @@ export default function SetInterest(props: ISetInterestProps) {
       onClickClose={props.onClickClose}
       onClickCategory={onClickCategory}
       selectedCategories={selectedCategories}
-      setSelectedCategories={setSelectedCategories}
       onClickUpdateCategories={onClickUpdateCategories}
       isClickedSelectTags={isClickedSelectTags}
     />

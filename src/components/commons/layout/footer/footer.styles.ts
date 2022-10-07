@@ -91,6 +91,8 @@ export const Info = styled.div`
   }
   @media ${breakPoints.mobile} {
     font-size: 1.7rem;
+    margin-bottom: 5px;
+    letter-spacing: -0.2;
   }
 `;
 

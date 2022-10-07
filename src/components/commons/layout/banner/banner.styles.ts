@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import { breakPoints } from "../../../../commons/styles/media";
 
 interface IBannerItemProps {
-  src: string | undefined;
+  src: string;
 }
 
 interface IBannerDescriptionProps {
@@ -17,6 +17,9 @@ export const Visual = styled.section`
   height: 520px;
   display: flex;
 
+  @media (min-width: 992px) and (max-width: 1600px) {
+    width: 160rem;
+  }
   @media ${breakPoints.tablet} {
     height: 350px;
   }
@@ -43,8 +46,8 @@ export const BannerItem = styled.div`
   width: 100%;
   height: 520px;
   background-repeat: no-repeat;
-  background-position: -30px center;
-  background-size: 1920px 100%;
+  background-position: 0 center;
+  background-size: cover;
   background-image: ${(props: IBannerItemProps) => `url(${props.src})`};
 
   @media ${breakPoints.tablet} {

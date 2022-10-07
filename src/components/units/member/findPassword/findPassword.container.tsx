@@ -19,8 +19,6 @@ import {
   IMutationSendEmailTokenArgs,
 } from "../../../../commons/types/generated/types";
 import { message, Modal } from "antd";
-import { useRecoilState } from "recoil";
-import { isModalVisibleState } from "../../../commons/store";
 import useCleanUp from "../../../commons/hooks/useCleanUp";
 
 const schema = yup.object({
@@ -30,8 +28,6 @@ const schema = yup.object({
 
 const defaultTime = { min: "3", sec: "00" };
 export const FindPassword = (props: IFindPasswordProps) => {
-  // const [isModalVisible, setIsModalVisible] =
-  //   useRecoilState(isModalVisibleState);
   const [findPasswordStep, setFindPasswordStep] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [time, setTime] = useState(defaultTime);
@@ -57,7 +53,7 @@ export const FindPassword = (props: IFindPasswordProps) => {
     IMutationSendEmailTokenArgs
   >(SEND_NEW_PASSWORD);
 
-  const { register, handleSubmit, formState, watch, setValue } = useForm({
+  const { register, formState, watch, setValue } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });

@@ -43,8 +43,8 @@ export default function SearchUI(props: ISearchUIProps) {
             </S.SearchResultTopWrapper>
             {props?.searchResults?.length > 0 && (
               <S.SearchResultBodyWrapper>
-                {props.searchResults.filter((el) => !el.isSuccess).length >
-                  0 && (
+                {props.searchResults.filter((el) => !el.isSuccess && !el.status)
+                  .length > 0 && (
                   <>
                     <S.SectionTitle>진행중인 프로젝트</S.SectionTitle>
                     <S.ExitingProjects>

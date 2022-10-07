@@ -10,8 +10,8 @@ import { FETCH_LOGINED_USER, LOGIN } from "./login.queries";
 import { useRecoilState } from "recoil";
 import {
   accessTokenState,
-  isEditingTagsState,
   isModalVisibleState,
+  modalState,
   userInfoState,
 } from "../../../commons/store";
 import { useRouter } from "next/router";
@@ -19,21 +19,22 @@ import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Modal } from "antd";
+import useCleanUp from "../../../commons/hooks/useCleanUp";
 
 const schema = yup.object({
   email: yup.string().email("이메일 형식을 확인해주세요").required(""),
-  password: yup.string().required(""),
-  // .matches(
-  //   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{1,8}$/,
-  //   "비밀번호 형식에 맞지 않습니다."
-  // ),
+  password: yup
+    .string()
+    .required("비밀번호를 입력해주세요.")
+    .matches(
+      /^[A-Za-z0-9]{6,13}$/,
+      "비밀번호 형식에 맞지 않습니다.(영문 또는 숫자 6~13자)"
+    ),
 });
 
 export default function Login() {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
-  const [isEditingTags, setIsTagsEditingTags] =
-    useRecoilState(isEditingTagsState);
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [serverEmailErrorMessage, setServerEmailErrorMessage] = useState("");
@@ -42,10 +43,12 @@ export default function Login() {
   const [isClickedFindPassword, setIsClickedFindPassword] = useState(false);
   const [isClickedJoin, setIsClickedJoin] = useState(false);
 
-  const { register, handleSubmit, watch, trigger, formState } = useForm({
+  const { register, handleSubmit, watch, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
+
+  useCleanUp();
 
   const email = watch("email");
   const password = watch("password");
@@ -130,7 +133,6 @@ export default function Login() {
       serverPasswordErrorMessage={serverPasswordErrorMessage}
       isClickedFindPassword={isClickedFindPassword}
       isClickedJoin={isClickedJoin}
-      isEditingTags={isEditingTags}
     />
   );
 }

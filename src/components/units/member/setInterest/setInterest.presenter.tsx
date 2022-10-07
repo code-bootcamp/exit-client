@@ -36,7 +36,9 @@ export default function SetInterestUI(props: ISetInterestUIProps) {
           </S.ButtonWrapper>
         </Modal01>
       )}
-      {props.isClickedSelectTags && <SetTag />}
+      {props.isClickedSelectTags && (
+        <SetTag onClickClose={props.onClickClose} />
+      )}
     </>
   );
 }

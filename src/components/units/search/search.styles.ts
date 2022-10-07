@@ -15,7 +15,6 @@ export const Wrapper = styled.div`
 export const Inner = styled.div`
   width: 160rem;
   margin: auto;
-  overflow: auto;
 
   @media ${breakPoints.tablet} {
     width: 100%;

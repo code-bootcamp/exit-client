@@ -7,7 +7,6 @@ import {
 
 export interface IChangePasswordProps {
   onClickClose: () => void;
-  setIsChangingPassword: any;
 }
 
 export interface IChangePasswordUIProps {

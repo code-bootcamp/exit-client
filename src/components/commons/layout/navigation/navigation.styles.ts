@@ -14,16 +14,28 @@ export const NavigationItem = styled.li`
   @media ${breakPoints.tablet} {
     margin-right: 40px;
   }
-  @media ${breakPoints.mobile} {
-    display: none;
+  @media (max-width: 767px) {
+    margin-right: 30px;
+  }
+  @media (max-width: 480px) {
+    margin-right: 3.5vw;
   }
 `;
 
 export const NavigationLink = styled.a`
   font-size: 2.2rem;
   font-weight: 700;
-  transition: 0.1s;
   &:hover {
     color: #3ebd5d !important;
+  }
+
+  @media ${breakPoints.tablet} {
+    font-size: 2rem;
+  }
+  @media (max-width: 767px) {
+    font-size: 1.9rem;
+  }
+  @media (max-width: 480px) {
+    font-size: 3.5vw;
   }
 `;

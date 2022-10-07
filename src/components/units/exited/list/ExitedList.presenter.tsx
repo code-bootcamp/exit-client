@@ -1,118 +1,67 @@
+import * as S from "./ExitedList.styles";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
-import * as S from "./ExitedList.styles";
 import { IBoard } from "../../../../commons/types/generated/types";
 import { categoriesImgSources } from "../../../../commons/libraries/utils";
-import { useRecoilState } from "recoil";
-import { userInfoState } from "../../../commons/store";
-import Modal01 from "../../../commons/modal/01/Modal01.container";
 import { IExitedListUIProps } from "./ExitedList.types";
 import SearchWordsModal from "../../../commons/modal/searchWordsModal/searchWordsModal.container";
 
 export default function ExitedListUI(props: IExitedListUIProps) {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
+  const randomData =
+    props.fetchBoardsByLikes?.[
+      Math.floor(Math.random() * props.fetchBoardsByLikes?.length)
+    ];
   return (
     <>
-      {/* {props.isModalVisible && (
-        <Modal01
-          modalFor="프로젝트 리스트"
-          modalTitle="기술 / 분야 검색 필터"
-          modalData={props.filterData}
-          setIsModalVisible={props.setIsModalVisible}
-        />
-      )} */}
       {props.isModalVisible && props.modal === "searchWords" && (
-        <SearchWordsModal
-          modalData={props.filterData}
-          // onClickClose={props.onClickClose}
-        />
+        <SearchWordsModal modalData={props.filterData} />
       )}
       <S.Wrapper>
         <S.InnerWrapper>
           {/* 받은 관심이 많은 게시물 추천 */}
-          {/* {props.fetchBoardsByLikes && (
+          {props.fetchBoardsByLikes && (
             <>
               <S.Exiting>exited</S.Exiting>
               <S.SectionTitle>받은 관심이 많은 완료 프로젝트</S.SectionTitle>
               <S.RandomProjectWrapper
-                onClick={props.onClickProject(
-                  props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.id
-                )}
-              >
-                <S.RandomProjectImageWrapper
-                  src={
-                    props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.boardImage
-                      .url !== "null"
-                      ? props.fetchBoardsByLikes?.fetchBoardsByLikes[0]
-                          ?.boardImage.url
-                      : categoriesImgSources[
-                          props.fetchBoardsByLikes?.fetchBoardsByLikes[0]
-                            ?.categories?.[0]?.name
-                        ] || "/noImage.png"
-                  }
-                ></S.RandomProjectImageWrapper>
-                <S.RandomProjectTextWrapper>
-                  <S.RandomProjectTitle>
-                    {props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.title}
-                  </S.RandomProjectTitle>
-                  <S.RandomProjectDescription>
-                    {
-                      props.fetchBoardsByLikes?.fetchBoardsByLikes[0]
-                        ?.description
-                    }
-                  </S.RandomProjectDescription>
-                  <S.RandomProjectBailWrapper>
-                    <S.RandomProjectBailIcon>
-                      <img src="/icons/icon_bail.svg" />
-                    </S.RandomProjectBailIcon>
-                    <S.RandomProjectBail>
-                      {props.fetchBoardsByLikes?.fetchBoardsByLikes[0]?.bail}
-                    </S.RandomProjectBail>
-                  </S.RandomProjectBailWrapper>
-                </S.RandomProjectTextWrapper>
-              </S.RandomProjectWrapper>
-            </>
-          )} */}
-          {/* 최근 완료된 게시물 추천 */}
-          {props.data?.fetchBoards?.length > 0 && (
-            <>
-              <S.Exiting>exited</S.Exiting>
-              <S.SectionTitle>최근 완료된 성공 프로젝트</S.SectionTitle>
-              <S.RandomProjectWrapper
-                onClick={props.onClickProject(props.data?.fetchBoards?.[0]?.id)}
+                onClick={props.onClickProject(props.fetchBoardsByLikes?.[0].id)}
               >
                 <S.Gradient>
                   <img src="/gradient.png" />
                 </S.Gradient>
                 <S.RandomProjectImageWrapper
                   src={
-                    props.data?.fetchBoards?.[0]?.boardImage.url !== "null"
-                      ? props.data?.fetchBoards?.[0]?.boardImage.url
-                      : categoriesImgSources[
-                          props.data?.fetchBoards?.[0]?.categories?.[0]?.name
-                        ] || "/noImage.png"
+                    props.fetchBoardsByLikes?.[0].boardImage.url.includes(
+                      "https://storage.googleapis.com/backend-server"
+                    )
+                      ? props.fetchBoardsByLikes?.[0].boardImage.url
+                      : props.fetchBoardsByLikes?.[0].categories?.[0]?.name
+                      ? categoriesImgSources[
+                          props.fetchBoardsByLikes?.[0].categories?.[0]?.name
+                        ]
+                      : "/noImage.png"
                   }
                 ></S.RandomProjectImageWrapper>
                 <S.RandomProjectTextWrapper>
                   <S.RandomProjectTitle>
-                    {props.data?.fetchBoards?.[0]?.title}
+                    {props.fetchBoardsByLikes?.[0].title}
                   </S.RandomProjectTitle>
                   <S.RandomProjectDescription>
-                    {props.data?.fetchBoards?.[0]?.description}
+                    {props.fetchBoardsByLikes?.[0].description}
                   </S.RandomProjectDescription>
                   <S.RandomProjectBailWrapper>
                     <S.RandomProjectBailIcon>
                       <img src="/icons/icon_bail.svg" />
                     </S.RandomProjectBailIcon>
                     <S.RandomProjectBail>
-                      {props.data?.fetchBoards?.[0]?.bail.toLocaleString()}
+                      {props.fetchBoardsByLikes?.[0]?.bail.toLocaleString()}
                     </S.RandomProjectBail>
                   </S.RandomProjectBailWrapper>
                 </S.RandomProjectTextWrapper>
               </S.RandomProjectWrapper>
             </>
           )}
+
           <S.ListFilterWrapper>
             <S.FilterButton onClick={props.onClickFilterButton}>
               <img
@@ -133,7 +82,6 @@ export default function ExitedListUI(props: IExitedListUIProps) {
             {props.filteredBoards.length === 0 &&
               props.searchWords.length === 0 &&
               props.data?.fetchBoards
-                // 날짜 필터링
                 .filter(
                   (el: IBoard) =>
                     moment().diff(moment(el?.closedAt), "days") > 0 &&
@@ -145,7 +93,9 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                     onClick={props.onClickProject(el.id)}
                   >
                     <S.ThumbWrapper>
-                      {Object.values(userInfo).every((el) => el !== "") && (
+                      {Object.values(props.userInfo).every(
+                        (el) => el !== ""
+                      ) && (
                         <S.IsLikedWrapper>
                           {props.likedData?.fetchLikes.filter(
                             (likedEl: any) => likedEl.board.id === el.id
@@ -231,7 +181,9 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                     onClick={props.onClickProject(el.id)}
                   >
                     <S.ThumbWrapper>
-                      {Object.values(userInfo).every((el) => el !== "") && (
+                      {Object.values(props.userInfo).every(
+                        (el) => el !== ""
+                      ) && (
                         <S.IsLikedWrapper>
                           {props.likedData?.fetchLikes.filter(
                             (likedEl: any) => likedEl.board.id === el.id
@@ -308,12 +260,7 @@ export default function ExitedListUI(props: IExitedListUIProps) {
                 moment().diff(moment(el?.closedAt), "days") > 0 &&
                 moment().diff(moment(el?.startAt), "days") > 0
             ).length === 0 &&
-              props.searchWords.length > 0 && (
-                // <S.NoResultWrapper>
-                //   해당 카테고리의 완료된 프로젝트가 없습니다.
-                // </S.NoResultWrapper>
-                <div></div>
-              )}
+              props.searchWords.length > 0 && <div></div>}
           </S.CustomInfiniteScroll>
         </S.InnerWrapper>
       </S.Wrapper>

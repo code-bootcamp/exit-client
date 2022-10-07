@@ -10,8 +10,9 @@ import useCleanUp from "../../../commons/hooks/useCleanUp";
 import { isModalVisibleState } from "../../../commons/store";
 import SetTagUI from "./setTag.presenter";
 import { FETCH_TAGS, UPDATE_USER } from "./setTag.queries";
+import { ISetTagProps } from "./setTag.types";
 
-export default function SetTag() {
+export default function SetTag(props: ISetTagProps) {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
   const [selectedTags, setSelectedTags] = useState([]);
@@ -76,6 +77,7 @@ export default function SetTag() {
       loading={loading}
       onClickUpdateTags={onClickUpdateTags}
       onClickTag={onClickTag}
+      onClickClose={props.onClickClose}
       selectedTags={selectedTags}
     />
   );

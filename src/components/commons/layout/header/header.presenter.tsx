@@ -1,7 +1,7 @@
+import * as S from "./header.styles";
 import Link from "next/link";
 import Navigation from "../navigation/navigation.container";
-import TopMenu from "../topMenu/topMenu.containter";
-import * as S from "./header.styles";
+import TopMenu from "../topMenu/topMenu.container";
 
 export default function HeaderUI() {
   return (

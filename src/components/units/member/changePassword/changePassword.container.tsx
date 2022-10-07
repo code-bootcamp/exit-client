@@ -1,4 +1,3 @@
-import ResetPasswordUI from "./changePassword.presenter";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -10,17 +9,19 @@ import {
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { isModalVisibleState, userInfoState } from "../../../commons/store";
+import { isModalVisibleState } from "../../../commons/store";
 import { IChangePasswordProps } from "./changePassword.types";
-import ChangePasswordUI from "./changePassword.presenter";
 import { Modal } from "antd";
+import ChangePasswordUI from "./changePassword.presenter";
 
 const schema = yup.object({
-  password: yup.string().required("비밀번호를 입력해주세요."),
-  // .matches(
-  //   /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/,
-  //   "비밀번호 형식에 맞지 않습니다."
-  // ),
+  password: yup
+    .string()
+    .required("비밀번호를 입력해주세요.")
+    .matches(
+      /^[A-Za-z0-9]{6,13}$/,
+      "비밀번호 형식에 맞지 않습니다.(영문 또는 숫자 6~13자)"
+    ),
   checkedPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다.")
@@ -28,7 +29,6 @@ const schema = yup.object({
 });
 
 export default function ChangePassword(props: IChangePasswordProps) {
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
   const router = useRouter();
@@ -57,7 +57,6 @@ export default function ChangePassword(props: IChangePasswordProps) {
       });
       Modal.success({ content: "비밀번호가 변경되었습니다." });
       setIsModalVisible(false);
-      props.setIsChangingPassword?.(false);
     } catch (error) {
       if (error instanceof Error) {
         Modal.error({ content: error.message });

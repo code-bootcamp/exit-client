@@ -17,18 +17,10 @@ export default function SearchWordsModalUI(props: ISearchWordsModalUIProps) {
             el={el}
             filterName="categoryName"
             key={uuidv4()}
-            isErased={props.isErased}
-            setIsErased={props.setIsErased}
           />
         ))}
         {props.tagsData?.map((el: any) => (
-          <SearchWordsModalUIItem
-            el={el}
-            filterName="tagName"
-            key={uuidv4()}
-            isErased={props.isErased}
-            setIsErased={props.setIsErased}
-          />
+          <SearchWordsModalUIItem el={el} filterName="tagName" key={uuidv4()} />
         ))}
       </S.FilterItems>
       <S.ButtonWrapper>
@@ -40,43 +32,5 @@ export default function SearchWordsModalUI(props: ISearchWordsModalUIProps) {
         </S.CompleteButton>
       </S.ButtonWrapper>
     </Modal01>
-    // <S.Background>
-    //   <S.SearchModalWrapper>
-    //     <S.ModalFor>{props.modalFor}</S.ModalFor>
-    //     <S.ModalTitle>{props.modalTitle}</S.ModalTitle>
-    //     <S.FilterItems>
-    //       {props.categoriesData?.map((el: any) => (
-    //         <SearchWordsModalUIItem
-    //           el={el}
-    //           filterName="categoryName"
-    //           key={uuidv4()}
-    //           isErased={props.isErased}
-    //           setIsErased={props.setIsErased}
-    //           recoilSearchWords={props.recoilSearchWords}
-    //         />
-    //       ))}
-    //       {props.tagsData?.map((el: any) => (
-    //         <SearchWordsModalUIItem
-    //           el={el}
-    //           filterName="tagName"
-    //           key={uuidv4()}
-    //           isErased={props.isErased}
-    //           setIsErased={props.setIsErased}
-    //         />
-    //       ))}
-    //     </S.FilterItems>
-    //     <S.ButtonWrapper>
-    //       <S.ResetButton onClick={props.onClickResetSearchWords}>
-    //         선택 초기화
-    //       </S.ResetButton>
-    //       <S.CompleteButton onClick={props.onClickCompleteSearchWords}>
-    //         선택 완료
-    //       </S.CompleteButton>
-    //     </S.ButtonWrapper>
-    //     <S.Close onClick={props.onClickClose}>
-    //       <img src="/icons/icon_close.png" />
-    //     </S.Close>
-    //   </S.SearchModalWrapper>
-    // </S.Background>
   );
 }

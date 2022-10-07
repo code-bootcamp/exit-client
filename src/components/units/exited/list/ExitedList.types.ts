@@ -1,18 +1,16 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
 import { IBoard, IQuery } from "../../../../commons/types/generated/types";
 
 export interface IExitedListUIProps {
-  data: Pick<IQuery, "fetchBoards"> | undefined;
-  likedData: Pick<IQuery, "fetchLikes"> | undefined;
+  data: Pick<IQuery, "fetchBoards">;
+  fetchBoardsByLikes: IBoard[];
+  userInfo: { id: string; email: string; nickname: string };
+  likedData: Pick<IQuery, "fetchLikes">;
   filterData: any;
-  filteredBoards: any;
-  fetchBoardsByLikes: any;
+  filteredBoards: IBoard[];
   isModalVisible: boolean;
   searchWords: any;
-  setIsModalVisible: Dispatch<SetStateAction<boolean>>;
+  modal: string;
   onFetchMore: () => void;
-  onClickProject: (
-    projectId: string
-  ) => (event: MouseEvent<HTMLDivElement>) => void;
+  onClickProject: (projectId: string) => () => void;
   onClickFilterButton: () => void;
 }

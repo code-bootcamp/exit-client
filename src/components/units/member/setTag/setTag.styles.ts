@@ -7,7 +7,7 @@ interface ITagProps {
 
 export const TagsWrapper = styled.ul`
   width: 100%;
-  height: 500px;
+  height: 540px;
   padding: 27px;
   border-radius: 14px;
   background-color: #f8f8f8;

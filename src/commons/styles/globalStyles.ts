@@ -121,6 +121,7 @@ export const globalStyles = css`
     padding: 4px 10px;
     border-radius: 4px;
     margin: 0 !important;
+    cursor: default !important;
   }
 
   .MuiPickersCalendarHeader-label {
@@ -130,7 +131,7 @@ export const globalStyles = css`
   }
 
   .MuiPickersCalendarHeader-switchViewButton {
-    display: none !important;
+    /* display: none !important; */
   }
 
   .MuiPickersArrowSwitcher-button {
@@ -164,14 +165,17 @@ export const globalStyles = css`
   }
 
   .MuiPickersDay-today {
-    /* padding: 4px !important; */
     background: #3ebd5d !important;
     border-radius: 4px !important;
     color: #fff !important;
     border-color: transparent !important;
   }
 
-  .MuiPickersDay-root {
-    /* padding: 10px !important; */
+  .MuiPickersArrowSwitcher-button {
+    display: none !important;
   }
+
+  /* .MuiDayPicker-weekDayLabel {
+    margin: 0 !important;
+  } */
 `;

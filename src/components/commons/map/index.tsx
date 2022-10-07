@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { KakaoLoginLink } from "../../units/member/login/login.styles";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -9,7 +8,7 @@ export default function Map(props: any) {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=29f857c175c52b6c3be2f8b8e29d986f&autoload=false&libraries=services"; // 라이브러리추가
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=29f857c175c52b6c3be2f8b8e29d986f&autoload=false&libraries=services";
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -27,8 +26,6 @@ export default function Map(props: any) {
         let drawingCircle; // 그려지고 있는 원을 표시할 원 객체
         let drawingOverlay: any; // 그려지고 있는 원의 반경을 표시할 커스텀오버레이
 
-        // let circles = [];
-
         centerPosition = map.getCenter();
 
         drawingCircle = new window.kakao.maps.Circle({
@@ -37,7 +34,6 @@ export default function Map(props: any) {
           strokeColor: "000",
           strokeOpacity: 0.1,
           fillColor: "rgba(0,0,0,1)", // 채우기 색깔
-          // fillColor: "#FC7D05", // 채우기 색깔
           fillOpacity: 0.2, // 채우기 불투명도
         });
 
@@ -50,9 +46,10 @@ export default function Map(props: any) {
         let radius = 100; // 반지름 m 단위
 
         drawingOverlay?.setPosition?.(centerPosition);
-        drawingCircle.setMap(map);
+        drawingCircle?.setMap(map);
       });
     };
   }, [props]);
-  return <div id="map" style={{ width: "100%", height: "340px" }}></div>;
+
+  return <div id="map" style={{ width: "100%", height: "100%" }}></div>;
 }

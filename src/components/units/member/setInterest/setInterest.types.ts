@@ -10,8 +10,7 @@ export interface ISetInterestUIProps {
   selectedCategories: any;
   isClickedSelectTags: boolean;
   onClickClose: () => void;
-  onClickCategory: MouseEventHandler<HTMLDivElement> | undefined;
-  setSelectedCategories: Dispatch<SetStateAction<never[]>>;
+  onClickCategory: MouseEventHandler<HTMLDivElement>;
   onClickUpdateCategories: () => void;
 }
 

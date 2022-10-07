@@ -11,7 +11,7 @@ export default function TopMenuUI(props: ITopMenuUIProps) {
     useRecoilState(isModalVisibleState);
   return (
     <S.Wrapper>
-      {isModalVisible && <Login />}
+      {isModalVisible && props.modal === "login" && <Login />}
       {props.isMiniModalVisible && (
         <S.MiniModalWrapper>
           <MiniMypageContainer />

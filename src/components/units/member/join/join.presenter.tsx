@@ -17,7 +17,6 @@ export default function JoinUI(props: IJoinUIProps) {
                 type="text"
                 placeholder="이메일을 입력해주세요."
                 register={props.register("email")}
-                readOnly={props.joinStep > 0}
                 errorMessage={
                   props.email !== "" &&
                   (props.formState?.errors.email?.message ||

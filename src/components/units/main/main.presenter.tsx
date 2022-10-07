@@ -28,7 +28,7 @@ export default function MainUI(props: IMainUIProps) {
         <S.Section>
           <S.SectionHead>
             <div>
-              <S.Exiting>exting</S.Exiting>
+              <S.Exiting>exiting</S.Exiting>
               <S.SectionTitle>
                 {props.userInfo.nickname &&
                   `${props.userInfo.nickname}님을 기다리는 `}
@@ -65,7 +65,7 @@ export default function MainUI(props: IMainUIProps) {
         <S.Section>
           <S.SectionHead>
             <div>
-              <S.Exiting>exting</S.Exiting>
+              <S.Exiting>exiting</S.Exiting>
               <S.SectionTitle>공유서비스</S.SectionTitle>
             </div>
             <Link href="/exiting">
@@ -99,7 +99,7 @@ export default function MainUI(props: IMainUIProps) {
         <S.Section>
           <S.SectionHead>
             <div>
-              <S.Exiting>exting</S.Exiting>
+              <S.Exiting>exiting</S.Exiting>
               <S.SectionTitle>여행</S.SectionTitle>
             </div>
             <Link href="/exiting">
@@ -151,7 +151,7 @@ export default function MainUI(props: IMainUIProps) {
               ))}
             </S.CategoriesWrapper>
             <S.ProjectBanner>
-              <img src="/white-logo.svg" />
+              <img src="/logo_white.svg" />
               <S.ProjectBannerText>
                 {props.userInfo.nickname
                   ? `${props.userInfo.nickname}님을 `

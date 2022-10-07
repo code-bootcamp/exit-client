@@ -2,17 +2,16 @@ import { ChangeEvent } from "react";
 import { IQuery, ISubComment } from "../../../../commons/types/generated/types";
 
 export interface IExitedSubCommentProps {
-  subComment:
-    | Pick<ISubComment, "subComment" | "createdAt" | "updatedAt" | "user">
-    | undefined;
+  subComment: Pick<
+    ISubComment,
+    "subComment" | "createdAt" | "updatedAt" | "user"
+  >;
   commentId: string;
 }
 
 export interface IExitedSubCommentUIProps {
   subComment: string;
-  el:
-    | Pick<ISubComment, "subComment" | "createdAt" | "updatedAt" | "user">
-    | undefined;
+  el: Pick<ISubComment, "subComment" | "createdAt" | "updatedAt" | "user">;
   isEdit: boolean;
   userInfo: { id: string; nickname: string; email: string };
   onChangeSubCommentInput: (event: ChangeEvent<HTMLInputElement>) => void;

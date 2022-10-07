@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -14,7 +15,16 @@ export const Search = styled.a`
   margin-right: 10px;
 
   img {
-    width: 130%;
+    width: 100%;
+    @media ${breakPoints.mobile} {
+      width: 35px;
+      height: 35px;
+      margin-top: 2px;
+    }
+  }
+
+  @media ${breakPoints.mobile} {
+    margin-right: 5px;
   }
 `;
 
@@ -29,6 +39,11 @@ export const UserImageWrapper = styled.div`
   img {
     width: 100%;
     height: 100%;
+  }
+
+  @media (max-width: 480px) {
+    width: 38px;
+    height: 38px;
   }
 `;
 

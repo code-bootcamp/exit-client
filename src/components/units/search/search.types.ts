@@ -16,5 +16,5 @@ export interface ISearchUIProps {
 
 export interface ISearchUIPresenterItemProps {
   el: IBoard;
-  likesData: Pick<IQuery, "fetchLikes"> | undefined;
+  likesData: Pick<IQuery, "fetchLikes">;
 }

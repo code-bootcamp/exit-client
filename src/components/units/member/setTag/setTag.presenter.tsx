@@ -10,7 +10,7 @@ export default function SetTagUI(props: ISetTagUIProps) {
   return (
     <>
       {props.loading && <Spinner01 />}
-      <Modal01 modalTitle="기술 스택">
+      <Modal01 modalTitle="기술 스택" eventHandler={props.onClickClose}>
         <S.TagsWrapper>
           {props.data?.fetchTags?.map((el: any) => (
             <SetTagUIItem

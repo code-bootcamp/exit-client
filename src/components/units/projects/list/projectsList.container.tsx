@@ -28,45 +28,15 @@ export default function ExitingList() {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
   const [modal, setModal] = useRecoilState(modalState);
-  // const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [savedSearchWords, setSavedSearchWords] =
     useRecoilState(searchWordsState);
   const [searchWords, setSearchWords] = useState([]);
   const [filteredBoards, setFilteredBoards] = useState([]);
   const resetSavedSearchWords = useResetRecoilState(searchWordsState);
-  // const resetModal = useResetRecoilState(modalState);
 
   const router = useRouter();
   const client = useApolloClient();
-
-  // 마운트될 때
-  // useEffect(() => {
-  //   sessionStorage.removeItem("searchWords");
-  // }, []);
-
-  // useEffect(() => {
-  //   // setSavedSearchWords([]);
-  //   resetSavedSearchWords();
-
-  //   return () => {
-  //     // setSavedSearchWords([]);
-  //     resetSavedSearchWords();
-  //   };
-  // }, []);
-
-  // 모달 여닫은 후
-  // useEffect(() => {
-  //   // 세션스토리지에서 검색어 찾아오기
-  //   const searchWords: any = JSON.parse(
-  //     sessionStorage.getItem("searchWords") || "[]"
-  //   );
-  //   setSearchWords(searchWords);
-  //   // 검색어가 없다면
-  //   if (searchWords === []) {
-  //     setFilteredBoards([]);
-  //   }
-  // }, [isModalVisible]);
 
   // 모달 여닫은 후
   useEffect(() => {
@@ -77,11 +47,6 @@ export default function ExitingList() {
     }
     // recoil state에서 검색어 찾아오기
     setSearchWords(savedSearchWords);
-    // 검색어가 없다면
-    // if (searchWords === []) {
-    // if (savedSearchWords === []) {
-    //   setFilteredBoards([]);
-    // }
   }, [isModalVisible]);
 
   // 검색어에 변화가 있다면
@@ -134,7 +99,7 @@ export default function ExitingList() {
           })
         );
 
-        const filteredBoards: any = tempFilteredBoards.map(
+        const filteredBoards = tempFilteredBoards.map(
           (el) => el.data.fetchBoard
         );
 
@@ -206,46 +171,32 @@ export default function ExitingList() {
       },
     });
     if (!data && !filteredBoards) return;
-    if (filteredBoards) {
-    }
   };
 
-  const onClickProject =
-    (projectId: string) => (event: MouseEvent<HTMLDivElement>) => {
-      router.push(`/exiting/${projectId}`);
-    };
+  const onClickProject = (projectId: string) => () => {
+    router.push(`/exiting/${projectId}`);
+  };
 
   const onClickFilterButton = () => {
-    // console.log("test");
-    // 모달이 열린 적 있다면
-    // if (!hasBeenOpened) {
-    //   setHasBeenOpened(false);
-    // }
     setModal("searchWords");
     setIsModalVisible(true);
   };
 
-  // const onClickClose = () => {
-  //   resetModal();
-  //   setIsModalVisible(false);
-  // };
-
   return (
     <ExitingListUI
       data={data}
+      userInfo={userInfo}
+      userData={userData}
       likedData={likedData}
-      searchWords={searchWords}
-      filteredBoards={filteredBoards}
-      filterData={filterData}
-      onFetchMore={onFetchMore}
+      randomData={randomData?.fetchBoardRandom}
       isModalVisible={isModalVisible}
+      modal={modal}
+      searchWords={searchWords}
+      filterData={filterData}
+      filteredBoards={filteredBoards}
+      onFetchMore={onFetchMore}
       onClickProject={onClickProject}
       onClickFilterButton={onClickFilterButton}
-      // onClickClose={onClickClose}
-      setIsModalVisible={setIsModalVisible}
-      userData={userData}
-      randomData={randomData?.fetchBoardRandom}
-      modal={modal}
     />
   );
 }

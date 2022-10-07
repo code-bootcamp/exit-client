@@ -2,15 +2,15 @@ import { ChangeEvent } from "react";
 import { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IExitedProjectDetailProps {
-  data: Pick<IQuery, "fetchBoard"> | undefined;
+  data: Pick<IQuery, "fetchBoard">;
 }
 
 export interface IExitedProjectDetailUIProps {
-  data: Pick<IQuery, "fetchBoard"> | undefined;
+  data: Pick<IQuery, "fetchBoard">;
   onClickLike: any;
-  leaderData: Pick<IQuery, "fetchUserWithUserId"> | undefined;
-  userBoardData: Pick<IQuery, "fetchUserBoards"> | undefined;
-  likedData: Pick<IQuery, "fetchLikes"> | undefined;
+  leaderData: Pick<IQuery, "fetchUserWithUserId">;
+  userBoardData: Pick<IQuery, "fetchUserBoards">;
+  likedData: Pick<IQuery, "fetchLikes">;
   onClickSubmit: () => void;
   onChangeComment: (event: ChangeEvent<HTMLInputElement>) => void;
   comment: string;

@@ -6,9 +6,11 @@ import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
+  IQueryFetchBoardsByLikesArgs,
   IQueryFetchLikesArgs,
 } from "../../../../commons/types/generated/types";
 import {
+  isModalVisibleState,
   modalState,
   searchWordsState,
   userInfoState,
@@ -24,7 +26,8 @@ import {
 export default function ExitedList() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   const [modal, setModal] = useRecoilState(modalState);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(isModalVisibleState);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [savedSearchWords, setSavedSearchWords] =
     useRecoilState(searchWordsState);
@@ -35,54 +38,23 @@ export default function ExitedList() {
   const router = useRouter();
   const client = useApolloClient();
 
-  const { data: fetchBoardsByLikes } = useQuery(FETCH_BOARDS_BY_LIKES, {
+  const { data: fetchBoardsByLikes } = useQuery<
+    Pick<IQuery, "fetchBoardsByLikes">,
+    IQueryFetchBoardsByLikesArgs
+  >(FETCH_BOARDS_BY_LIKES, {
     variables: {
       isSuccess: true,
-      status: true,
     },
   });
 
-  // 마운트될 때
-  // useEffect(() => {
-  //   sessionStorage.removeItem("searchWords");
-  //   return () => {
-  //     sessionStorage.removeItem("searchWords");
-  //   };
-  // }, []);
-
-  // 모달 여닫은 후
-  // useEffect(() => {
-  //   // 세션스토리지에서 검색어 찾아오기
-  //   const searchWords: any = JSON.parse(
-  //     sessionStorage.getItem("searchWords") || "[]"
-  //   );
-  //   setSearchWords(searchWords);
-  //   // 검색어가 없다면
-  //   if (searchWords === []) {
-  //     setFilteredBoards([]);
-  //   }
-  // }, [isModalVisible]);
-
-  // useEffect(() => {
-  //   setSavedSearchWords([]);
-  //   return () => {
-  //     setSavedSearchWords([]);
-  //   };
-  // }, []);
-
   // 모달 여닫은 후
   useEffect(() => {
-    // recoil state에서 검색어 찾아오기
     if (!hasBeenOpened) {
       resetSavedSearchWords();
       setHasBeenOpened((prev) => !prev);
       return;
     }
     setSearchWords(savedSearchWords);
-    // 검색어가 없다면
-    if (searchWords === []) {
-      setFilteredBoards([]);
-    }
   }, [isModalVisible]);
 
   // 검색어에 변화가 있다면
@@ -90,7 +62,6 @@ export default function ExitedList() {
     async function FetchBoardsWithSearchModal() {
       // 사용할 검색어가 있다면
       if (searchWords.length > 0) {
-        // console.log(searchWords);
         const result = await Promise.all(
           searchWords.map((el: any) => {
             if (el.filterName === "categoryName") {
@@ -188,38 +159,31 @@ export default function ExitedList() {
       },
     });
     if (!data && !filteredBoards) return;
-    if (filteredBoards) {
-    }
   };
 
-  const onClickProject =
-    (projectId: string) => (event: MouseEvent<HTMLDivElement>) => {
-      router.push(`/exited/${projectId}`);
-    };
+  const onClickProject = (projectId: string) => () => {
+    router.push(`/exited/${projectId}`);
+  };
 
   const onClickFilterButton = () => {
-    // console.log("test");
-    // 모달이 열린 적 있다면
-    // if (!hasBeenOpened) {
-    //   setHasBeenOpened(false);
-    // }
     setIsModalVisible(true);
+    setModal("searchWords");
   };
 
   return (
     <ExitedListUI
       data={data}
+      fetchBoardsByLikes={fetchBoardsByLikes?.fetchBoardsByLikes}
+      userInfo={userInfo}
       likedData={likedData}
       filterData={filterData}
       filteredBoards={filteredBoards}
-      fetchBoardsByLikes={fetchBoardsByLikes}
       onFetchMore={onFetchMore}
       onClickProject={onClickProject}
       onClickFilterButton={onClickFilterButton}
-      isModalVisible={isModalVisible}
-      setIsModalVisible={setIsModalVisible}
-      searchWords={searchWords}
       modal={modal}
+      isModalVisible={isModalVisible}
+      searchWords={searchWords}
     />
   );
 }

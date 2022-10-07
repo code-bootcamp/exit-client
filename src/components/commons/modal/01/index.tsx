@@ -77,10 +77,11 @@ export const Close = styled.div`
 
 export default function Modal01(props: IModal01Props) {
   useEffect(() => {
-    // 스크롤 비활성화
+    let isComponentMounted = true;
     document.body.style.overflow = "hidden";
-    // 스크롤 활성화
+
     return () => {
+      isComponentMounted = false;
       document.body.style.overflow = "auto";
     };
   }, []);

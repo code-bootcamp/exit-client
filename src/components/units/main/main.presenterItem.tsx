@@ -19,8 +19,8 @@ export default function MainUIPresenterItem(props: IMainUIPresenterItemProps) {
         <S.InfoWrapper>
           {Object.values(userInfo).every((el) => el !== "") && (
             <S.IsLiked>
-              {props.likedBoards?.fetchLikes.filter(
-                (likedBoard) => likedBoard.board.id === props.el.id
+              {props.likesData?.fetchLikes.filter(
+                (likedProject) => likedProject.board.id === props.el.id
               ).length ? (
                 <img src="/icons/icon_heart_white.png" />
               ) : (
@@ -36,17 +36,14 @@ export default function MainUIPresenterItem(props: IMainUIPresenterItemProps) {
             )}
         </S.InfoWrapper>
         <S.ProjectImageWrapper>
-          {(props.el.boardImage.url === undefined ||
-            props.el.boardImage.url === "") && <img src="/noImage.png" />}
-          {props.el.boardImage.url !== "null" ? (
+          {props.el.boardImage.url.includes(
+            "https://storage.googleapis.com/backend-server"
+          ) || props.el.boardImage.url.includes("https") ? (
             <img src={props.el.boardImage.url} />
+          ) : props.el.categories?.[0]?.name ? (
+            <img src={categoriesImgSources[props.el.categories?.[0]?.name]} />
           ) : (
-            <img
-              src={
-                categoriesImgSources[props.el.categories?.[0]?.name] ||
-                "/noImage.png"
-              }
-            />
+            <img src="/noImage.png" />
           )}
         </S.ProjectImageWrapper>
         <S.InfoWrapper>

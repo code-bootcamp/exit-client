@@ -1,11 +1,19 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 export const Form = styled.form`
   width: 100%;
-  height: 610px;
+  height: 630px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media ${breakPoints.tablet} {
+    height: 455px;
+  }
+  @media ${breakPoints.mobile} {
+    height: 335px;
+  }
 `;
 
 export const TokenInputWrapper = styled.div`

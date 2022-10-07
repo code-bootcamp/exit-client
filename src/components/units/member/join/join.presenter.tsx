@@ -1,9 +1,8 @@
 import * as S from "./join.styles";
 import Button01 from "../../../commons/buttons/01";
 import Input01 from "../../../commons/inputs/01";
-import Modal02 from "../../../commons/modal/02";
+import Modal01 from "../../../commons/modal/01";
 import { IJoinUIProps } from "./join.types";
-
 import Text01 from "../../../commons/texts/01";
 import SetInterest from "../setInterest/setInterest.container";
 
@@ -11,9 +10,9 @@ export default function JoinUI(props: IJoinUIProps) {
   return (
     <>
       {props.joinStep < 3 && (
-        <form onSubmit={props.handleSubmit(props.onClickJoin)}>
+        <S.Form onSubmit={props.handleSubmit(props.onClickJoin)}>
           {props.joinStep < 2 && (
-            <Modal02 modalTitle="회원가입" eventHandler={props.onClickClose}>
+            <Modal01 modalTitle="회원가입" eventHandler={props.onClickClose}>
               <Input01
                 type="text"
                 placeholder="이메일을 입력해주세요."
@@ -50,39 +49,43 @@ export default function JoinUI(props: IJoinUIProps) {
                   )}
                 </S.TokenInputWrapper>
               )}
-              {props.joinStep === 0 && (
-                <Button01
-                  type="button"
-                  eventHandler={props.onClickSendEmailToken}
-                  text="이메일 인증"
-                  isValid={/^[a-z0-9+-.]+@[a-z0-9-]+\.[a-z0-9-.]+$/.test(
-                    props.email
-                  )}
-                />
-              )}
-              {props.joinStep === 1 && (
-                <Button01
-                  type="button"
-                  text={props.isStarted ? "이메일 인증" : "인증번호 다시 전송"}
-                  eventHandler={
-                    props.isStarted
-                      ? props.onClickCheckToken
-                      : props.onClickSendEmailToken
-                  }
-                  disabled={props.isStarted && props?.token.length !== 6}
-                  isValid={
-                    props.isStarted
-                      ? /^[a-z0-9+-.]+@[a-z0-9-]+\.[a-z0-9-.]+$/.test(
-                          props.email
-                        ) && props.token?.length === 6
-                      : true
-                  }
-                />
-              )}
-            </Modal02>
+              <S.ButtonWrapper>
+                {props.joinStep === 0 && (
+                  <Button01
+                    type="button"
+                    eventHandler={props.onClickSendEmailToken}
+                    text="이메일 인증"
+                    isValid={/^[a-z0-9+-.]+@[a-z0-9-]+\.[a-z0-9-.]+$/.test(
+                      props.email
+                    )}
+                  />
+                )}
+                {props.joinStep === 1 && (
+                  <Button01
+                    type="button"
+                    text={
+                      props.isStarted ? "이메일 인증" : "인증번호 다시 전송"
+                    }
+                    eventHandler={
+                      props.isStarted
+                        ? props.onClickCheckToken
+                        : props.onClickSendEmailToken
+                    }
+                    disabled={props.isStarted && props?.token.length !== 6}
+                    isValid={
+                      props.isStarted
+                        ? /^[a-z0-9+-.]+@[a-z0-9-]+\.[a-z0-9-.]+$/.test(
+                            props.email
+                          ) && props.token?.length === 6
+                        : true
+                    }
+                  />
+                )}
+              </S.ButtonWrapper>
+            </Modal01>
           )}
           {props.joinStep === 2 && (
-            <Modal02 eventHandler={props.onClickClose}>
+            <Modal01 eventHandler={props.onClickClose}>
               <S.NicknameWrapper>
                 <Text01 contents="닉네임" />
                 <Input01
@@ -116,7 +119,7 @@ export default function JoinUI(props: IJoinUIProps) {
                 />
               </S.PasswordWrapper>
               <S.TermsWrapper>
-                <S.TermWraper>
+                <S.TermWrapper>
                   <S.TermChecked
                     onClick={props.onClickTerm(0)}
                     isChecked={props.isTermsChecked[0]}
@@ -124,8 +127,8 @@ export default function JoinUI(props: IJoinUIProps) {
                   <S.Term>
                     <span>약관동의</span>
                   </S.Term>
-                </S.TermWraper>
-                <S.TermWraper>
+                </S.TermWrapper>
+                <S.TermWrapper>
                   <S.TermChecked
                     onClick={props.onClickTerm(1)}
                     isChecked={props.isTermsChecked[1]}
@@ -133,16 +136,18 @@ export default function JoinUI(props: IJoinUIProps) {
                   <S.Term>
                     <span>만 14세 이상입니까?</span>
                   </S.Term>
-                </S.TermWraper>
+                </S.TermWrapper>
               </S.TermsWrapper>
-              <Button01
-                text="관심분야 선택하기"
-                type="submit"
-                isValid={props.formState.isValid}
-              />
-            </Modal02>
+              <S.ButtonWrapper>
+                <Button01
+                  text="관심분야 선택하기"
+                  type="submit"
+                  isValid={props.formState.isValid}
+                />
+              </S.ButtonWrapper>
+            </Modal01>
           )}
-        </form>
+        </S.Form>
       )}
       {props.joinStep === 3 && (
         <SetInterest onClickClose={props.onClickClose} />

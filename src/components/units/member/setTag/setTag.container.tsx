@@ -51,6 +51,7 @@ export default function SetTag() {
 
   const onClickUpdateTags = async () => {
     try {
+      setLoading(true);
       await updateUser({
         variables: {
           updateUserInput: {
@@ -59,9 +60,11 @@ export default function SetTag() {
         },
       });
       Modal.success({ content: "exiter가 되신 것을 환영합니다!" });
+      setLoading(false);
       setIsModalVisible(false);
     } catch (error) {
       if (error instanceof Error) {
+        setLoading(false);
         Modal.error({ content: error.message });
       }
     }

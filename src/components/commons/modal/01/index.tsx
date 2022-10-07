@@ -1,12 +1,13 @@
 import styled from "@emotion/styled";
 import { ReactNode, useEffect } from "react";
+import { breakPoints } from "../../../../commons/styles/media";
 import Text01 from "../../texts/01";
 
-interface IModal02Props {
+interface IModal01Props {
   children: ReactNode;
   modalFor?: string;
   modalTitle?: string;
-  eventHandler?: any;
+  eventHandler: any;
 }
 
 const Wrapper = styled.div`
@@ -35,6 +36,15 @@ const ModalWrapper = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
+  @media ${breakPoints.tablet} {
+    width: 55vw;
+    height: 650px;
+  }
+  @media ${breakPoints.mobile} {
+    width: 360px;
+    height: 500px;
+  }
 `;
 
 const ModalFor = styled.em`
@@ -46,6 +56,10 @@ const ModalFor = styled.em`
   font-size: 2.2rem;
   font-weight: 500;
   letter-spacing: -0.02em;
+
+  @media ${breakPoints.mobile} {
+    margin-bottom: 30px;
+  }
 `;
 
 export const Close = styled.div`
@@ -61,7 +75,7 @@ export const Close = styled.div`
   }
 `;
 
-export default function Modal02(props: IModal02Props) {
+export default function Modal01(props: IModal01Props) {
   useEffect(() => {
     // 스크롤 비활성화
     document.body.style.overflow = "hidden";

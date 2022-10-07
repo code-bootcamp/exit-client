@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { breakPoints } from "../../../../commons/styles/media";
 
 export const Wrapper = styled.header`
   width: 100%;
@@ -7,21 +6,18 @@ export const Wrapper = styled.header`
   z-index: 100;
 `;
 
-export const InnerWrapper = styled.div`
-  width: 140rem;
+export const Inner = styled.div`
+  width: 160rem;
   height: 100px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
-  @media (min-width: 1680px) and (max-width: 1940px) {
-    width: 160rem;
-  }
-
-  @media (max-width: 1680px) {
-    width: 100vw;
-    padding: 4rem;
+  @media (max-width: 991px) {
+    width: 100%;
+    padding: 4vw;
   }
 `;
 

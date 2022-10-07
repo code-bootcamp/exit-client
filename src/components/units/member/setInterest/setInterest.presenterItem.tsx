@@ -1,5 +1,3 @@
-import { useState } from "react";
-import Modal02 from "../../../commons/modal/02";
 import * as S from "./setInterest.styles";
 import { ISetInterestUIItemProps } from "./setInterest.types";
 

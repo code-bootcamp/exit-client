@@ -1,9 +1,8 @@
 import { PossibleTypeExtensionsRule } from "graphql";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 // import Check from "../../../commons/categori";
-import WriteTagsModal from "../../../commons/modal/writeTagsModal/writeTagsModal.container";
+import TagsModal from "../../../commons/modal/tagsModal/tagsModal.container";
 import Uploads01 from "../../../commons/uploads/02/Uploads.container";
 import ChangePassword from "../../member/changePassword/changePassword.container";
 import * as S from "./myPageEdit.styles";
@@ -37,17 +36,11 @@ const FAVORITE_CATEGORIES = [
 export default function MyPageEditPresenter(props: any) {
   return (
     <>
-      {props?.isModalVisible && props?.isEditingTags && (
-        <WriteTagsModal
-          onClickClose={props.onClickClose}
-          setIsEditingTags={props?.setIsEditingTags}
-        />
+      {props?.isModalVisible && props?.modal === "isEditingTags" && (
+        <TagsModal onClickClose={props.onClickClose} />
       )}
-      {props?.isModalVisible && props?.isChangingPassword && (
-        <ChangePassword
-          onClickClose={props.onClickClose}
-          setIsChangingPassword={props.setIsChangingPassword}
-        />
+      {props?.isModalVisible && props?.modal === "isChangingPassword" && (
+        <ChangePassword onClickClose={props.onClickClose} />
       )}
       <S.Wrapper>
         <S.Container>

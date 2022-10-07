@@ -1,9 +1,8 @@
 import { useApolloClient, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
-  IAttendance,
   IQuery,
   IQueryFetchBoardArgs,
   IQueryFetchUserBoardsArgs,
@@ -24,6 +23,7 @@ import {
 } from "./currentProject.queries";
 import moment from "moment";
 import { Modal } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 export default function CurrentProject() {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -41,7 +41,7 @@ export default function CurrentProject() {
   >(FETCH_USER_BOARDS, {
     variables: { boardId: String(router.query.projectId), isAccepted: true },
   });
-  console.log("유저보드", data);
+  // console.log("유저보드", data);
 
   // 보드
   const { data: board } = useQuery<
@@ -110,42 +110,52 @@ export default function CurrentProject() {
   };
 
   const onClickAttendStart = () => {
+    if (!accessToken) {
+      Modal.error({ content: "로그인 후 이용해주세요." });
+      return;
+    }
     try {
-      navigator.geolocation.getCurrentPosition(async function (pos) {
-        let latitude = pos.coords.latitude;
-        let longitude = pos.coords.longitude;
-        if (!accessToken) {
-          Modal.error({ content: "출석 접근 권한이 없습니다." });
+      Modal.confirm({
+        icon: <ExclamationCircleOutlined />,
+        content: "출석체크를 시작하시겠습니까?",
+        onCancel() {
           return;
-        }
-        if (leaderData?.fetchUserWithUserId.nickname === userInfo.nickname) {
-          const result = await client.query({
-            query: CHECK_GPS,
-            variables: {
-              latitude,
-              longitude,
-              boardId: String(router.query.projectId),
-            },
-            context: {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            },
-          });
-          console.log(result);
-          Modal.success({ content: "출석이 활성화되었습니다!" });
-          location.reload();
-        } else {
-          console.log(
-            userInfo.nickname,
-            leaderData?.fetchUserWithUserId.nickname
-          );
+        },
+        async onOk() {
+          setLoading(true);
+          if (leaderData?.fetchUserWithUserId.nickname === userInfo.nickname) {
+            navigator.geolocation.getCurrentPosition(async function (pos) {
+              let latitude = pos.coords.latitude;
+              let longitude = pos.coords.longitude;
 
-          Modal.error({ content: "팀장이 출석체크를 시작할 수 있습니다" });
-        }
+              await client.query({
+                query: CHECK_GPS,
+                variables: {
+                  latitude,
+                  longitude,
+                  boardId: String(router.query.projectId),
+                },
+                context: {
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                  },
+                },
+              });
+              setLoading(false);
+              Modal.success({ content: "출석이 활성화되었습니다!" });
+              location.reload();
+            });
+          } else {
+            setLoading(false);
+            Modal.error({ content: "팀장이 출석체크를 시작할 수 있습니다." });
+          }
+        },
       });
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error?.message });
+      if (error instanceof Error) {
+        setLoading(false);
+        Modal.error({ content: error?.message });
+      }
     }
   };
 
@@ -173,7 +183,7 @@ export default function CurrentProject() {
             },
           },
         });
-        console.log(result);
+        // console.log(result);
         location.reload();
         setLoading(false);
         Modal.success({ content: "출석 완료!" });
@@ -186,7 +196,7 @@ export default function CurrentProject() {
     }
   };
 
-  console.log("출석데이터", attendanceData);
+  // console.log("출석데이터", attendanceData);
 
   return (
     <CurrentProjectUI

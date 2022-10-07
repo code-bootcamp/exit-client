@@ -1,4 +1,4 @@
-import Modal02 from "../../../commons/modal/02";
+import Modal01 from "../../../commons/modal/01";
 import SetInterestUIItem from "./setInterest.presenterItem";
 import * as S from "./setInterest.styles";
 import { ISetInterestUIProps } from "./setInterest.types";
@@ -12,7 +12,7 @@ export default function SetInterestUI(props: ISetInterestUIProps) {
     <>
       {props.loading && <Spinner01 />}
       {!props.isClickedSelectTags && (
-        <Modal02 modalTitle="관심분야" eventHandler={props.onClickClose}>
+        <Modal01 modalTitle="관심분야" eventHandler={props.onClickClose}>
           <S.InterestWrapper>
             {props.data?.fetchCategories
               ?.filter((el: any) => el !== "")
@@ -34,7 +34,7 @@ export default function SetInterestUI(props: ISetInterestUIProps) {
               eventHandler={props.onClickUpdateCategories}
             />
           </S.ButtonWrapper>
-        </Modal02>
+        </Modal01>
       )}
       {props.isClickedSelectTags && <SetTag />}
     </>

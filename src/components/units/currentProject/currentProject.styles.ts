@@ -225,6 +225,7 @@ export const MapWrapper = styled.div`
 export const MiniInfo = styled.div`
   display: flex;
   position: absolute;
+  z-index: 10;
   right: 20px;
   top: 20px;
 `;

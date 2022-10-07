@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { breakPoints } from "../../../../commons/styles/media";
 
 interface IButton01Props {
   text: string;
@@ -24,6 +25,17 @@ const Button01UI = styled.button`
     props.disabled ? "default" : "pointer"};
   &:focus {
     outline: none;
+  }
+
+  @media ${breakPoints.tablet} {
+    font-size: 3.2rem;
+    height: 65px;
+    border-radius: 13px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 2.8rem;
+    height: 55px;
+    border-radius: 9px;
   }
 `;
 

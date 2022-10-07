@@ -521,12 +521,17 @@ export type IQuery = {
   checkGps: Scalars['Boolean'];
   connectionRoom: IChatRoom;
   fetchAttendance: Array<IAttendance>;
+  fetchBoadsIsSuccess: Array<IBoard>;
   fetchBoard: IBoard;
   fetchBoardImage: IBoardImage;
   fetchBoardImages: Array<IBoardImage>;
   fetchBoardRandom: IBoard;
   fetchBoards: Array<IBoard>;
   fetchBoardsByLikes: Array<IBoard>;
+  fetchBoardsCategoryName: Array<IBoard>;
+  fetchBoardsKeywordName: Array<IBoard>;
+  fetchBoardsStatus: Array<IBoard>;
+  fetchBoardsTagName: Array<IBoard>;
   fetchCategories: Array<ICategory>;
   fetchCategory: ICategory;
   fetchComments: Array<IComment>;
@@ -576,6 +581,12 @@ export type IQueryFetchAttendanceArgs = {
 };
 
 
+export type IQueryFetchBoadsIsSuccessArgs = {
+  isSuccess: Scalars['Boolean'];
+  page?: InputMaybe<Scalars['Float']>;
+};
+
+
 export type IQueryFetchBoardArgs = {
   boardId: Scalars['String'];
 };
@@ -609,6 +620,30 @@ export type IQueryFetchBoardsByLikesArgs = {
   page?: InputMaybe<Scalars['Float']>;
   status?: InputMaybe<Scalars['Boolean']>;
   tagName?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IQueryFetchBoardsCategoryNameArgs = {
+  categoryName: Scalars['String'];
+  page?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type IQueryFetchBoardsKeywordNameArgs = {
+  keywordName: Scalars['String'];
+  page?: InputMaybe<Scalars['Float']>;
+};
+
+
+export type IQueryFetchBoardsStatusArgs = {
+  page?: InputMaybe<Scalars['Float']>;
+  status: Scalars['Boolean'];
+};
+
+
+export type IQueryFetchBoardsTagNameArgs = {
+  page?: InputMaybe<Scalars['Float']>;
+  tagName: Scalars['String'];
 };
 
 

@@ -219,7 +219,7 @@ export default function Join(props: IJoinProps) {
     } catch (error) {
       if (error instanceof Error) {
         // Modal.error({ content: error.message });
-        console.log(error.message);
+        // console.log(error.message);
       }
     }
   };

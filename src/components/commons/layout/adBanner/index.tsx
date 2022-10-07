@@ -9,8 +9,10 @@ const Wrapper = styled.div`
 `;
 
 export const AdWrapper = styled.div`
-  width: 103rem;
+  width: 160rem;
+  padding: 0 30rem;
   height: 100%;
+  background-color: #000;
   margin: auto;
   display: flex;
   align-items: center;
@@ -19,15 +21,16 @@ export const AdWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media (min-width: 992px) and (max-width: 1200px) {
+  @media ${breakPoints.tablet} {
+    width: 80vw;
+    padding: 0;
     margin-left: 9.375vw;
   }
 
-  @media ${breakPoints.tablet} {
-    width: 80vw;
-  }
   @media ${breakPoints.mobile} {
     width: 80vw;
+    padding: 0;
+    margin-left: 9.375vw;
   }
 `;
 
@@ -37,6 +40,7 @@ export const AdText = styled.strong`
   font-weight: 700;
   line-height: 1.2;
   word-break: keep-all;
+  position: relative;
 
   @media ${breakPoints.mobile} {
     font-size: 3rem;
@@ -51,13 +55,16 @@ export const AdImageWrapper = styled.div`
 
   img {
     height: 90%;
-    transition: 0.3s;
     @media ${breakPoints.tablet} {
-      height: 20vw;
+      height: 70%;
     }
     @media ${breakPoints.mobile} {
-      height: 25vw;
+      height: 65%;
     }
+  }
+
+  @media (max-width: 420px) {
+    margin-left: -8vw;
   }
 `;
 

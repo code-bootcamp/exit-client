@@ -1,19 +1,18 @@
+import { v4 as uuidv4 } from "uuid";
 import { gql, useQuery } from "@apollo/client";
-import { AntdTreeNodeAttribute } from "antd/lib/tree";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   IQuery,
   IQueryFetchTagArgs,
 } from "../../../../commons/types/generated/types";
-import { isModalVisibleState } from "../../store";
-import Modal02 from "../02";
-import * as S from "./writeTagsModal.styles";
-import WriteTagsModalItem from "./writeTagsModal.TagItem";
+import { isModalVisibleState, modalState, tagsState } from "../../store";
+import Modal01 from "../01";
+import * as S from "./tagsModal.styles";
+import TagsModalItem from "./tagsModal.TagItem";
 
-interface IWriteTagsModalProps {
+interface ItagsModalProps {
   onClickClose: () => void;
-  setIsEditingTags: any;
 }
 
 export const FETCH_TAGS = gql`
@@ -25,36 +24,39 @@ export const FETCH_TAGS = gql`
   }
 `;
 
-export default function WriteTagsModal(props: IWriteTagsModalProps) {
+export default function TagsModal(props: ItagsModalProps) {
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(isModalVisibleState);
+  const [modal, setModal] = useRecoilState(modalState);
+  const [tags, setTags] = useRecoilState(tagsState);
+  const resetModalState = useResetRecoilState(modalState);
   const [selectedTags, setSelectedTags] = useState([]);
   const { data } = useQuery<Pick<IQuery, "fetchTags">, IQueryFetchTagArgs>(
     FETCH_TAGS
   );
 
   useEffect(() => {
-    const selectedTags = JSON.parse(
-      sessionStorage.getItem("selectedTags") || "[]"
-    );
+    const selectedTags = tags;
     setSelectedTags(selectedTags);
 
     return () => {
       setIsModalVisible(false);
+      resetModalState();
     };
   }, []);
 
   const onClickTag = (el: any) => () => {
-    const tags = [...selectedTags];
-    const temp = tags.filter((tag: string) => tag === el);
+    const tempTags = [...selectedTags];
+
+    const temp = tempTags.filter((tag: string) => tag === el);
     // 중복 체크
     if (temp.length === 1) {
-      const newCategories = tags.filter((tag: string) => tag !== el);
+      const newCategories = tempTags.filter((tag: string) => tag !== el);
       setSelectedTags(newCategories);
       return;
     }
 
-    const newTags: any = [el, ...tags].slice(0, 5);
+    const newTags: any = [el, ...tempTags].slice(0, 5);
     setSelectedTags(newTags);
   };
 
@@ -63,20 +65,21 @@ export default function WriteTagsModal(props: IWriteTagsModalProps) {
   };
 
   const onClickComplete = () => {
-    sessionStorage.setItem("selectedTags", JSON.stringify(selectedTags));
+    setTags(selectedTags);
     setIsModalVisible(false);
-    props?.setIsEditingTags?.(false);
+    resetModalState();
   };
 
   return (
-    <Modal02
+    <Modal01
       modalFor="모집기술 선택"
       modalTitle="기술 스택"
       eventHandler={props.onClickClose}
     >
       <S.TagsWrapper>
         {data?.fetchTags.map((el) => (
-          <WriteTagsModalItem
+          <TagsModalItem
+            key={uuidv4()}
             el={el}
             onClickTag={onClickTag}
             selectedTags={selectedTags}
@@ -87,6 +90,6 @@ export default function WriteTagsModal(props: IWriteTagsModalProps) {
         <S.ResetButton onClick={onClickReset}>선택 초기화</S.ResetButton>
         <S.CompleteButton onClick={onClickComplete}>선택 완료</S.CompleteButton>
       </S.ButtonWrapper>
-    </Modal02>
+    </Modal01>
   );
 }

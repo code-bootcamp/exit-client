@@ -31,6 +31,7 @@
     "format": "^0.2.2",
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
+    "inko": "^1.1.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "moment-jalaali": "^0.9.6",

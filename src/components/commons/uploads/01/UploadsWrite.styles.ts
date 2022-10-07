@@ -30,6 +30,7 @@ export const UploadFileHidden = styled.input`
 // `;
 
 export const Label = styled.span`
-  font-size: 3.68vw;
+  font-size: 2.2vw;
   font-weight: bold;
+  color: #bdbdbd;
 `;

@@ -2,14 +2,17 @@ import ExitedListUI from "./ExitedList.presenter";
 import { useApolloClient, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { MouseEvent, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
 import {
   IQuery,
   IQueryFetchBoardsArgs,
   IQueryFetchLikesArgs,
 } from "../../../../commons/types/generated/types";
-import { userInfoState } from "../../../commons/store";
-import ExitingListUI from "./ExitedList.presenter";
+import {
+  modalState,
+  searchWordsState,
+  userInfoState,
+} from "../../../commons/store";
 import {
   FETCH_BOARD,
   FETCH_BOARDS,
@@ -20,10 +23,14 @@ import {
 
 export default function ExitedList() {
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+  const [modal, setModal] = useRecoilState(modalState);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
+  const [savedSearchWords, setSavedSearchWords] =
+    useRecoilState(searchWordsState);
   const [searchWords, setSearchWords] = useState([]);
   const [filteredBoards, setFilteredBoards] = useState([]);
+  const resetSavedSearchWords = useResetRecoilState(searchWordsState);
 
   const router = useRouter();
   const client = useApolloClient();
@@ -36,20 +43,42 @@ export default function ExitedList() {
   });
 
   // 마운트될 때
-  useEffect(() => {
-    sessionStorage.removeItem("searchWords");
-    return () => {
-      sessionStorage.removeItem("searchWords");
-    };
-  }, []);
+  // useEffect(() => {
+  //   sessionStorage.removeItem("searchWords");
+  //   return () => {
+  //     sessionStorage.removeItem("searchWords");
+  //   };
+  // }, []);
+
+  // 모달 여닫은 후
+  // useEffect(() => {
+  //   // 세션스토리지에서 검색어 찾아오기
+  //   const searchWords: any = JSON.parse(
+  //     sessionStorage.getItem("searchWords") || "[]"
+  //   );
+  //   setSearchWords(searchWords);
+  //   // 검색어가 없다면
+  //   if (searchWords === []) {
+  //     setFilteredBoards([]);
+  //   }
+  // }, [isModalVisible]);
+
+  // useEffect(() => {
+  //   setSavedSearchWords([]);
+  //   return () => {
+  //     setSavedSearchWords([]);
+  //   };
+  // }, []);
 
   // 모달 여닫은 후
   useEffect(() => {
-    // 세션스토리지에서 검색어 찾아오기
-    const searchWords: any = JSON.parse(
-      sessionStorage.getItem("searchWords") || "[]"
-    );
-    setSearchWords(searchWords);
+    // recoil state에서 검색어 찾아오기
+    if (!hasBeenOpened) {
+      resetSavedSearchWords();
+      setHasBeenOpened((prev) => !prev);
+      return;
+    }
+    setSearchWords(savedSearchWords);
     // 검색어가 없다면
     if (searchWords === []) {
       setFilteredBoards([]);
@@ -61,7 +90,7 @@ export default function ExitedList() {
     async function FetchBoardsWithSearchModal() {
       // 사용할 검색어가 있다면
       if (searchWords.length > 0) {
-        console.log(searchWords);
+        // console.log(searchWords);
         const result = await Promise.all(
           searchWords.map((el: any) => {
             if (el.filterName === "categoryName") {
@@ -127,6 +156,7 @@ export default function ExitedList() {
     IQueryFetchBoardsArgs
   >(FETCH_BOARDS, {
     variables: { isSuccess: true }, // 성공여부: true
+    fetchPolicy: "network-only",
   });
 
   const { data: likedData } = useQuery<
@@ -168,11 +198,11 @@ export default function ExitedList() {
     };
 
   const onClickFilterButton = () => {
-    console.log("test");
+    // console.log("test");
     // 모달이 열린 적 있다면
-    if (!hasBeenOpened) {
-      setHasBeenOpened(false);
-    }
+    // if (!hasBeenOpened) {
+    //   setHasBeenOpened(false);
+    // }
     setIsModalVisible(true);
   };
 
@@ -189,6 +219,7 @@ export default function ExitedList() {
       isModalVisible={isModalVisible}
       setIsModalVisible={setIsModalVisible}
       searchWords={searchWords}
+      modal={modal}
     />
   );
 }

@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useRef } from "react";
 import UploadsWrite01UI from "./UploadsWrite.presenter";
-import Uploads01UI from "./UploadsWrite.presenter";
 import { UPLOAD_USER_IMAGE } from "./UploadsWrite.queries";
 
 export default function UploadWrite(props: any) {

@@ -1,273 +1,217 @@
 import styled from "@emotion/styled";
-import { Modal } from "antd";
-import { Calendar } from "react-calendar";
+import { breakPoints } from "../../../../commons/styles/media";
 
-export const Wrapper = styled.form`
+export const Wrapper = styled.div`
+  background-color: #d7d7d7;
+  padding: 10.54%;
   width: 100%;
-`;
-
-export const CardWrapper = styled.div`
-  width: 69.1667vw;
-  /* height: 249rem; */
-  border: none;
-  border-radius: 1.4rem;
-  border: 1px solid #e9e9e9;
-  box-shadow: 0px 4px 5px 5px #e9e9e9;
-  margin: auto;
-  padding: 13.6rem;
-`;
-export const PageTitleWrapper = styled.div`
-  /* width: 33.6rem;
-    height: 5.8rem;  */
-`;
-export const PageTitle = styled.div`
-  font-size: 4.8rem;
-  font-weight: bold;
-`;
-export const ImageWrapper = styled.div`
-  width: 100%;
-  height: 18.5rem;
-  border: 2px solid #d7d7d7;
-  border-radius: 1.4rem;
-  margin-top: 3.75rem;
-`;
-export const Image = styled.div``;
-export const TitleWrapper = styled.div`
-  width: 100%;
-  height: 6.8rem;
-  border: 2px solid #d7d7d7;
-  border-radius: 1.4rem;
-  margin-top: 2rem;
-  display: flex;
-  align-items: center;
-`;
-export const Title = styled.input`
-  width: 100%;
-  height: 4.5rem;
-  font-size: 2.2rem;
-  font-weight: 400;
-  border: none;
-  outline: none;
-
-  ::placeholder {
-    color: #c1c1c1;
-  }
-`;
-export const DescriptionWrapper = styled.div`
-  width: 100%;
-  height: 34rem;
-  border: 2px solid #d7d7d7;
-  border-radius: 1.4rem;
-  margin-top: 2rem;
-`;
-export const Description = styled.textarea`
-  font-size: 2.2rem;
-  width: 100%;
-  height: 30rem;
-  border-radius: 1.4rem;
-  outline: none;
-  border: none;
-  resize: none;
-
-  ::placeholder {
-    color: #c1c1c1;
-  }
-`;
-export const KeywordWrapper = styled.div`
-  width: 100%;
-  height: 6.8rem;
-  border: 2px solid #d7d7d7;
-  border-radius: 1.4rem;
-  /* margin-top: 2rem; */
-  padding-top: 8px;
-  margin-bottom: 12rem;
-  margin-top: 2rem;
-`;
-export const Keyword = styled.input`
-  width: 100%;
-  height: 4.5rem;
-  font-size: 2.2rem;
-  font-weight: 400;
-  border: none;
-  outline: none;
-
-  ::placeholder {
-    color: #c1c1c1;
-  }
 `;
 
-export const BailWrapper = styled.div`
-  margin-top: 6rem;
-  margin-bottom: 17rem;
+export const Container = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 10.54%;
 `;
-export const Label = styled.div`
-  font-size: 2.4rem;
+
+export const WriteTitle = styled.h1`
+  font-weight: 700;
+  font-size: 2.98vw;
+  margin-bottom: 4.2vw;
+  text-align: left;
+`;
+
+export const ImageBox = styled.div`
+  height: 24vw;
+  margin-bottom: 2rem;
+`;
+
+export const ProjectInputContainer = styled.div`
+  width: 100%;
+`;
+
+export const ProjectTitle = styled.input`
+  margin-bottom: 1.6vw;
+  width: 100%;
+  height: 4.8vw;
+  padding: 2rem;
+  border: 1px #d7d7d7 solid;
   font-weight: 500;
+  font-size: 1.52vw;
+  border-radius: 14px;
+`;
+
+export const ProjectContents = styled.textarea`
+  margin-bottom: 1.6vw;
+  width: 100%;
+  padding: 2rem;
+  height: 28vw;
+  border: 1px #d7d7d7 solid;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 1.52vw;
+`;
+
+export const ProjectKeyword = styled.input`
+  margin-bottom: 1.6vw;
+  width: 100%;
+  padding: 2rem;
+  height: 4.8vw;
+  border: 1px #d7d7d7 solid;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 1.52vw;
+`;
+
+export const ProjectSetting = styled.div``;
+export const SettingTitle = styled.h2`
+  margin-top: 6.2vw;
+  font-weight: 700;
+  font-size: 2.98vw;
+  margin-bottom: 4.6vw;
+`;
+
+export const SetBox = styled.div`
+  width: 100%;
+  margin-bottom: 7.4vw;
+`;
+
+export const SetMiniTitle = styled.div`
+  font-weight: 500;
+  font-size: 1.36vw;
+  margin-bottom: 0.4vw;
   color: #777777;
 `;
-export const ItemTitle = styled.div`
-  font-size: 4rem;
+
+export const SetTitle = styled.div`
   font-weight: 700;
-  margin-top: 0.5rem;
-`;
-export const BailInputWrapper = styled.div`
-  position: relative;
-`;
-export const Bail = styled.input`
-  width: calc(100% - 510px);
-  height: 7rem;
-  border-radius: 1.4rem;
-  border: 2px solid #d7d7d7;
-  float: right;
-  font-size: 3.6rem;
-  font-weight: 700;
-  outline: none;
-
-  background-image: url("/icons/icon_member_count.png");
-  background-repeat: no-repeat;
-  background-size: 5.5rem;
-  background-position: 1.9rem 1.8rem;
-  padding-right: 6.5rem;
+  font-size: 2.32vw;
 `;
 
-export const BailIcon = styled.img`
-  position: absolute;
-  right: 1.8rem;
-  top: 1.5rem;
-`;
-
-export const TotalMemberWrapper = styled.div`
-  margin-bottom: 17rem;
-`;
-export const TotalMember = styled.div``; // 슬라이더 들어가야 함(보류)
-export const KeywordsWrapper = styled.div``;
-export const RadioButtonWrapper = styled.div`
-  margin-top: 2rem;
-`;
-
-export const TagsWrapper = styled.div`
-  margin-top: 10rem;
-`;
-
-export const AddressWrapper = styled.div`
-  margin-top: 10rem;
-`;
-
-export const AddressButton = styled.div`
-  width: 100%;
+export const RadioBox = styled.div`
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  margin-top: 1.6vw;
 `;
-export const FrequencyWrapper = styled.div`
-  margin-top: 10rem;
+
+export const Key = styled.div`
+  font-weight: 400;
+  font-size: 1.4vw;
+  color: #4e4e4e;
+  width: 15.2vw;
+  margin-bottom: 1.18vw;
 `;
-export const ProjectPeriodWrapper = styled.div`
-  margin-top: 10rem;
-`;
-export const ButtonWrapper = styled.div`
-  margin-top: 12rem;
+
+export const MoneyWrapper = styled.div`
+  margin-top: 3vw;
   display: flex;
-`;
-export const CancelButton = styled.button`
-  width: 51.2rem;
-  height: 10rem;
-  border-radius: 1.4rem;
-  border: none;
-  background-color: #ececec;
-  font-size: 4rem;
-  font-weight: 700;
-  margin-right: 3.2rem;
-`;
-export const CreateButton = styled.button`
-  width: 51.2rem;
-  height: 10rem;
-  border-radius: 1.4rem;
-  border: none;
-  background-color: #3ebd5d;
-  color: white;
-  font-size: 4rem;
-  font-weight: 700;
+  justify-content: right;
 `;
 
-export const Radio = styled.input`
-  /* position: absolute;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0; */
+export const MoneyInput = styled.select`
+  height: 4vw;
+  width: 18vw;
+  font-weight: 700;
+  font-size: 2.14vw;
+  border: 2px solid #d7d7d7;
+  border-radius: 14px;
+  padding-left: 1.4vw;
+  background: url("/icons/money_icon.png") no-repeat 90% 54%;
+  background-size: 2.5vw;
 
-  /* content: '';
-    position: absolute;
-    top: 1px;
-    left: 5px;
-    width: 14px;
-    height: 14px;
-    background: #e86138;
+  // 화살표 지우기
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+`;
+
+export const MoneyOption = styled.option`
+  font-size: 1.8vw;
+`;
+
+export const SetRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-weight: 700;
+  font-size: 2vw;
+  margin-bottom: 1.8vw;
+`;
+
+export const SetTitleBox = styled.div``;
+export const TextColor = styled.p`
+  margin-top: 0.2vw;
+  margin-bottom: 1.2vw;
+`;
+
+export const InputRadio = styled.input`
+  appearance: none;
+  width: 1.28vw;
+  height: 1.28vw;
+  border-radius: 100%;
+  margin-right: 0.8vw;
+  border: 2px solid #d7d7d7;
+
+  vertical-align: middle;
+
+  :checked {
+    appearance: none;
+    width: 1.28vw;
+    height: 1.28vw;
     border-radius: 100%;
-    box-shadow: none; */
+    margin-right: 0.8vw;
+    background-color: #3ebd5d;
+    vertical-align: middle;
+  }
 `;
 
-export const AddressLabel = styled.div``;
-
-export const SliderLabel = styled.div`
-  font-size: 3.6rem;
-  font-weight: bold;
+export const ButtonBox = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
+  margin-top: 10vw;
 `;
 
-export const ProjectLabelWrapper = styled.div`
-  height: auto;
-  width: auto;
+export const WriteButton = styled.button`
+  width: 28vw;
+  height: 5.2vw;
+  font-weight: 700;
+  font-size: 2.38vw;
+  color: #ffffff;
+  background: #3ebd5d;
+  border-radius: 14px;
 `;
-export const CalendarButtonBox = styled.div`
-  width: 4rem;
-  height: 3.4rem;
+
+export const TagsHeaderWrapper = styled.div`
+  display: flex;
+`;
+
+export const TagButton = styled.button`
+  width: 9.4vw;
+  height: 2.4vw;
+  font-size: 1.36vw;
+  color: #fff;
+  border-radius: 4px;
   background-color: #4e4e4e;
-  color: white;
+  margin-left: 1.2vw;
+  margin-top: 0.1vw;
+`;
+
+export const Tags = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 1.4vw;
+`;
+
+export const Tag = styled.span`
+  // 반응형 크기 보류
+  background: #ececec;
+  color: #4e4e4e;
+  font-size: 1.4vw;
+  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-`;
-
-export const RecruitmentPeriodWrapper = styled.div``;
-// export const RecruitmentModal = styled(Modal)``
-// export const RecruitmentPeriod = styled(Calendar)`
-export const CalendarBox = styled.div`
-  width: 30rem;
-  margin-right: 35rem;
-`;
-
-export const CategorieLabel = styled.div``;
-
-export const Icon1 = styled.img`
-  position: absolute;
-  margin-right: 100px;
-  width: 6rem;
-  height: 6rem;
-  z-index: 1;
-`;
-export const Icon2 = styled.img`
-  margin-left: 90rem;
-  position: absolute;
-  width: 6rem;
-  height: 6rem;
-  z-index: 1;
-`;
-
-export const RecruitmentBox = styled.div`
-  display: flex;
-  justify-content: end;
-`;
-
-export const ProjectPeriodBox = styled.div`
-  display: flex;
-  justify-content: end;
-`;
-
-export const SelectImg = styled.div`
-  width: 165px;
+  padding: 0.4vw 0.8vw;
+  margin-right: 0.8vw;
 `;

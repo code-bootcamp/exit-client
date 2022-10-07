@@ -3,7 +3,6 @@ import {
   getDate,
 } from "../../../commons/libraries/utils";
 import PaymentModalContainer from "../../commons/modal/paymentModal/paymentModal.contaner";
-import Payment from "../../commons/payments";
 import * as S from "./myPage.styles";
 
 export default function MyPagePresenter(props: any) {
@@ -19,7 +18,7 @@ export default function MyPagePresenter(props: any) {
         <S.Container>
           <S.TopConainer onClick={props.onClickMoveMypageEdit}>
             <S.UserImageBox>
-              {props.data?.fetchLoginedUser.userImage.url !== "null" ? (
+              {props.data?.fetchLoginedUser.userImage.url.length > 4 ? (
                 <S.UserImage
                   src={`${props.data?.fetchLoginedUser.userImage.url}`}
                 />
@@ -42,10 +41,9 @@ export default function MyPagePresenter(props: any) {
                 <S.Amount>
                   {props.data?.fetchLoginedUser.point} <S.Color>P</S.Color>{" "}
                 </S.Amount>
-                {/* <S.PointToggleButton src="/icons/icon_arrow_green.png" /> */}
               </S.PointRight>
             </S.PointHeadRow>
-            {props.paymentData?.fetchPayments.map((el) => (
+            {props.paymentData?.fetchPayments.map((el: any) => (
               <S.PointContentsRow key={el.id}>
                 <S.PointContentsBox>
                   <S.ContentsSubTitle>충전</S.ContentsSubTitle>
@@ -57,7 +55,6 @@ export default function MyPagePresenter(props: any) {
               </S.PointContentsRow>
             ))}
             <S.PointButtonContainer>
-              {/* <S.RefundButton>환급하기</S.RefundButton> */}
               <S.ChargingButton onClick={props.onClickVisible}>
                 충전하기
               </S.ChargingButton>
@@ -70,7 +67,7 @@ export default function MyPagePresenter(props: any) {
               {props.myProjectData?.fetchProjectOfUser.id ? (
                 <S.ProjectRow>
                   {props.myProjectData?.fetchProjectOfUser.boardImage.url !==
-                  "null" ? (
+                  "" ? (
                     <S.ProjectColumn
                       id={props.myProjectData?.fetchProjectOfUser.id}
                       style={{
@@ -169,7 +166,7 @@ export default function MyPagePresenter(props: any) {
                 <S.ProjectRow>
                   {props.likeProjectData?.fetchLikes.map((el: any) => (
                     <S.Key key={el.id}>
-                      {el.board?.boardImage?.url !== "null" ? (
+                      {el.board?.boardImage?.url !== "" ? (
                         <S.ProjectColumn
                           id={el.board?.id}
                           onClick={props.onClickMoveToLikeProject}
@@ -259,7 +256,7 @@ export default function MyPagePresenter(props: any) {
                 <S.ProjectRow>
                   {props.endProjectData?.fetchProjectsOfUser.map((el: any) => (
                     <S.Key key={el.id}>
-                      {el.board?.boardImage?.url !== "null" ? (
+                      {el.board?.boardImage?.url !== "" ? (
                         <S.ProjectColumn
                           id={el.board?.id}
                           onClick={props.onClickMoveToLikeProject}

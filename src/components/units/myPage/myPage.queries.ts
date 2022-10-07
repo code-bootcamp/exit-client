@@ -26,9 +26,6 @@ export const FETCH_POINT_HISTORIES = gql`
       id
       pointHistory
       amount
-      # createAt
-      # deleteAt
-      # user
     }
   }
 `;

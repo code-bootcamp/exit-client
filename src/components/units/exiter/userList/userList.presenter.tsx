@@ -19,7 +19,7 @@ export default function UserListPresenter(props: any) {
             <S.TopTitle>오늘의 엑시터를 소개합니다</S.TopTitle>
             <S.RandomUserContainer>
               <S.RandomUserImageBox>
-                {data?.fetchUserRandom.userImage.url !== "null" ? (
+                {data?.fetchUserRandom.userImage.url !== "" ? (
                   <S.RandomUserImage
                     src={`${data?.fetchUserRandom.userImage.url}`}
                   />
@@ -189,17 +189,3 @@ export default function UserListPresenter(props: any) {
     </>
   );
 }
-
-//    랜덤 정보 호출
-//           {data?.fetchUserRandom.nickname}
-// {
-//   props.data?.fetchUsers.map((el: any) => (
-//     <S.Row key={el.id}>
-//       <div>id : {el.id}///</div>
-//       <div id={el.id}>이메일 : {el.email}///</div>
-//       <div>닉네임 : {el.nickname}///</div>
-//       <div>포인트 : {el.point}</div>
-//     </S.Row>
-//   ));
-// }
-// </>

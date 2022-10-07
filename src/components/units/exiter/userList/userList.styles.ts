@@ -10,15 +10,30 @@ export const Wrapper = styled.div`
 export const Container = styled.section`
   width: 160rem;
   margin: auto;
+  overflow: auto;
+  @media ${breakPoints.tablet} {
+    width: 100%;
+    padding: 4vw;
+  }
+  @media ${breakPoints.mobile} {
+    width: 100%;
+    padding: 4vw;
+  }
 `;
 
 export const TopContainer = styled.div``;
 export const TopTitle = styled.h1`
   font-weight: 700;
   font-size: 48px;
-  line-height: 58px;
   letter-spacing: -0.02em;
   margin-bottom: 3rem;
+
+  @media ${breakPoints.tablet} {
+    font-size: 36px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 24px;
+  }
 `;
 export const SubTitle = styled.h3`
   font-style: normal;
@@ -28,12 +43,25 @@ export const SubTitle = styled.h3`
   letter-spacing: -0.01em;
   color: #3ebd5d;
   margin-bottom: 1rem;
+  @media ${breakPoints.tablet} {
+    font-size: 18px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 18px;
+  }
 `;
 
 export const RandomUserContainer = styled.div`
   height: 48rem;
   width: 160rem;
   display: flex;
+  @media ${breakPoints.tablet} {
+    height: 25rem;
+  }
+  @media ${breakPoints.mobile} {
+    flex-direction: column;
+    height: 700px;
+  }
 `;
 export const RandomUserImageBox = styled.div`
   width: 512px;
@@ -44,6 +72,12 @@ export const RandomUserImageBox = styled.div`
   align-items: center;
   height: 100%;
   margin-right: 2.5rem;
+  @media ${breakPoints.tablet} {
+    width: 250px;
+  }
+  @media ${breakPoints.mobile} {
+    width: 360px;
+  }
 `;
 export const RandomUserImage = styled.img`
   width: 100%;
@@ -57,6 +91,13 @@ export const RandomUserInfoContainer = styled.div`
   padding: 4.3rem 4.7rem;
   background: #f8f8f8;
   border-radius: 14px;
+  @media ${breakPoints.tablet} {
+    width: 500px;
+  }
+  @media ${breakPoints.mobile} {
+    width: 360px;
+    margin-top: 1rem;
+  }
 `;
 export const RandomUserHead = styled.div`
   display: flex;
@@ -73,15 +114,25 @@ export const InfoKeywordContainer = styled.div`
 export const TitleHead = styled.div`
   font-weight: 700;
   font-size: 36px;
-  line-height: 43px;
-  letter-spacing: -0.02em;
   margin-right: 1rem;
   color: #3ebd5d;
+  @media ${breakPoints.tablet} {
+    font-size: 24px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 20px;
+  }
 `;
 export const HeadUserNickname = styled.div`
   font-weight: 700;
   font-size: 36px;
   color: #000000;
+  @media ${breakPoints.tablet} {
+    font-size: 24px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 24px;
+  }
 `;
 export const InfoKeywordBox = styled.div`
   display: flex;
@@ -105,6 +156,14 @@ export const ButtonBox = styled.div`
   height: 15rem;
   justify-content: flex-end;
   align-items: flex-end;
+  @media ${breakPoints.tablet} {
+    height: 1rem;
+  }
+  @media ${breakPoints.mobile} {
+    height: 5rem;
+    padding: 0rem;
+    justify-content: center;
+  }
 `;
 export const UserChatButton = styled.button`
   width: 240px;
@@ -119,30 +178,52 @@ export const UserChatButton = styled.button`
   :hover {
     background-color: #3ebd5d;
   }
+  @media ${breakPoints.tablet} {
+    width: 100px;
+    height: 45px;
+    font-size: 14px;
+  }
+  @media ${breakPoints.mobile} {
+    width: 220px;
+    height: 45px;
+    font-size: 14px;
+  }
 `;
 
 export const UserInfoLabel = styled.div`
   display: flex;
   margin-bottom: 2rem;
+  @media ${breakPoints.tablet} {
+  }
+  @media ${breakPoints.mobile} {
+    flex-direction: column;
+  }
 `;
 export const MyInfoTitle = styled.p`
   font-weight: 700;
   font-size: 20px;
-  line-height: 24px;
-  /* identical to box height */
   letter-spacing: -0.01em;
   margin-right: 2rem;
   color: #000000;
+  @media ${breakPoints.tablet} {
+    font-size: 16px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 16px;
+  }
 `;
 export const MyInfoContents = styled.p`
   font-weight: 400;
   font-size: 20px;
-  line-height: 24px;
-  /* identical to box height */
-
   letter-spacing: -0.01em;
-
   color: #777777;
+  @media ${breakPoints.tablet} {
+    font-size: 16px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 16px;
+    line-height: 25px;
+  }
 `;
 
 export const MainContainer = styled.section`
@@ -151,21 +232,28 @@ export const MainContainer = styled.section`
 export const MainTitle = styled.h2`
   font-weight: 700;
   font-size: 48px;
-  line-height: 58px;
   margin-bottom: 3rem;
   letter-spacing: -0.02em;
+  @media ${breakPoints.tablet} {
+    font-size: 36px;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 22px;
+  }
 `;
 export const UserListRow = styled.div`
   width: 100%;
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
+  @media ${breakPoints.tablet} {
+  }
+  @media ${breakPoints.mobile} {
+  }
 `;
 export const UserListColumn = styled.div`
   background: #f8f8f8;
-  /* width: 38rem; */
-  width: 24%;
-  height: 38rem;
+  width: 383.5px;
+  height: 380px;
   padding: 3rem;
   margin-bottom: 2rem;
   margin-right: 1.33%;
@@ -176,6 +264,15 @@ export const UserListColumn = styled.div`
   &:nth-of-type(4n) {
     margin-right: 0;
   }
+  @media ${breakPoints.tablet} {
+    width: 340px;
+    height: 300px;
+    padding: 2rem;
+  }
+  @media ${breakPoints.mobile} {
+    width: 360px;
+    padding: 2rem;
+  }
 `;
 
 export const UserColumnHead = styled.div`
@@ -185,6 +282,12 @@ export const UserImageBox = styled.div`
   margin-right: 1rem;
   width: 6rem;
   height: 6rem;
+  @media ${breakPoints.tablet} {
+    width: 4rem;
+    height: 4rem;
+  }
+  @media ${breakPoints.mobile} {
+  }
 `;
 export const UserImage = styled.img`
   width: 100%;
@@ -236,9 +339,15 @@ export const UserLabelContents = styled.div`
   padding: 0.4rem 1rem;
   border-radius: 4px;
   font-size: 18px;
-  line-height: 22px;
   text-align: center;
   color: #4e4e4e;
+  @media ${breakPoints.tablet} {
+    font-size: 16px;
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 1rem;
+  }
+  @media ${breakPoints.mobile} {
+  }
 `;
 export const UserColumnButton = styled.button`
   width: 320px;
@@ -248,10 +357,14 @@ export const UserColumnButton = styled.button`
   color: white;
   font-weight: 700;
   font-size: 18px;
-  line-height: 22px;
-
   text-align: center;
   :hover {
     background-color: #3ebd5d;
+  }
+  @media ${breakPoints.tablet} {
+    width: 310px;
+    height: 40px;
+  }
+  @media ${breakPoints.mobile} {
   }
 `;

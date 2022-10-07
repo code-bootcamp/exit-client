@@ -52,6 +52,12 @@ export default function ProjectDetailContainenr() {
           query: FETCH_BOARD,
           variables: { boardId: String(router.query.projectId) },
         },
+        {
+          query: FETCH_USER_BOARDS,
+          variables: {
+            boardId: String(router.query.projectId),
+          },
+        },
       ],
     });
   };
@@ -66,14 +72,12 @@ export default function ProjectDetailContainenr() {
       await createUserBoard({
         variables: {
           createUserBoardInput: {
-            userId: userInfo.id,
             boardId: String(router.query.projectId),
           },
         },
         refetchQueries: [
           {
             query: FETCH_BOARD,
-            fetchPolicy: "network-only",
             variables: { boardId: String(router.query.projectId) },
           },
           {
@@ -85,18 +89,37 @@ export default function ProjectDetailContainenr() {
         ],
       });
     } catch (error) {
-      if (accessToken) {
-        message.error("현재 진행중인 프로젝트가 있습니다!");
-      }
-      message.error("로그인 후 이용해주세요!");
+      alert(error);
     }
   };
-  //팀장이 지원자를 수락/취소
+
+  // 프젝 신청 취소
+  const onClickSignUpUserNoAccept = async (event: any) => {
+    console.log(event.target.id);
+    await removeUserBoards({
+      variables: {
+        userId: event.target.id,
+        boardId: String(router.query.projectId),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: { boardId: String(router.query.projectId) },
+        },
+        {
+          query: FETCH_USER_BOARDS,
+          variables: {
+            boardId: String(router.query.projectId),
+          },
+        },
+      ],
+    });
+  };
+  //팀장이 지원자를 수락
   const onClickSignUpUserAccept = async (event: any) => {
     await updateUserBoard({
       variables: {
         updateUserBoardInput: {
-          userId: event.target.id,
           boardId: String(router.query.projectId),
           isAccepted: true,
         },
@@ -117,31 +140,11 @@ export default function ProjectDetailContainenr() {
     });
   };
 
-  const onClickSignUpUserNoAccept = async (event: any) => {
-    await removeUserBoards({
-      variables: {
-        userId: event.target.id,
-        boardId: String(router.query.projectId),
-      },
-      refetchQueries: [
-        {
-          query: FETCH_BOARD,
-          variables: { boardId: String(router.query.projectId) },
-        },
-        {
-          query: FETCH_USER_BOARDS,
-          variables: {
-            boardId: String(router.query.projectId),
-          },
-        },
-      ],
-      awaitRefetchQueries: true,
-    });
-  };
   // 수정이동
   const onClickMoveToUpdate = () => {
     router.push(`/exiting/${router.query.projectId}/edit`);
   };
+  // 프로젝트삭제
   const onClickDeleteProject = async () => {
     await removeBoard({
       variables: {

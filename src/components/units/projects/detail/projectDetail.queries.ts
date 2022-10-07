@@ -109,6 +109,13 @@ export const UPDATE_USER_BOARD = gql`
   mutation updateUserBoard($updateUserBoardInput: UpdateUserBoardInput!) {
     updateUserBoard(updateUserBoardInput: $updateUserBoardInput) {
       id
+      isAccepted
+      board {
+        id
+      }
+      user {
+        id
+      }
     }
   }
 `;

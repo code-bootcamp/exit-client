@@ -43,7 +43,7 @@ export default function JoinUI(props: IJoinUIProps) {
                   </S.Timer>
                   {props.token?.length === 0 && (
                     <S.TokenDefaultMessage>
-                      ※ 시간안에 인증번호를 정확히 입력해주세요.
+                      ※ 시간 안에 인증번호를 정확히 입력해주세요.
                     </S.TokenDefaultMessage>
                   )}
                 </S.TokenInputWrapper>

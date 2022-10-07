@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { useRecoilState } from "recoil";
-import { getAddress } from "../../../commons/libraries/getAddress";
 import {
   IQuery,
   IQueryFetchBoardsArgs,

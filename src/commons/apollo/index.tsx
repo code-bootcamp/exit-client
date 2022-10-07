@@ -9,7 +9,7 @@ import {
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
 import { ReactNode, useEffect } from "react";
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { useRecoilState } from "recoil";
 import { getAccessToken } from "../../components/commons/libraries/getAccessToken";
 import {
   accessTokenState,

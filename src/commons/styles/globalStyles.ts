@@ -130,10 +130,6 @@ export const globalStyles = css`
     color: #4e4e4e;
   }
 
-  .MuiPickersCalendarHeader-switchViewButton {
-    /* display: none !important; */
-  }
-
   .MuiPickersArrowSwitcher-button {
     background-color: transparent !important;
     position: absolute !important;
@@ -174,8 +170,4 @@ export const globalStyles = css`
   .MuiPickersArrowSwitcher-button {
     display: none !important;
   }
-
-  /* .MuiDayPicker-weekDayLabel {
-    margin: 0 !important;
-  } */
 `;

@@ -123,7 +123,7 @@ export default function WriteContainer(props: any) {
   const onChangeRangeDate: DatePickerProps["onChange"] = (date, dateString) => {
     setStartDate(dateString[0]);
     setEndDate(dateString[1]);
-    console.log(dateString);
+    // console.log(dateString);
   };
 
   useEffect(() => {
@@ -232,7 +232,7 @@ export default function WriteContainer(props: any) {
       });
       Modal.success({ content: "수정이 완료되었습니다." });
       router.push("/exiting");
-      console.log(result.data?.updateBoard);
+      // console.log(result.data?.updateBoard);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }

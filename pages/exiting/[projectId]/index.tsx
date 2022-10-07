@@ -1,4 +1,4 @@
-import ProjectDetailContainenr from "../../../src/components/units/projects/detail/projectDetail.container";
+import ProjectDetailContainenr from "../../../src/components/units/exiting/detail/projectDetail.container";
 
 export default function ProjectDetailPage() {
   return (

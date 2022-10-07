@@ -28,6 +28,17 @@ export const Timer = styled.div`
   position: absolute;
   right: 24px;
   top: 24px;
+
+  @media ${breakPoints.tablet} {
+    right: 16px;
+    top: 18px;
+    font-size: 1.8rem;
+  }
+  @media ${breakPoints.mobile} {
+    font-size: 1.6rem;
+    top: 20px;
+    right: 10px;
+  }
 `;
 
 export const TokenDefaultMessage = styled.p`

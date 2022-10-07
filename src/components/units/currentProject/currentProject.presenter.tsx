@@ -7,7 +7,7 @@ import { ICurrentProjectUIProps } from "./currentProject.types";
 import Map from "../../commons/map";
 import moment from "moment";
 import "moment/locale/ko";
-import { getAddress } from "../../../commons/libraries/getAddress";
+// import { getAddress } from "../../../commons/libraries/getAddress";
 import ChatContainer from "../../commons/chat/01/chat.container";
 import Spinner01 from "../../commons/spinners/01";
 

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { ReactNode } from "react";
 import Header from "./header/header.container";
-// import Footer from "./footer/footer.container";
 import Banner from "./banner/banner.container";
 import { useRouter } from "next/router";
 import MiniBanner from "./miniBanner/miniBanner.container";
@@ -25,6 +24,7 @@ const HIDDEN_BANNER = [
   "/projects/[projectId]",
   "/currentProject/[projectId]",
   "/exited",
+  "/exited/[projectId]",
   "/exiting",
   "/exiting/write",
   "/exiting/[projectId]/edit",

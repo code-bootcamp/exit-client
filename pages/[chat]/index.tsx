@@ -4,7 +4,7 @@ import ToggleButtonContainenr from "../../src/components/commons/layout/toggleBu
 import MiniMypageContainer from "../../src/components/commons/modal/miniMypageModal/miniMypage.container";
 import PaymentModalContainer from "../../src/components/commons/modal/paymentModal/paymentModal.contaner";
 import { FETCH_LOGINED_USER } from "../../src/components/units/member/login/login.queries";
-import WriteContainer from "../../src/components/units/projects/write02/write.container";
+import WriteContainer from "../../src/components/units/exiting/write02/write.container";
 
 export default function ChatTest() {
   const { data } = useQuery(FETCH_LOGINED_USER);

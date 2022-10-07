@@ -16,15 +16,23 @@ export const Search = styled.a`
 
   img {
     width: 100%;
-    @media ${breakPoints.mobile} {
+    @media (min-width: 481px) and (max-width: 767px) {
       width: 35px;
       height: 35px;
       margin-top: 2px;
     }
+    @media (max-width: 480px) {
+      width: 30px;
+      height: 30px;
+      margin-top: 5px;
+    }
   }
 
-  @media ${breakPoints.mobile} {
+  @media (min-width: 481px) and (max-width: 767px) {
     margin-right: 5px;
+  }
+  @media (max-width: 480px) {
+    margin-right: 0;
   }
 `;
 
@@ -58,6 +66,11 @@ export const LoginButton = styled.button`
   background-color: #3ebd5d;
   border-radius: 4px;
   padding: 5px 18px;
+
+  @media ${breakPoints.mobile} {
+    padding: 5px 10px;
+    font-size: 1.5rem;
+  }
 `;
 
 export const MiniModalWrapper = styled.div`

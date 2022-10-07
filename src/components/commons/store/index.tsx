@@ -38,8 +38,3 @@ export const tagsState = atom({
   key: "tagsState",
   default: [],
 });
-
-export const isEditingTagsState = atom({
-  key: "isEditingTagsState",
-  default: false,
-});

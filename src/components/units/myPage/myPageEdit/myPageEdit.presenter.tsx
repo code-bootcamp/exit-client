@@ -1,11 +1,10 @@
 import { PossibleTypeExtensionsRule } from "graphql";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Check from "../../../commons/categori";
+// import Check from "../../../commons/categori";
 import TagsModal from "../../../commons/modal/tagsModal/tagsModal.container";
 import Uploads01 from "../../../commons/uploads/02/Uploads.container";
 import ChangePassword from "../../member/changePassword/changePassword.container";
-
 import * as S from "./myPageEdit.styles";
 
 const FAVORITE_CATEGORIES = [

@@ -5,9 +5,6 @@ import {
 import * as S from "./projectDetail.styles";
 
 export default function ProjectDetailUI(props: any) {
-  console.log(
-    `${categoriesImgSources[props.data?.fetchBoard.categories?.[0]?.name]}`
-  );
   return (
     <>
       <S.Wrapper>
@@ -68,7 +65,7 @@ export default function ProjectDetailUI(props: any) {
                   <S.UserSignUpContainer key={el.user.id}>
                     <S.SignUpTop>
                       <S.SignUpImageBox>
-                        {el.user.userImage?.url !== "null" ? (
+                        {el.user.userImage?.url !== "" ? (
                           <S.SignUpImage src={`${el.user.userImage?.url}`} />
                         ) : (
                           <S.SignUpImage src={`/profile_img.png`} />
@@ -208,9 +205,6 @@ export default function ProjectDetailUI(props: any) {
                     <S.LeaderInfoBox>
                       <S.LeaderName>
                         {props.leaderData?.fetchUserWithUserId.nickname}
-                        {console.log(
-                          props.leaderData?.fetchUserWithUserId.nickname
-                        )}
                       </S.LeaderName>
                       <S.LeaderKeywordBox>
                         {props.leaderData?.fetchUserWithUserId.keywords.map(
@@ -227,12 +221,16 @@ export default function ProjectDetailUI(props: any) {
                 </S.LeaderWapper>
                 {props.joined.flat().includes(props.userInfo.id) ? (
                   <S.ProjectJoinCancleButton
-                    onClick={props.onClickSignUpProject}
+                    id={`${props.userInfo.id}`}
+                    onClick={props.onClickSignUpUserNoAccept}
                   >
                     프로젝트 참여 취소하기
                   </S.ProjectJoinCancleButton>
                 ) : (
-                  <S.ProjectJoinButton onClick={props.onClickSignUpProject}>
+                  <S.ProjectJoinButton
+                    id={`${props.userInfo.id}`}
+                    onClick={props.onClickSignUpProject}
+                  >
                     프로젝트 참여 신청하기
                   </S.ProjectJoinButton>
                 )}

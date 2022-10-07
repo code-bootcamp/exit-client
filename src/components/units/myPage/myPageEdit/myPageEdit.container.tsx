@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import {
-  isEditingTagsState,
   isModalVisibleState,
   modalState,
   tagsState,
@@ -50,14 +49,15 @@ export default function MyPageEditContainer() {
   // 이미지파일 업로드
 
   const onChangeFileUrl = (fileUrl: string) => {
-    setFileUrl(fileUrl);
+    const newFileUrl = fileUrl;
+    setFileUrl(newFileUrl);
   };
 
   useEffect(() => {
-    if (fileUrl) {
-      setFileUrl(fileUrl);
+    if (data?.fetchLoginedUser.userImage.url.length) {
+      setFileUrl(data?.fetchLoginedUser.userImage.url);
     }
-  }, [fileUrl]);
+  }, [data]);
   // 인풋값입력
   const onChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);

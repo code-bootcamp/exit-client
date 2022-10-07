@@ -41,8 +41,7 @@
 
 <h2>✅ 기술 스택</h2>
 
-![image](https://user-images.githubusercontent.com/92153061/194527915-db6a726b-85e3-4d9a-b1bc-3565d2fa6a60.png)
-
+![skill](https://user-images.githubusercontent.com/92153061/194533662-98a3d9a0-577c-4c1e-9c2a-14ef35744a30.png)
 
 <h2>✅ 플로우 차트</h2>
 
@@ -52,6 +51,5 @@
 
 ![image](https://user-images.githubusercontent.com/92153061/194527658-d703f45b-bdd7-44e5-9d03-ce95e08e8c3c.png)
 
-<h2>✅ 프로젝트 시연</h2>
 
 

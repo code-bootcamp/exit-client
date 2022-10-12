@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { ReactNode, useEffect } from "react";
 import { breakPoints } from "../../../../commons/styles/media";
 import Text01 from "../../texts/01";
+import { createPortal } from "react-dom";
 
 interface IModal01Props {
   children: ReactNode;
@@ -77,15 +78,19 @@ export const Close = styled.div`
 
 export default function Modal01(props: IModal01Props) {
   useEffect(() => {
-    let isComponentMounted = true;
-    document.body.style.overflow = "hidden";
-
+    document.body.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
     return () => {
-      isComponentMounted = false;
-      document.body.style.overflow = "auto";
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
-  return (
+
+  return createPortal(
     <Wrapper>
       <Background onClick={props.eventHandler} />
       <ModalWrapper>
@@ -96,6 +101,7 @@ export default function Modal01(props: IModal01Props) {
           <img src="/icons/icon_close.png" />
         </Close>
       </ModalWrapper>
-    </Wrapper>
+    </Wrapper>,
+    document.getElementById("modal-root")
   );
 }

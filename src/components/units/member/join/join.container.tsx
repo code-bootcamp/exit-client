@@ -23,7 +23,6 @@ import { IJoinProps } from "./join.types";
 import { message, Modal } from "antd";
 import { accessTokenState, userInfoState } from "../../../commons/store";
 import { useRecoilState } from "recoil";
-import useCleanUp from "../../../commons/hooks/useCleanUp";
 
 const schema = yup.object({
   email: yup
@@ -71,8 +70,6 @@ export default function Join(props: IJoinProps) {
     Pick<IMutation, "createUser">,
     IMutationCreateUserArgs
   >(CREATE_USER);
-
-  useCleanUp();
 
   const client = useApolloClient();
   const { register, handleSubmit, watch, setValue, formState } = useForm({

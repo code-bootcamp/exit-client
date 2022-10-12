@@ -38,7 +38,7 @@ export default function MainUIPresenterItem(props: IMainUIPresenterItemProps) {
         <S.ProjectImageWrapper>
           {props.el.boardImage.url.includes(
             "https://storage.googleapis.com/backend-server"
-          ) || props.el.boardImage.url.includes("https") ? (
+          ) ? (
             <img src={props.el.boardImage.url} />
           ) : props.el.categories?.[0]?.name ? (
             <img src={categoriesImgSources[props.el.categories?.[0]?.name]} />

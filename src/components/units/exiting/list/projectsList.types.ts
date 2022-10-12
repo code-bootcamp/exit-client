@@ -1,4 +1,3 @@
-import { Dispatch, MouseEvent, SetStateAction } from "react";
 import {
   IBoard,
   IQuery,

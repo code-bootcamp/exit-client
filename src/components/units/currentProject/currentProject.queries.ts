@@ -30,6 +30,8 @@ export const FETCH_BOARD = gql`
       frequency
       leaderNickname
       leader
+      startAt
+      endAt
     }
   }
 `;

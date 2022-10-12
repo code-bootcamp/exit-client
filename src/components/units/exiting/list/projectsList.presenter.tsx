@@ -104,7 +104,7 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                       <S.ThumbImageWrapper>
                         {el.boardImage.url.includes(
                           "https://storage.googleapis.com/backend-server"
-                        ) || el.boardImage.url.includes("https") ? (
+                        ) ? (
                           <img src={el.boardImage.url} />
                         ) : el.categories?.[0]?.name ? (
                           <img
@@ -195,7 +195,7 @@ export default function ExitingListUI(props: IExitingListUIProps) {
                       <S.ThumbImageWrapper>
                         {el.boardImage.url.includes(
                           "https://storage.googleapis.com/backend-server"
-                        ) || el.boardImage.url.includes("https") ? (
+                        ) ? (
                           <img src={el.boardImage.url} />
                         ) : el.categories?.[0]?.name ? (
                           <img

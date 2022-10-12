@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Modal } from "antd";
-import useCleanUp from "../../../commons/hooks/useCleanUp";
 
 const schema = yup.object({
   email: yup.string().email("이메일 형식을 확인해주세요").required(""),
@@ -47,8 +46,6 @@ export default function Login() {
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  useCleanUp();
 
   const email = watch("email");
   const password = watch("password");

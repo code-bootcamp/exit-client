@@ -1,14 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  // swcMinify: true,
-  // trailingSlash: true,
-  // generateBuildId: () => "exit",
-  // exportPathMap: () => ({
-  //   "/": { page: "/" },
-  //   "/boards": { page: "/boards" },
-  //   "/404": { page: "/404" },
-  // }),
+  env: {
+    KAKAO_MAP_API_KEY: process.env.KAKAO_MAP_API_KEY,
+    KAKAO_LOCAL_API_KEY: process.env.KAKAO_LOCAL_API_KEY,
+  },
 };
 
 module.exports = nextConfig;

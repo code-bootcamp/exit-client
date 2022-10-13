@@ -25,6 +25,7 @@ import {
 } from "./currentProject.queries";
 import { Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 export default function CurrentProject() {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
@@ -61,7 +62,7 @@ export default function CurrentProject() {
   });
 
   useEffect(() => {
-    if (data !== undefined && leaderData !== undefined) {
+    if (!!data && !!leaderData) {
       setIsDataLoaded(true);
     }
     if (isDataLoaded) {
@@ -209,8 +210,13 @@ export default function CurrentProject() {
       data={data}
       leaderData={leaderData}
       leaderLocation={leaderLocation}
-      attendanceTime={attendanceTime}
+      // attendanceTime={attendanceTime}
       attendanceData={attendanceData}
+      todaysAttendance={attendanceData?.fetchAttendance?.filter(
+        (el: any) =>
+          moment(el.attendedAt).format("YYYY-MM-DD") ===
+          moment().format("YYYY-MM-DD")
+      )}
       attendancePercent={attendancePercent || 0}
       loading={loading}
       isLeader={leaderData?.fetchUserWithUserId.id === userInfo.id}

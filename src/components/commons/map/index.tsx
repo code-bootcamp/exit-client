@@ -7,8 +7,7 @@ declare const window: typeof globalThis & {
 export default function Map(props: any) {
   useEffect(() => {
     const script = document.createElement("script");
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=29f857c175c52b6c3be2f8b8e29d986f&autoload=false&libraries=services";
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_API_KEY}&autoload=false&libraries=services`;
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -18,10 +17,10 @@ export default function Map(props: any) {
           center: new window.kakao.maps.LatLng(props.lat, props.lng),
           level: 3,
         };
-
         const map = new window.kakao.maps.Map(container, options);
         map.setDraggable(false); // 이동불가 설정
         map.setZoomable(false); // 확대, 축소 불가
+
         let centerPosition; // 원의 중심좌표
         let drawingCircle; // 그려지고 있는 원을 표시할 원 객체
         let drawingOverlay: any; // 그려지고 있는 원의 반경을 표시할 커스텀오버레이
@@ -42,10 +41,7 @@ export default function Map(props: any) {
         };
 
         drawingCircle.setOptions(circleOptions);
-
-        let radius = 100; // 반지름 m 단위
-
-        drawingOverlay?.setPosition?.(centerPosition);
+        drawingOverlay?.setPosition(centerPosition);
         drawingCircle?.setMap(map);
       });
     };

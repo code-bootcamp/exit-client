@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { IQuery, ISubComment } from "../../../../commons/types/generated/types";
+import { ISubComment } from "../../../../commons/types/generated/types";
 
 export interface IExitedSubCommentProps {
   subComment: Pick<

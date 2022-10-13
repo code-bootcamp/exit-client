@@ -4,7 +4,6 @@ import {
   IMutation,
   IMutationUpdateUserArgs,
 } from "../../../../commons/types/generated/types";
-import useCleanUp from "../../../commons/hooks/useCleanUp";
 import SetInterestUI from "./setInterest.presenter";
 import { FETCH_CATEGORIES, UPDATE_USER } from "./setInterest.queries";
 import { ISetInterestProps } from "./setInterest.types";
@@ -15,8 +14,6 @@ export default function SetInterest(props: ISetInterestProps) {
   const [loading, setLoading] = useState(true);
 
   const { data } = useQuery(FETCH_CATEGORIES);
-
-  useCleanUp();
 
   // spinner
   useEffect(() => {

@@ -1,3 +1,4 @@
+import * as S from "./tagsModal.styles";
 import { v4 as uuidv4 } from "uuid";
 import { gql, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
@@ -8,7 +9,6 @@ import {
 } from "../../../../commons/types/generated/types";
 import { isModalVisibleState, modalState, tagsState } from "../../store";
 import Modal01 from "../01";
-import * as S from "./tagsModal.styles";
 import TagsModalItem from "./tagsModal.TagItem";
 
 interface ItagsModalProps {

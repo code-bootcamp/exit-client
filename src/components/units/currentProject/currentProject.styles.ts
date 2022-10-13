@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { breakpoints } from "@mui/system";
 import { PieChart } from "react-minimal-pie-chart";
 import { breakPoints } from "../../../commons/styles/media";
 
@@ -11,35 +10,46 @@ interface ICheckGpsButtonProps {
   isValid: boolean;
 }
 
-export const Background = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #f8f8f8;
+  padding: 60px 0 100px;
+
+  @media (min-width: 481px) and (max-width: 991px) {
+    padding: 100px 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 80px 0;
+  }
 `;
 
-export const Wrapper = styled.div`
+export const Inner = styled.div`
   width: 160rem;
   height: 875px;
   margin: auto;
-  padding-top: 60px;
+
+  background-color: #f8f8f8;
   display: flex;
   justify-content: space-between;
 
   @media (min-width: 481px) and (max-width: 991px) {
     width: 100%;
-    padding: 8vw 4vw;
+    padding: 0 4vw;
+    height: 700px;
   }
 
   @media (max-width: 480px) {
     width: 100%;
-    padding: 10vw 4vw;
-    margin-top: 40px;
+    padding: 0 6vw;
+    height: 600px;
   }
 `;
 
 export const Column = styled.div`
   display: flex;
-  height: 875px;
+  height: 100%;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -55,11 +65,9 @@ export const Column = styled.div`
 
   @media ${breakPoints.tablet} {
     width: 24%;
-    height: 700px;
   }
   @media ${breakPoints.mobile} {
     width: 23%;
-    height: 700px;
   }
 `;
 
@@ -76,6 +84,7 @@ export const ProjectInfoWrapper = styled.div`
   @media ${breakPoints.mobile} {
     height: 250px;
     margin-bottom: 20px;
+    padding: 15px 15px;
   }
 `;
 
@@ -86,7 +95,7 @@ export const Title = styled.h2`
   font-weight: 700;
   letter-spacing: -1px;
   word-break: keep-all;
-  margin-bottom: 10px !important;
+  margin-bottom: 10px;
   line-height: 1.2;
 
   @media ${breakPoints.mobile} {
@@ -123,7 +132,7 @@ export const ProjectMembers = styled.div`
 `;
 
 export const Member = styled.div`
-  width: 80px !important;
+  width: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -201,6 +210,7 @@ export const ProjectBailWrapper = styled.div`
     height: 250px;
     margin-bottom: 20px;
     align-items: center;
+    padding: 15px;
   }
 `;
 
@@ -274,6 +284,13 @@ export const ProgressChartWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+  }
+  @media ${breakPoints.mobile} {
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
   }
 `;
 
@@ -467,6 +484,10 @@ export const PresentAddress = styled.p`
   font-size: 1.2rem;
   color: #777777;
   margin-top: 6px;
+
+  @media ${breakPoints.mobile} {
+    display: none;
+  }
 `;
 
 export const PresentMemberRightWrapper = styled(PresentMemberLeftWrapper)``;
@@ -476,7 +497,9 @@ export const AttendedAt = styled.span`
   color: #3ebd5d;
 
   @media ${breakPoints.mobile} {
-    font-size: 1.1rem;
+    display: block;
+    font-size: 1rem;
+    margin-top: 10px;
   }
 `;
 
@@ -489,6 +512,10 @@ export const WelcomeMessageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media ${breakPoints.mobile} {
+    padding: 15px;
+  }
 `;
 
 export const WelcomeMessage = styled.p`
@@ -521,12 +548,20 @@ export const CheckGpsButton = styled.button`
     props.isValid ? "#3ebd5d" : "#B2B2B2"};
   color: #fff;
 
+  span {
+    color: #fff;
+
+    @media ${breakPoints.mobile} {
+      display: block;
+    }
+  }
+
   :disabled {
     cursor: default;
   }
 
   @media ${breakPoints.mobile} {
-    font-size: 2.7vw;
+    font-size: 2.2vw;
     word-break: keep-all;
     line-height: 1.3;
     border-radius: 10px;

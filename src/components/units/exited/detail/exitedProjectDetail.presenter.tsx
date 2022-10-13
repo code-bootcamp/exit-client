@@ -13,7 +13,7 @@ export default function ExitedProjectDetailUI(
         <S.ProjectImageWrapper>
           {props.data?.fetchBoard.boardImage.url.includes(
             "https://storage.googleapis.com/backend-server"
-          ) || props.data?.fetchBoard.boardImage.url.includes("https") ? (
+          ) ? (
             <img src={props.data?.fetchBoard.boardImage.url} />
           ) : props.data?.fetchBoard.categories?.[0]?.name ? (
             <img

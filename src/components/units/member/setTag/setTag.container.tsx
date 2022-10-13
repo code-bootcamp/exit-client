@@ -6,7 +6,6 @@ import {
   IMutation,
   IMutationUpdateUserArgs,
 } from "../../../../commons/types/generated/types";
-import useCleanUp from "../../../commons/hooks/useCleanUp";
 import { isModalVisibleState } from "../../../commons/store";
 import SetTagUI from "./setTag.presenter";
 import { FETCH_TAGS, UPDATE_USER } from "./setTag.queries";
@@ -19,8 +18,6 @@ export default function SetTag(props: ISetTagProps) {
   const [loading, setLoading] = useState(true);
 
   const { data } = useQuery(FETCH_TAGS);
-
-  useCleanUp();
 
   // spinner
   useEffect(() => {

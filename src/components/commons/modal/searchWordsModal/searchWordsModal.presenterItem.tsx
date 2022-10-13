@@ -1,7 +1,6 @@
 import * as S from "./searchWordsModal.styles";
-import { memo, useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { searchWordsState } from "../../store";
 

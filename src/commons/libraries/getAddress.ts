@@ -1,11 +1,13 @@
 import axios from "axios";
 
 export const getAddress = async (lat: any, lng: any) => {
-  try {
-    const result = await axios.get(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCOr5GLVd5UuMVfEruBcjE2i3WYUU3Tt_s`
-    );
-
-    return result.data.results[5].formatted_address.slice(5);
-  } catch (error) {}
+  const result = await axios.get(
+    `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${lng}&y=${lat}`,
+    {
+      headers: {
+        Authorization: `KakaoAK ${process.env.KAKAO_LOCAL_API_KEY}`,
+      },
+    }
+  );
+  return result.data.documents?.[0]?.address_name;
 };

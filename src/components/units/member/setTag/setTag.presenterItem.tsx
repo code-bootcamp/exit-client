@@ -1,6 +1,5 @@
 import * as S from "./setTag.styles";
-import Modal01 from "../../../commons/modal/01";
-import { ISetTagUIItemProps, ISetTagUIProps } from "./setTag.types";
+import { ISetTagUIItemProps } from "./setTag.types";
 import { v4 as uuidv4 } from "uuid";
 
 export default function SetTagUIItem(props: ISetTagUIItemProps) {

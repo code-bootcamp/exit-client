@@ -35,7 +35,7 @@ export const globalStyles = css`
   }
   html {
     font-size: 62.5%; // root폰트 기준 설정: 10px
-    --antd-wave-shadow-color: #000 !important;
+    --antd-wave-shadow-color: #000;
   }
   /* HTML5 display-role reset for older browsers */
   article,

@@ -29,8 +29,7 @@ export default function TopMenuUI(props: ITopMenuUIProps) {
         <S.UserImageWrapper onClick={props.onClickProfile}>
           {props.data?.fetchUserWithUserId.userImage.url.includes(
             "https://storage.googleapis.com/backend-server"
-          ) ||
-          props.data?.fetchUserWithUserId.userImage.url.includes("https") ? (
+          ) ? (
             <S.UserImage src={props.data?.fetchUserWithUserId.userImage.url} />
           ) : (
             <S.UserImage src="/profile_img.png" />
